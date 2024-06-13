@@ -18,6 +18,7 @@ enum Color {
 }
 
 enum Images {
+    static let launch = UIImage(named: "launch")
     static let search = UIImage(named: "magnifyingglass")
     static let setting = UIImage(named: "person")
     static let next = UIImage(named: "chevron.right")
@@ -29,4 +30,12 @@ enum Images {
 enum Border {
     static let selected = 3
     static let unselected = 1
+}
+
+enum CustomFont {
+    static let bold48 = UIFont.systemFont(ofSize: 48, weight: .bold)
+    static let bold16 = UIFont.systemFont(ofSize: 16, weight: .bold)
+    static let regular15 = UIFont.systemFont(ofSize: 15)
+    static let regular14 = UIFont.systemFont(ofSize: 14)
+    static let regular13 = UIFont.systemFont(ofSize: 13)
 }

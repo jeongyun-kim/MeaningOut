@@ -12,6 +12,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        navigationItem.title = "메인화면"
         // Do any additional setup after loading the view.
     }
     

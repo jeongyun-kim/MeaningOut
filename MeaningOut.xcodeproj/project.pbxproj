@@ -20,6 +20,9 @@
 		E0B0B7392C1AEE7E00A24154 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7382C1AEE7E00A24154 /* Resource.swift */; };
 		E0B0B73C2C1AF1D700A24154 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B73B2C1AF1D700A24154 /* SettingViewController.swift */; };
 		E0B0B73F2C1AF25A00A24154 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E0B0B73E2C1AF25A00A24154 /* SnapKit */; };
+		E0B0B7412C1AF37B00A24154 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7402C1AF37B00A24154 /* SetupView.swift */; };
+		E0B0B7432C1AF59200A24154 /* OnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7422C1AF59200A24154 /* OnboardingButton.swift */; };
+		E0B0B7462C1AF96200A24154 /* ProfileNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7452C1AF96200A24154 /* ProfileNicknameViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		E0B0B7352C1AEDB300A24154 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E0B0B7382C1AEE7E00A24154 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		E0B0B73B2C1AF1D700A24154 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		E0B0B7402C1AF37B00A24154 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		E0B0B7422C1AF59200A24154 /* OnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingButton.swift; sourceTree = "<group>"; };
+		E0B0B7452C1AF96200A24154 /* ProfileNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +78,8 @@
 			isa = PBXGroup;
 			children = (
 				E0B0B73A2C1AF0CC00A24154 /* CustomView */,
+				E0B0B7442C1AF94200A24154 /* Onboarding */,
 				E0B0B7082C1AE88A00A24154 /* MainViewController.swift */,
-				E0B0B7332C1AED4800A24154 /* OnboardingViewController.swift */,
 				E0B0B6F02C1AE7D200A24154 /* AppDelegate.swift */,
 				E0B0B6F22C1AE7D200A24154 /* SceneDelegate.swift */,
 				E0B0B6F92C1AE7D300A24154 /* Assets.xcassets */,
@@ -82,6 +88,7 @@
 				E0B0B7312C1AECF100A24154 /* UserDefaultsManager.swift */,
 				E0B0B7382C1AEE7E00A24154 /* Resource.swift */,
 				E0B0B73B2C1AF1D700A24154 /* SettingViewController.swift */,
+				E0B0B7402C1AF37B00A24154 /* SetupView.swift */,
 			);
 			path = MeaningOut;
 			sourceTree = "<group>";
@@ -90,8 +97,18 @@
 			isa = PBXGroup;
 			children = (
 				E0B0B7352C1AEDB300A24154 /* TabBarController.swift */,
+				E0B0B7422C1AF59200A24154 /* OnboardingButton.swift */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		E0B0B7442C1AF94200A24154 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				E0B0B7332C1AED4800A24154 /* OnboardingViewController.swift */,
+				E0B0B7452C1AF96200A24154 /* ProfileNicknameViewController.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,10 +190,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0B0B7432C1AF59200A24154 /* OnboardingButton.swift in Sources */,
+				E0B0B7462C1AF96200A24154 /* ProfileNicknameViewController.swift in Sources */,
 				E0B0B7092C1AE88A00A24154 /* MainViewController.swift in Sources */,
 				E0B0B6F12C1AE7D200A24154 /* AppDelegate.swift in Sources */,
 				E0B0B7342C1AED4800A24154 /* OnboardingViewController.swift in Sources */,
 				E0B0B73C2C1AF1D700A24154 /* SettingViewController.swift in Sources */,
+				E0B0B7412C1AF37B00A24154 /* SetupView.swift in Sources */,
 				E0B0B7362C1AEDB300A24154 /* TabBarController.swift in Sources */,
 				E0B0B7322C1AECF100A24154 /* UserDefaultsManager.swift in Sources */,
 				E0B0B6F32C1AE7D200A24154 /* SceneDelegate.swift in Sources */,
@@ -324,6 +344,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L348QC8MG7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MeaningOut/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MeaningOut;
@@ -356,6 +377,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L348QC8MG7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MeaningOut/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MeaningOut;
