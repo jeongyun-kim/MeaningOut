@@ -1,17 +1,18 @@
 //
-//  MainViewController.swift
+//  OnboardingViewController.swift
 //  MeaningOut
 //
 //  Created by 김정윤 on 6/13/24.
 //
 
 import UIKit
+import SnapKit
 
-class MainViewController: UIViewController {
+class OnboardingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBlue
         // Do any additional setup after loading the view.
     }
     

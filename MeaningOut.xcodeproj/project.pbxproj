@@ -17,6 +17,9 @@
 		E0B0B7322C1AECF100A24154 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7312C1AECF100A24154 /* UserDefaultsManager.swift */; };
 		E0B0B7342C1AED4800A24154 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7332C1AED4800A24154 /* OnboardingViewController.swift */; };
 		E0B0B7362C1AEDB300A24154 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7352C1AEDB300A24154 /* TabBarController.swift */; };
+		E0B0B7392C1AEE7E00A24154 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7382C1AEE7E00A24154 /* Resource.swift */; };
+		E0B0B73C2C1AF1D700A24154 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B73B2C1AF1D700A24154 /* SettingViewController.swift */; };
+		E0B0B73F2C1AF25A00A24154 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E0B0B73E2C1AF25A00A24154 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +34,8 @@
 		E0B0B7312C1AECF100A24154 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		E0B0B7332C1AED4800A24154 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		E0B0B7352C1AEDB300A24154 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E0B0B7382C1AEE7E00A24154 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		E0B0B73B2C1AF1D700A24154 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +44,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0B0B70C2C1AE8FB00A24154 /* Alamofire in Frameworks */,
+				E0B0B73F2C1AF25A00A24154 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,7 +71,7 @@
 		E0B0B6EF2C1AE7D200A24154 /* MeaningOut */ = {
 			isa = PBXGroup;
 			children = (
-				E0B0B7372C1AEDF900A24154 /* New Group */,
+				E0B0B73A2C1AF0CC00A24154 /* CustomView */,
 				E0B0B7082C1AE88A00A24154 /* MainViewController.swift */,
 				E0B0B7332C1AED4800A24154 /* OnboardingViewController.swift */,
 				E0B0B6F02C1AE7D200A24154 /* AppDelegate.swift */,
@@ -74,16 +80,18 @@
 				E0B0B6FB2C1AE7D300A24154 /* LaunchScreen.storyboard */,
 				E0B0B6FE2C1AE7D300A24154 /* Info.plist */,
 				E0B0B7312C1AECF100A24154 /* UserDefaultsManager.swift */,
-				E0B0B7352C1AEDB300A24154 /* TabBarController.swift */,
+				E0B0B7382C1AEE7E00A24154 /* Resource.swift */,
+				E0B0B73B2C1AF1D700A24154 /* SettingViewController.swift */,
 			);
 			path = MeaningOut;
 			sourceTree = "<group>";
 		};
-		E0B0B7372C1AEDF900A24154 /* New Group */ = {
+		E0B0B73A2C1AF0CC00A24154 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				E0B0B7352C1AEDB300A24154 /* TabBarController.swift */,
 			);
-			path = "New Group";
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -104,6 +112,7 @@
 			name = MeaningOut;
 			packageProductDependencies = (
 				E0B0B70B2C1AE8FB00A24154 /* Alamofire */,
+				E0B0B73E2C1AF25A00A24154 /* SnapKit */,
 			);
 			productName = MeaningOut;
 			productReference = E0B0B6ED2C1AE7D200A24154 /* MeaningOut.app */;
@@ -135,6 +144,7 @@
 			mainGroup = E0B0B6E42C1AE7D200A24154;
 			packageReferences = (
 				E0B0B70A2C1AE8FB00A24154 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				E0B0B73D2C1AF25A00A24154 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = E0B0B6EE2C1AE7D200A24154 /* Products */;
 			projectDirPath = "";
@@ -166,9 +176,11 @@
 				E0B0B7092C1AE88A00A24154 /* MainViewController.swift in Sources */,
 				E0B0B6F12C1AE7D200A24154 /* AppDelegate.swift in Sources */,
 				E0B0B7342C1AED4800A24154 /* OnboardingViewController.swift in Sources */,
+				E0B0B73C2C1AF1D700A24154 /* SettingViewController.swift in Sources */,
 				E0B0B7362C1AEDB300A24154 /* TabBarController.swift in Sources */,
 				E0B0B7322C1AECF100A24154 /* UserDefaultsManager.swift in Sources */,
 				E0B0B6F32C1AE7D200A24154 /* SceneDelegate.swift in Sources */,
+				E0B0B7392C1AEE7E00A24154 /* Resource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +413,14 @@
 				minimumVersion = 5.9.1;
 			};
 		};
+		E0B0B73D2C1AF25A00A24154 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -408,6 +428,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E0B0B70A2C1AE8FB00A24154 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		E0B0B73E2C1AF25A00A24154 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E0B0B73D2C1AF25A00A24154 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

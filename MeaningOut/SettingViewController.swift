@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  SettingViewController.swift
 //  MeaningOut
 //
 //  Created by 김정윤 on 6/13/24.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class SettingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+
         // Do any additional setup after loading the view.
     }
     
