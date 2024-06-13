@@ -14,22 +14,23 @@ enum Color {
     static let gray1 = UIColor(hue: 0, saturation: 0, brightness: 0.29, alpha: 1.0)
     static let gray2 = UIColor(hue: 0, saturation: 0, brightness: 0.5, alpha: 1.0)
     static let gray3 = UIColor(hue: 0, saturation: 0, brightness: 0.8, alpha: 1.0)
+    static let borderColor = UIColor.systemGray5
     static let white = UIColor.white
 }
 
 enum Images {
     static let launch = UIImage(named: "launch")
-    static let search = UIImage(named: "magnifyingglass")
-    static let setting = UIImage(named: "person")
-    static let next = UIImage(named: "chevron.right")
-    static let clock = UIImage(named: "clock")
-    static let close = UIImage(named: "xmark")
-    static let profileCamera = UIImage(named: "camera.fill")
+    static let search = UIImage(systemName: "magnifyingglass")
+    static let setting = UIImage(systemName: "person")
+    static let next = UIImage(systemName: "chevron.right")
+    static let clock = UIImage(systemName: "clock")
+    static let close = UIImage(systemName: "xmark")
+    static let profileCamera = UIImage(systemName: "camera.fill")
 }
 
 enum Border {
-    static let selected = 3
-    static let unselected = 1
+    static let selected: CGFloat = 3
+    static let deselected: CGFloat = 1
 }
 
 enum CustomFont {
@@ -38,4 +39,21 @@ enum CustomFont {
     static let regular15 = UIFont.systemFont(ofSize: 15)
     static let regular14 = UIFont.systemFont(ofSize: 14)
     static let regular13 = UIFont.systemFont(ofSize: 13)
+}
+
+enum Placeholder: String {
+    case nickname = "닉네임을 입력해주세요 :) "
+    case search = "브랜드, 상품 등을 입력하세요"
+}
+
+enum NicknameRegex {
+    static let specialCharacter = "(?=.*[@#$%])"
+    static let number = "(?=.*[0-9])"
+}
+
+enum NicknameCheckType: String {
+    case confirm = "사용할 수 있는 닉네임이에요"
+    case wrongNicknameCnt = "2글자 이상 10글자 미만으로 설정해주세요"
+    case containsNumber = "닉네임에 숫자는 포함할 수 없어요"
+    case containsSpecialCharacter = "닉네임에 @, #, $, %는 포함할 수 없어요"
 }

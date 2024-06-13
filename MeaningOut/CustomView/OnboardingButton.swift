@@ -23,9 +23,9 @@ class OnboardingButton: UIButton {
         titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         setTitleColor(Color.white, for: .normal)
         backgroundColor = Color.primaryColor
-        layer.cornerRadius = 25
+        layer.cornerRadius = 23
         snp.makeConstraints { make in
-            make.height.equalTo(50)
+            make.height.equalTo(46)
         }
     }
 }
