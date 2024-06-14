@@ -9,7 +9,7 @@ import Foundation
 
 class UserDefaultsManager {
     // 유저인지 확인하기 (default = false)
-    var isUser: Bool {
+    static var isUser: Bool {
         get {
             UserDefaults.standard.bool(forKey: "isUser")
         }
@@ -18,7 +18,7 @@ class UserDefaultsManager {
         }
     }
     
-    var userProfileImage: String {
+    static var userProfileImage: String {
         get {
             UserDefaults.standard.string(forKey: "profileImage") ?? ""
         }
@@ -27,7 +27,7 @@ class UserDefaultsManager {
         }
     }
     
-    var userName: String {
+    static var userName: String {
         get {
             UserDefaults.standard.string(forKey: "userName") ?? ""
         }
@@ -36,7 +36,7 @@ class UserDefaultsManager {
         }
     }
     
-    var selectedImage: String {
+    static var selectedImage: String {
         // 사용자가 선택한 이미지가 저장되어있지않으면 랜덤이미지 불러오기
         get {
             UserDefaults.standard.string(forKey: "selectedImage") ?? ProfileImage.randomImage.imageName
@@ -45,4 +45,14 @@ class UserDefaultsManager {
             UserDefaults.standard.setValue(newValue, forKey: "selectedImage")
         }
     }
+    
+    static var searchKeywords: [String] {
+        get {
+            UserDefaults.standard.stringArray(forKey: "searchKeywords") ?? []
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: "searchKeywords")
+        }
+    }
+    
 }
