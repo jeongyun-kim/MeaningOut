@@ -17,7 +17,7 @@ class SearchViewController: UIViewController, SetupView {
     
     private lazy var border = CustomBorder()
     
-    private lazy var resultNoLabel: UILabel = {
+    private lazy var productCntLabel: UILabel = {
         let label = UILabel()
         label.font = CustomFont.bold16
         label.textColor = Color.primaryColor
@@ -33,11 +33,12 @@ class SearchViewController: UIViewController, SetupView {
         setupConstraints()
         setupUI()
         setupCollectionView()
+        fetchSearchResults(.sim)
     }
     
     func setupHierarchy() {
         view.addSubview(border)
-        view.addSubview(resultNoLabel)
+        view.addSubview(productCntLabel)
         view.addSubview(tagCollectionView)
     }
     
@@ -47,13 +48,13 @@ class SearchViewController: UIViewController, SetupView {
             make.height.equalTo(1)
         }
         
-        resultNoLabel.snp.makeConstraints { make in
+        productCntLabel.snp.makeConstraints { make in
             make.top.equalTo(border.snp.bottom).offset(16)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
         }
         
         tagCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(resultNoLabel.snp.bottom).offset(16)
+            make.top.equalTo(productCntLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.height.equalTo(30)
         }
@@ -86,6 +87,20 @@ class SearchViewController: UIViewController, SetupView {
         return layout
     }
     
+    private func fetchSearchResults(_ sortType: SortRule) {
+        guard let keyword = keyword else { return }
+        let params: Parameters = ["query": keyword, "sort": sortType.rawValue]
+        AF.request(APIData.url, parameters: params, headers: APIData.header).responseDecodable(of: SearchResult.self) { response in
+            switch response.result {
+            case .success(let value):
+                print(value.items)
+                self.productCntLabel.text = "\(value.total.formatted())개의 검색 결과"
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
 
 }
 
@@ -101,6 +116,9 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == tagCollectionView {
+            fetchSearchResults(SortRule.allCases[indexPath.row])
+        }
     }
     
     // 셀 그리기 전에 호출

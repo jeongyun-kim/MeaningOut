@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E07D8F752C1C522500282A16 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07D8F742C1C522500282A16 /* PaddingLabel.swift */; };
+		E07D8F772C1C653600282A16 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07D8F762C1C653600282A16 /* SearchResult.swift */; };
 		E0B0B6F12C1AE7D200A24154 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B6F02C1AE7D200A24154 /* AppDelegate.swift */; };
 		E0B0B6F32C1AE7D200A24154 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B6F22C1AE7D200A24154 /* SceneDelegate.swift */; };
 		E0B0B6FA2C1AE7D300A24154 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0B0B6F92C1AE7D300A24154 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		E07D8F742C1C522500282A16 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		E07D8F762C1C653600282A16 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		E0B0B6ED2C1AE7D200A24154 /* MeaningOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeaningOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0B0B6F02C1AE7D200A24154 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0B0B6F22C1AE7D200A24154 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				E0B0B7502C1B012600A24154 /* ProfileImage.swift */,
+				E07D8F762C1C653600282A16 /* SearchResult.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				E0B0B7612C1BF7FB00A24154 /* ReusableIdentifier.swift in Sources */,
 				E0B0B7632C1C0FD600A24154 /* ProfileLayerView.swift in Sources */,
 				E0B0B73C2C1AF1D700A24154 /* SettingViewController.swift in Sources */,
+				E07D8F772C1C653600282A16 /* SearchResult.swift in Sources */,
 				E07D8F752C1C522500282A16 /* PaddingLabel.swift in Sources */,
 				E0B0B7412C1AF37B00A24154 /* SetupView.swift in Sources */,
 				E0B0B7362C1AEDB300A24154 /* TabBarController.swift in Sources */,
