@@ -69,7 +69,7 @@ class MainViewController: UIViewController, SetupView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        searchKeywordsList = ud.searchKeywords
+        //searchKeywordsList = ud.searchKeywords
     }
     
     func setupHierarchy() {
@@ -130,7 +130,9 @@ class MainViewController: UIViewController, SetupView {
     func setupUI() {
         view.backgroundColor = .systemBackground
         navigationItem.title = "\(ud.userName)'s MEANING OUT"
-        tableView.isHidden = true
+        navigationItem.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = Color.black
+        searchBar.delegate = self
     }
     
     func addActions() {
@@ -146,7 +148,12 @@ class MainViewController: UIViewController, SetupView {
         searchKeywordsList.removeAll()
         ud.searchKeywords = searchKeywordsList
     }
-
+    
+    private func pushSearchVC(_ keyword: String) {
+        let vc = SearchViewController()
+        vc.keyword = keyword
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
@@ -160,5 +167,23 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action: #selector(deleteBtnTapped), for: .touchUpInside)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let keyword = searchKeywordsList[indexPath.row]
+        pushSearchVC(keyword)
+    }
+}
+
+extension MainViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let keyword = searchBar.text else { return }
+        
+        if !searchKeywordsList.contains(keyword) {
+            searchKeywordsList.insert(keyword, at: 0) // 가장 최근 검색어가 맨위에 와야하므로 검색어는 0번 인덱스에 넣어주기
+            ud.searchKeywords = searchKeywordsList
+        }
+        
+        pushSearchVC(keyword)
     }
 }
