@@ -20,7 +20,13 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     }
     
     // 프로필뷰
-    lazy var profileView = ProfileView(profile: selectedProfileImage)
+    lazy var profileLayerView = ProfileLayerView()
+    
+    lazy var profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
 
     private lazy var nicknameTextField = NicknameTextField(placeholderType: .nickname)
     
@@ -47,12 +53,13 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        profileView.imageView.image = UIImage(named: selectedProfileImage.imageName)
+        profileImageView.image = UIImage(named: selectedProfileImage.imageName)
     }
     
     func setupHierarchy() {
         view.addSubview(naviBorder)
-        view.addSubview(profileView)
+        view.addSubview(profileLayerView)
+        profileLayerView.addSubview(profileImageView)
         view.addSubview(profileButton)
         view.addSubview(nicknameTextField)
         view.addSubview(textFieldBorder)
@@ -65,19 +72,24 @@ class ProfileNicknameViewController: UIViewController, SetupView {
             make.horizontalEdges.top.equalTo(view.safeAreaLayoutGuide)
         }
         
-        profileView.snp.makeConstraints { make in
+        profileLayerView.snp.makeConstraints { make in
             make.top.equalTo(naviBorder.snp.bottom).offset(16)
             make.centerX.equalTo(view.snp.centerX)
-            make.size.equalTo(120)
+        }
+        
+        profileImageView.snp.makeConstraints { make in
+            make.centerX.equalTo(profileLayerView.snp.centerX)
+            make.bottom.equalTo(profileLayerView.snp.bottom)
+            make.size.equalTo(profileLayerView.snp.width).multipliedBy(0.9)
         }
         
         profileButton.snp.makeConstraints { make in
-            make.edges.equalTo(profileView)
+            make.edges.equalTo(profileLayerView)
             make.centerX.equalTo(view.snp.centerX)
         }
         
         nicknameTextField.snp.makeConstraints { make in
-            make.top.equalTo(profileView.snp.bottom).offset(20)
+            make.top.equalTo(profileLayerView.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(24)
             make.height.equalTo(45)
         }
@@ -107,7 +119,6 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         navigationItem.title = "PROFILE SETTING"
         navigationItem.backButtonTitle = ""
         confirmButton.isEnabled = false
-        profileView.layer.cornerRadius = 60
     }
     
     func addActions() {

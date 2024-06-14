@@ -29,6 +29,7 @@ enum Images {
 }
 
 enum Border {
+    static let profile: CGFloat = 5
     static let selected: CGFloat = 3
     static let deselected: CGFloat = 1
 }
@@ -56,4 +57,9 @@ enum NicknameCheckType: String {
     case wrongNicknameCnt = "2글자 이상 10글자 미만으로 설정해주세요"
     case containsNumber = "닉네임에 숫자는 포함할 수 없어요"
     case containsSpecialCharacter = "닉네임에 @, #, $, %는 포함할 수 없어요"
+}
+
+enum ProfileViewType: String {
+    case setting = "PROFILE SETTING"
+    case edit = "EDIT PROFILE"
 }

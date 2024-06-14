@@ -27,11 +27,11 @@
 		E0B0B74F2C1AFDB500A24154 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B74E2C1AFDB500A24154 /* ProfileImageView.swift */; };
 		E0B0B7512C1B012600A24154 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7502C1B012600A24154 /* ProfileImage.swift */; };
 		E0B0B7552C1B0B5100A24154 /* NicknameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7542C1B0B5100A24154 /* NicknameTextField.swift */; };
-		E0B0B7572C1B254800A24154 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7562C1B254800A24154 /* ProfileView.swift */; };
 		E0B0B7592C1B498900A24154 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7582C1B498900A24154 /* User.swift */; };
 		E0B0B75C2C1B4C4600A24154 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B75B2C1B4C4600A24154 /* ProfileViewController.swift */; };
 		E0B0B75F2C1BF61C00A24154 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B75E2C1BF61C00A24154 /* ProfileCollectionViewCell.swift */; };
 		E0B0B7612C1BF7FB00A24154 /* ReusableIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7602C1BF7FB00A24154 /* ReusableIdentifier.swift */; };
+		E0B0B7632C1C0FD600A24154 /* ProfileLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7622C1C0FD600A24154 /* ProfileLayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,11 +55,11 @@
 		E0B0B74E2C1AFDB500A24154 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		E0B0B7502C1B012600A24154 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
 		E0B0B7542C1B0B5100A24154 /* NicknameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameTextField.swift; sourceTree = "<group>"; };
-		E0B0B7562C1B254800A24154 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E0B0B7582C1B498900A24154 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E0B0B75B2C1B4C4600A24154 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E0B0B75E2C1BF61C00A24154 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		E0B0B7602C1BF7FB00A24154 /* ReusableIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableIdentifier.swift; sourceTree = "<group>"; };
+		E0B0B7622C1C0FD600A24154 /* ProfileLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,8 +119,8 @@
 				E0B0B7422C1AF59200A24154 /* OnboardingButton.swift */,
 				E0B0B74C2C1AFBC100A24154 /* CustomBorder.swift */,
 				E0B0B74E2C1AFDB500A24154 /* ProfileImageView.swift */,
-				E0B0B7562C1B254800A24154 /* ProfileView.swift */,
 				E0B0B7542C1B0B5100A24154 /* NicknameTextField.swift */,
+				E0B0B7622C1C0FD600A24154 /* ProfileLayerView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -267,8 +267,8 @@
 				E0B0B7342C1AED4800A24154 /* OnboardingViewController.swift in Sources */,
 				E0B0B7592C1B498900A24154 /* User.swift in Sources */,
 				E0B0B7612C1BF7FB00A24154 /* ReusableIdentifier.swift in Sources */,
+				E0B0B7632C1C0FD600A24154 /* ProfileLayerView.swift in Sources */,
 				E0B0B73C2C1AF1D700A24154 /* SettingViewController.swift in Sources */,
-				E0B0B7572C1B254800A24154 /* ProfileView.swift in Sources */,
 				E0B0B7412C1AF37B00A24154 /* SetupView.swift in Sources */,
 				E0B0B7362C1AEDB300A24154 /* TabBarController.swift in Sources */,
 				E0B0B7512C1B012600A24154 /* ProfileImage.swift in Sources */,

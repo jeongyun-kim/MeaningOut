@@ -37,6 +37,7 @@ class UserDefaultsManager {
     }
     
     var selectedImage: String {
+        // 사용자가 선택한 이미지가 저장되어있지않으면 랜덤이미지 불러오기
         get {
             UserDefaults.standard.string(forKey: "selectedImage") ?? ProfileImage.randomImage.imageName
         }

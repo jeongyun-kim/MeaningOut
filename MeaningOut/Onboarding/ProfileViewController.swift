@@ -8,23 +8,24 @@
 import UIKit
 import SnapKit
 
-enum ProfileViewType: String {
-    case setting = "PROFILE SETTING"
-    case edit = "EDIT PROFILE"
-}
-
 class ProfileViewController: UIViewController, SetupView {
     
     lazy var nowSelectedImage: ProfileImage = ProfileImage(imageName: "") {
         didSet { // 현재 선택한 이미지로 변경
-            profileView.imageView.image = UIImage(named: nowSelectedImage.imageName)
+            profileImageView.image = UIImage(named: nowSelectedImage.imageName)
             collectionView.reloadData() // 현재 선택한 이미지, 아닌 이미지 셀 다시 그리기 위해
         }
     }
     
     lazy var naviBorder = CustomBorder()
     
-    lazy var profileView = ProfileView(profile: nowSelectedImage)
+    lazy var profileLayerView = ProfileLayerView()
+    
+    lazy var profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
     
     lazy var profileList: [ProfileImage] = ProfileImage.imageList
     
@@ -41,7 +42,8 @@ class ProfileViewController: UIViewController, SetupView {
     
     func setupHierarchy() {
         view.addSubview(naviBorder)
-        view.addSubview(profileView)
+        view.addSubview(profileLayerView)
+        profileLayerView.addSubview(profileImageView)
         view.addSubview(collectionView)
     }
     
@@ -51,14 +53,18 @@ class ProfileViewController: UIViewController, SetupView {
             make.height.equalTo(1)
         }
         
-        profileView.snp.makeConstraints { make in
+        profileLayerView.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(naviBorder.snp.bottom).offset(16)
-            make.size.equalTo(120)
+        }
+        
+        profileImageView.snp.makeConstraints { make in
+            make.centerX.bottom.equalTo(profileLayerView)
+            make.size.equalTo(profileLayerView.snp.width).multipliedBy(0.9)
         }
         
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(profileView.snp.bottom).offset(24)
+            make.top.equalTo(profileLayerView.snp.bottom).offset(24)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -66,7 +72,7 @@ class ProfileViewController: UIViewController, SetupView {
     func setupUI() {
         view.backgroundColor = .systemBackground
         navigationItem.title = ProfileViewType.rawValue
-        profileView.layer.cornerRadius = 60
+
         collectionView.allowsMultipleSelection = false
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -102,6 +108,5 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         nowSelectedImage = profileList[indexPath.row]
         UserDefaultsManager().selectedImage = nowSelectedImage.imageName
-        print(UserDefaultsManager().selectedImage)
     }
 }
