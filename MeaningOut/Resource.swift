@@ -68,6 +68,6 @@ enum ProfileViewType: String {
 enum TagName: String, CaseIterable {
     case sim = "정확도순"
     case date = "날짜순"
-    case asc = "가격높은순"
-    case dsc = "가격낮은순"
+    case dsc = "가격높은순"
+    case asc = "가격낮은순"
 }

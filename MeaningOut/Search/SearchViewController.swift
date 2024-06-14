@@ -17,6 +17,12 @@ class SearchViewController: UIViewController, SetupView {
         }
     }
     
+    private lazy var display: Int = 30
+    
+    private lazy var startPoint: Int = 1
+    
+    private lazy var maxStartPoint: Int = 0
+    
     lazy var tagNames = TagName.allCases
     
     lazy var keyword: String? = ""
@@ -86,6 +92,7 @@ class SearchViewController: UIViewController, SetupView {
         tagCollectionView.isScrollEnabled = false
         tagCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: [])
         
+        itemCollectionView.prefetchDataSource = self
         itemCollectionView.delegate = self
         itemCollectionView.dataSource = self
         itemCollectionView.register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: ItemCollectionViewCell.identifier)
@@ -100,7 +107,7 @@ class SearchViewController: UIViewController, SetupView {
         
         layout.minimumLineSpacing = spacing
         layout.minimumInteritemSpacing = spacing
-        layout.sectionInset = UIEdgeInsets(top: 0, left: sectionInsets, bottom: 0, right: sectionInsets)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: sectionInsets, bottom: sectionInsets, right: sectionInsets)
         layout.itemSize = CGSize(width: size, height: size*1.7)
         
         return layout
@@ -122,34 +129,55 @@ class SearchViewController: UIViewController, SetupView {
     
     private func fetchSearchResults(_ sortType: SortRule) {
         guard let keyword = keyword else { return }
-        let params: Parameters = ["query": keyword, "sort": sortType.rawValue]
+        let params: Parameters = ["query": keyword, "sort": sortType.rawValue, "display": display, "start": startPoint]
         AF.request(APIData.url, parameters: params, headers: APIData.header).responseDecodable(of: SearchResult.self) { response in
             switch response.result {
             case .success(let value):
-                self.itemList = value.items
-                self.productCntLabel.text = "\(value.total.formatted())개의 검색 결과"
+                if self.startPoint == 1 {
+                    self.maxStartPoint = value.total
+                    self.itemList = value.items
+                    self.productCntLabel.text = "\(value.total.formatted())개의 검색 결과"
+                } else {
+                    self.itemList.append(contentsOf: value.items)
+                }
+                
+                if self.startPoint == 1 {
+                    self.itemCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                }
+                
             case .failure(let error):
                 print(error)
             }
         }
     }
-    
+}
 
+extension SearchViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for idx in indexPaths {
+            // 현재 보고있는 아이템이 27번째고 현재시작지점이 최대시작지점보다 작을 때
+            if idx.row == itemList.count - 3 && startPoint < maxStartPoint {
+                // 페이지를 넘기는게 아니라 검색 위치를 조정하는 것이기 때문에 매번 검색 위치는 보여주는 아이템 개수만큼 더하기
+                startPoint += display
+                guard let idx = tagCollectionView.indexPathsForSelectedItems?.first else { return }
+                fetchSearchResults(SortRule.allCases[idx.row])
+            }
+        }
+    }
 }
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return collectionView == tagCollectionView ? tagNames.count : itemList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == tagCollectionView {
-            guard let cell = tagCollectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
+            let cell = tagCollectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath) as! TagCollectionViewCell
             cell.configureCell(tagNames[indexPath.row].rawValue)
             return cell
         } else {
-            guard let cell = itemCollectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as? ItemCollectionViewCell else { return UICollectionViewCell() }
+            let cell = itemCollectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as! ItemCollectionViewCell
             cell.configureCell(itemList[indexPath.row])
             return cell
         }
@@ -157,6 +185,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == tagCollectionView {
+            startPoint = 1
             fetchSearchResults(SortRule.allCases[indexPath.row])
         }
     }
@@ -168,5 +197,4 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cell.isSelected = true
         }
     }
-    
 }
