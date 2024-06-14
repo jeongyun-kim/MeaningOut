@@ -20,4 +20,18 @@ struct item: Codable {
     let image: String
     let lprice: String
     let mallName: String
+    
+    var replacedTitle: String {
+        var title = title.replacingOccurrences(of: #"</b>"#, with: "")
+        title = title.replacingOccurrences(of: "<b>", with: "")
+        return title
+    }
+    
+    var url: URL {
+        return URL(string: image)!
+    }
+    
+    var price: String {
+        return "\(Int(lprice)!.formatted())원"
+    }
 }

@@ -11,6 +11,12 @@ import SnapKit
 
 class SearchViewController: UIViewController, SetupView {
 
+    private lazy var itemList: [item] = [] {
+        didSet {
+            itemCollectionView.reloadData()
+        }
+    }
+    
     lazy var tagNames = TagName.allCases
     
     lazy var keyword: String? = ""
@@ -27,6 +33,8 @@ class SearchViewController: UIViewController, SetupView {
   
     private lazy var tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: tagCollectionViewLayout())
     
+    private lazy var itemCollectionView = UICollectionView(frame: .zero, collectionViewLayout: itemCollectionViewLayout())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupHierarchy()
@@ -40,6 +48,7 @@ class SearchViewController: UIViewController, SetupView {
         view.addSubview(border)
         view.addSubview(productCntLabel)
         view.addSubview(tagCollectionView)
+        view.addSubview(itemCollectionView)
     }
     
     func setupConstraints() {
@@ -58,6 +67,11 @@ class SearchViewController: UIViewController, SetupView {
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.height.equalTo(30)
         }
+        
+        itemCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(tagCollectionView.snp.bottom).offset(12)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     
     func setupUI() {
@@ -71,6 +85,25 @@ class SearchViewController: UIViewController, SetupView {
         tagCollectionView.register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.identifier)
         tagCollectionView.isScrollEnabled = false
         tagCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: [])
+        
+        itemCollectionView.delegate = self
+        itemCollectionView.dataSource = self
+        itemCollectionView.register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: ItemCollectionViewCell.identifier)
+    }
+    
+    
+    private func itemCollectionViewLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        let sectionInsets: CGFloat = 16
+        let spacing: CGFloat = 12
+        let size = (UIScreen.main.bounds.width - sectionInsets*2 - spacing) / 2
+        
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing
+        layout.sectionInset = UIEdgeInsets(top: 0, left: sectionInsets, bottom: 0, right: sectionInsets)
+        layout.itemSize = CGSize(width: size, height: size*1.7)
+        
+        return layout
     }
     
     private func tagCollectionViewLayout() -> UICollectionViewLayout {
@@ -93,7 +126,7 @@ class SearchViewController: UIViewController, SetupView {
         AF.request(APIData.url, parameters: params, headers: APIData.header).responseDecodable(of: SearchResult.self) { response in
             switch response.result {
             case .success(let value):
-                print(value.items)
+                self.itemList = value.items
                 self.productCntLabel.text = "\(value.total.formatted())개의 검색 결과"
             case .failure(let error):
                 print(error)
@@ -106,13 +139,20 @@ class SearchViewController: UIViewController, SetupView {
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tagNames.count
+        
+        return collectionView == tagCollectionView ? tagNames.count : itemList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = tagCollectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureCell(tagNames[indexPath.row].rawValue)
-        return cell
+        if collectionView == tagCollectionView {
+            guard let cell = tagCollectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
+            cell.configureCell(tagNames[indexPath.row].rawValue)
+            return cell
+        } else {
+            guard let cell = itemCollectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as? ItemCollectionViewCell else { return UICollectionViewCell() }
+            cell.configureCell(itemList[indexPath.row])
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
