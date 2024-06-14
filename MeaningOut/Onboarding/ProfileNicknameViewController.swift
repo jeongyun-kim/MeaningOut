@@ -12,13 +12,14 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     lazy var ud = UserDefaultsManager()
     
-    lazy var nowImageName: String = ""
-    
     private lazy var naviBorder = CustomBorder()
     
-    lazy var profileView = ProfileView(profile: ProfileImage.randomProfileImage, type: .selected)
-
+    // 현재 프로필에 걸려있는 프로필 이미지
+    var selectedProfileImage: ProfileImage = ProfileImage.randomImage
     
+    // 프로필뷰
+    lazy var profileView = ProfileView(profile: selectedProfileImage)
+
     private lazy var nicknameTextField = NicknameTextField(placeholderType: .nickname)
     
     private lazy var textFieldBorder = CustomBorder()
@@ -32,18 +33,21 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     private lazy var confirmButton = OnboardingButton(title: "완료")
     
+    private lazy var profileButton = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupHierarchy()
         setupConstraints()
         setupUI()
         addActions()
+        
     }
     
     func setupHierarchy() {
         view.addSubview(naviBorder)
         view.addSubview(profileView)
-        //profileView.addSubview(profileView)
+        view.addSubview(profileButton)
         view.addSubview(nicknameTextField)
         view.addSubview(textFieldBorder)
         view.addSubview(checkNicknameLabel)
@@ -58,12 +62,13 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         profileView.snp.makeConstraints { make in
             make.top.equalTo(naviBorder.snp.bottom).offset(16)
             make.centerX.equalTo(view.snp.centerX)
-
+            make.size.equalTo(120)
         }
-
-//        profileImageView.snp.makeConstraints { make in
-//            make.edges.equalTo(profileView).inset(4)
-//        }
+        
+        profileButton.snp.makeConstraints { make in
+            make.edges.equalTo(profileView)
+            make.centerX.equalTo(view.snp.centerX)
+        }
         
         nicknameTextField.snp.makeConstraints { make in
             make.top.equalTo(profileView.snp.bottom).offset(20)
@@ -94,19 +99,27 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     func setupUI() {
         view.backgroundColor = .systemBackground
         navigationItem.title = "PROFILE SETTING"
-        
-        
+        navigationItem.backButtonTitle = ""
         confirmButton.isEnabled = false
+        profileView.layer.cornerRadius = 60
     }
     
     func addActions() {
         nicknameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         confirmButton.addTarget(self, action: #selector(confirmBtnTapped), for: .touchUpInside)
+        profileButton.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
+    }
+    
+    @objc func profileImageTapped(_ sender: UIButton) {
+        print(#function)
+        let vc = ProfileViewController()
+        vc.nowSelectedImage = selectedProfileImage
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func confirmBtnTapped(_ sender: UIButton) {
         ud.userName = nicknameTextField.text!
-        ud.userProfileImage = nowImageName
+        ud.userProfileImage = selectedProfileImage.imageName
         ud.isUser = true
         
         // 화면이 쌓이지 않은 채 등장!

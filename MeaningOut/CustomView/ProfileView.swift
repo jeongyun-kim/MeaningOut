@@ -18,18 +18,15 @@ class ProfileView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
-        imageView.snp.makeConstraints { make in
-            make.size.equalTo(110)
-        }
         return imageView
     }()
     
-    init(profile: ProfileImage, type: ProfileSelectType) {
+    init(profile: ProfileImage) {
         super.init(frame: .zero)
         layer.masksToBounds = true
         self.addSubview(imageView)
         setupConstraints()
-        configureProfileImageView(profile, type)
+        configureProfileImageView(profile)
     }
     
     required init?(coder: NSCoder) {
@@ -37,28 +34,16 @@ class ProfileView: UIView {
     }
     
     private func setupConstraints(){
-        snp.makeConstraints { make in
-            make.size.equalTo(120)
-        }
-        
         imageView.snp.makeConstraints { make in
             make.centerX.equalTo(self.snp.centerX)
             make.bottom.equalTo(self.snp.bottom)
+            make.size.equalTo(self.snp.width).multipliedBy(0.9)
         }
     }
     
-    private func configureProfileImageView(_ profileImage: ProfileImage, _ type: ProfileSelectType) {
+    private func configureProfileImageView(_ profileImage: ProfileImage) {
         imageView.image = UIImage(named: profileImage.imageName)
-       
+        layer.borderColor = Color.primaryColor.cgColor
         layer.borderWidth = Border.selected
-        layer.cornerRadius = 60
-        switch type {
-        case .deselected:
-            imageView.alpha = 0.5
-            layer.borderColor = Color.gray2.cgColor
-        case .selected:
-            imageView.alpha = 1
-            layer.borderColor = Color.primaryColor.cgColor
-        }
     }
 }
