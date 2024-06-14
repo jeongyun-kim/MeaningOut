@@ -15,7 +15,9 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     private lazy var naviBorder = CustomBorder()
     
     // 현재 프로필에 걸려있는 프로필 이미지
-    var selectedProfileImage: ProfileImage = ProfileImage.randomImage
+    var selectedProfileImage: ProfileImage  {
+        ProfileImage(imageName: ud.selectedImage)
+    }
     
     // 프로필뷰
     lazy var profileView = ProfileView(profile: selectedProfileImage)
@@ -41,7 +43,11 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         setupConstraints()
         setupUI()
         addActions()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        profileView.imageView.image = UIImage(named: selectedProfileImage.imageName)
     }
     
     func setupHierarchy() {

@@ -101,5 +101,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         nowSelectedImage = profileList[indexPath.row]
+        UserDefaultsManager().selectedImage = nowSelectedImage.imageName
+        print(UserDefaultsManager().selectedImage)
     }
 }

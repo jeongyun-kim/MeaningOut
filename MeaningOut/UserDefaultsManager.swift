@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserDefaultsManager {
+class UserDefaultsManager {
     // 유저인지 확인하기 (default = false)
     var isUser: Bool {
         get {
@@ -33,6 +33,15 @@ struct UserDefaultsManager {
         }
         set {
             UserDefaults.standard.setValue(newValue, forKey: "userName")
+        }
+    }
+    
+    var selectedImage: String {
+        get {
+            UserDefaults.standard.string(forKey: "selectedImage") ?? ProfileImage.randomImage.imageName
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: "selectedImage")
         }
     }
 }
