@@ -23,7 +23,7 @@ class SearchKeywordsTableViewCell: UITableViewCell, SetupView {
         return label
     }()
     
-    private lazy var deleteButton: UIButton = {
+    lazy var deleteButton: UIButton = {
         let button = UIButton()
         button.setImage(Images.delete, for: .normal)
         button.imageView?.tintColor = Color.black
