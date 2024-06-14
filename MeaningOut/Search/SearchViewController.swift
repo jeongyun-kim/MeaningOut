@@ -69,6 +69,7 @@ class SearchViewController: UIViewController, SetupView {
         tagCollectionView.dataSource = self
         tagCollectionView.register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.identifier)
         tagCollectionView.isScrollEnabled = false
+        tagCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: [])
     }
     
     private func tagCollectionViewLayout() -> UICollectionViewLayout {
@@ -97,6 +98,17 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = tagCollectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
         cell.configureCell(tagNames[indexPath.row].rawValue)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    }
+    
+    // 셀 그리기 전에 호출
+    // 검색결과 보여줄 때마다 0번째(정확도순)에 선택 표시
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            cell.isSelected = true
+        }
     }
     
 }
