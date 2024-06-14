@@ -14,11 +14,7 @@ class SearchViewController: UIViewController, SetupView {
     lazy var ud = UserDefaultsManager.self
     
     // 좋아요한 아이디 리스트
-    private lazy var likedItemIdList: [String] = ud.likedItemId {
-        didSet { // 리스트 변경 시마다 저장
-            ud.likedItemId = likedItemIdList
-        }
-    }
+    private lazy var likedItemIdList: [String] = ud.likedItemId
     
     private lazy var itemList: [SearchItem] = []
     
@@ -53,6 +49,12 @@ class SearchViewController: UIViewController, SetupView {
         setupUI()
         setupCollectionView()
         fetchSearchResults(.sim)
+    }
+    
+    // 상세보기에서 좋아요를 등록하거나 해제할 수 있기때문에 뷰 불러올때마다 변경된 상태 반영
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        itemCollectionView.reloadData()
     }
     
     func setupHierarchy() {
@@ -165,13 +167,8 @@ class SearchViewController: UIViewController, SetupView {
         // 현재 좋아요 누른 아이템 아이디
         let itemId = itemList[sender.tag].productId
         
-        // 만약 이미 좋아요가 눌러져있던 아이템이라면 좋아요 리스트에서 삭제
-        if likedItemIdList.contains(itemId) {
-            guard let idx = ud.likedItemId.firstIndex(of: itemList[sender.tag].productId) else { return }
-            likedItemIdList.remove(at: idx)
-        } else { // 좋아요 리스트에 없던 아이디라면 좋아요 추가
-            likedItemIdList.append(itemId)
-        }
+        // 좋아요 처리 메서드 호출 
+        SearchItem.addOrRemoveLikeId(itemId)
         
         // reload 애니메이션 없이 좋아요한 셀만 리로드
         UIView.performWithoutAnimation {

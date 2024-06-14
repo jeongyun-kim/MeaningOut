@@ -36,6 +36,15 @@ class DetailViewController: UIViewController, SetupView {
     func setupUI() {
         view.backgroundColor = .systemBackground
         navigationItem.title = selectedItem.replacedTitle
+        
+        let rightItemImage = selectedItem.likeImage
+        let rightItem = UIBarButtonItem(image: rightItemImage, style: .plain, target: self, action: #selector(rightBarBtnTapped))
+        navigationItem.rightBarButtonItem = rightItem
+    }
+    
+    @objc func rightBarBtnTapped(_ sender: UIButton) {
+        SearchItem.addOrRemoveLikeId(selectedItem.productId)
+        navigationItem.rightBarButtonItem?.image = selectedItem.likeImage
     }
     
     private func configureWebView() {

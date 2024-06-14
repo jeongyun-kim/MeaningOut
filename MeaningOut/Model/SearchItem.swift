@@ -49,4 +49,19 @@ struct SearchItem {
     var likeBackgroundColor: UIColor {
         return isLike ? ColorCase.white : ColorCase.black.withAlphaComponent(0.3)
     }
+    
+    static func addOrRemoveLikeId(_ itemId: String) {
+        let ud = UserDefaultsManager.self
+        var likedItemIdList = ud.likedItemId
+        
+        // 만약 이미 좋아요가 눌러져있던 아이템이라면 좋아요 리스트에서 삭제
+        if likedItemIdList.contains(itemId) {
+            guard let idx = ud.likedItemId.firstIndex(of: itemId) else { return }
+            likedItemIdList.remove(at: idx)
+        } else { // 좋아요 리스트에 없던 아이디라면 좋아요 추가
+            likedItemIdList.append(itemId)
+        }
+        
+        ud.likedItemId = likedItemIdList
+    }
 }
