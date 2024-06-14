@@ -90,12 +90,11 @@ class ItemCollectionViewCell: UICollectionViewCell, SetupView {
         }
     }
     
-    func configureCell(_ item: item) {
+    func configureCell(_ item: SearchItem) {
         thumbnailImageView.kf.setImage(with: item.url)
         mallNameLabel.text = item.mallName
         titleLabel.text = item.replacedTitle
         priceLabel.text = item.price
-        
 
         likeButton.setImage(item.likeImage, for: .normal)
         likeButton.tintColor = item.likeTintColor

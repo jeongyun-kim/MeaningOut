@@ -1,5 +1,5 @@
 //
-//  Item.swift
+//  SearchItem.swift
 //  MeaningOut
 //
 //  Created by 김정윤 on 6/14/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct item {
+struct SearchItem {
     let title: String
     let link: String
     let image: String

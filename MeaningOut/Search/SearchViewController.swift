@@ -20,7 +20,7 @@ class SearchViewController: UIViewController, SetupView {
         }
     }
     
-    private lazy var itemList: [item] = []
+    private lazy var itemList: [SearchItem] = []
     
     private lazy var display: Int = 30
     
@@ -138,7 +138,7 @@ class SearchViewController: UIViewController, SetupView {
             switch response.result {
             case .success(let value):
                 let items = value.items.map({
-                    item(title: $0.title, link: $0.link, image: $0.image, lprice: $0.lprice, mallName: $0.mallName, productId: $0.productId)
+                    SearchItem(title: $0.title, link: $0.link, image: $0.image, lprice: $0.lprice, mallName: $0.mallName, productId: $0.productId)
                 })
                 
                 if self.startPoint == 1 {
@@ -217,6 +217,10 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if collectionView == tagCollectionView {
             startPoint = 1
             fetchSearchResults(SortRule.allCases[indexPath.row])
+        } else {
+            let vc = DetailViewController()
+            vc.selectedItem = itemList[indexPath.row]
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
     
