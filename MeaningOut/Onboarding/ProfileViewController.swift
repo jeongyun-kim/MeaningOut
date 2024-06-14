@@ -17,21 +17,21 @@ class ProfileViewController: UIViewController, SetupView {
         }
     }
     
-    lazy var naviBorder = CustomBorder()
+    private lazy var naviBorder = CustomBorder()
     
-    lazy var profileLayerView = ProfileLayerView()
+    private lazy var profileLayerView = ProfileLayerView()
     
-    lazy var profileImageView: UIImageView = {
+    private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
-    lazy var profileList: [ProfileImage] = ProfileImage.imageList
+    private lazy var profileList: [ProfileImage] = ProfileImage.imageList
     
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
-    lazy var ProfileViewType: ProfileViewType = .setting
+    private lazy var ProfileViewType: ProfileViewType = .setting
     
     override func viewDidLoad() {
         super.viewDidLoad()

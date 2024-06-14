@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class OnboardingViewController: UIViewController, SetupView {
-    private let onboardingLabel: UILabel = {
+    private lazy var onboardingLabel: UILabel = {
         let label = UILabel()
         label.text = "MeaningOut"
         label.font = CustomFont.bold48
@@ -17,14 +17,14 @@ class OnboardingViewController: UIViewController, SetupView {
         return label
     }()
     
-    private let onboardingImageView: UIImageView = {
+    private lazy var onboardingImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.image = Images.launch
         return imageView
     }()
     
-    private let startButton = OnboardingButton(title: "시작하기")
+    private lazy var startButton = OnboardingButton(title: "시작하기")
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -10,20 +10,20 @@ import SnapKit
 
 class SearchKeywordsTableViewCell: UITableViewCell, SetupView {
 
-    let iconImageView: UIImageView = {
+    private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Images.clock
         imageView.tintColor = Color.black
         return imageView
     }()
     
-    let keywordLabel: UILabel = {
+    private lazy var keywordLabel: UILabel = {
         let label = UILabel()
         label.font = CustomFont.regular14
         return label
     }()
     
-    let deleteButton: UIButton = {
+    private lazy var deleteButton: UIButton = {
         let button = UIButton()
         button.setImage(Images.delete, for: .normal)
         button.imageView?.tintColor = Color.black

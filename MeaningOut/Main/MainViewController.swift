@@ -12,7 +12,7 @@ class MainViewController: UIViewController, SetupView {
 
     lazy var ud = UserDefaultsManager.self
     
-    lazy var searchKeywordsList: [String] = ud.searchKeywords {
+    private lazy var searchKeywordsList: [String] = ud.searchKeywords {
         didSet {
             if searchKeywordsList.isEmpty {
                 recentSearchLabel.isHidden = true
@@ -30,34 +30,33 @@ class MainViewController: UIViewController, SetupView {
         }
     }
     
-    lazy var searchBar: UISearchBar = {
+    private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = Placeholder.search.rawValue
         searchBar.searchBarStyle = .minimal
         return searchBar
     }()
     
-    lazy var border = CustomBorder()
+    private lazy var border = CustomBorder()
     
-    lazy var recentSearchLabel: UILabel = {
+    private lazy var recentSearchLabel: UILabel = {
          let label = UILabel()
          label.font = CustomFont.bold16
          label.text = "최근 검색"
          return label
      }()
      
-     lazy var deleteAllButton: UIButton = {
+     private lazy var deleteAllButton: UIButton = {
          let button = UIButton()
          button.setTitle("전체 삭제", for: .normal)
          button.setTitleColor(Color.primaryColor, for: .normal)
          button.titleLabel?.font = CustomFont.regular14
-
          return button
      }()
     
-    lazy var emptyView = EmptyView(frame: .zero)
+    private lazy var emptyView = EmptyView(frame: .zero)
     
-    lazy var tableView = UITableView()
+    private lazy var tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,11 +64,11 @@ class MainViewController: UIViewController, SetupView {
         setupConstraints()
         setupTableView()
         setupUI()
+        addActions()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ud.searchKeywords = ["오옹", "ddfdf", "dfalmfalkdf"]
         searchKeywordsList = ud.searchKeywords
     }
     
@@ -134,10 +133,20 @@ class MainViewController: UIViewController, SetupView {
         tableView.isHidden = true
     }
     
+    func addActions() {
+        deleteAllButton.addTarget(self, action: #selector(deleteAllBtnTapped), for: .touchUpInside)
+    }
+    
     @objc func deleteBtnTapped(_ sender: UIButton) {
         searchKeywordsList.remove(at: sender.tag)
         ud.searchKeywords = searchKeywordsList
     }
+    
+    @objc func deleteAllBtnTapped(_ sender: UIButton) {
+        searchKeywordsList.removeAll()
+        ud.searchKeywords = searchKeywordsList
+    }
+
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {

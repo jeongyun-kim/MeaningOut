@@ -15,14 +15,14 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     private lazy var naviBorder = CustomBorder()
     
     // 현재 프로필에 걸려있는 프로필 이미지
-    var selectedProfileImage: ProfileImage  {
+    private var selectedProfileImage: ProfileImage  {
         ProfileImage(imageName: ud.selectedImage)
     }
     
     // 프로필뷰
-    lazy var profileLayerView = ProfileLayerView()
+    private lazy var profileLayerView = ProfileLayerView()
     
-    lazy var profileImageView: UIImageView = {
+    private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         return imageView
