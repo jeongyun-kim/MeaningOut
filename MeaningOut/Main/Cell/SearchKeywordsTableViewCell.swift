@@ -6,18 +6,73 @@
 //
 
 import UIKit
+import SnapKit
 
-class SearchKeywordsTableViewCell: UITableViewCell {
+class SearchKeywordsTableViewCell: UITableViewCell, SetupView {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    let iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Images.clock
+        imageView.tintColor = Color.black
+        return imageView
+    }()
+    
+    let keywordLabel: UILabel = {
+        let label = UILabel()
+        label.font = CustomFont.regular14
+        return label
+    }()
+    
+    let deleteButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Images.delete, for: .normal)
+        button.imageView?.tintColor = Color.black
+        return button
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupHierarchy()
+        setupConstraints()
+        configureLayout()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func setupHierarchy() {
+        contentView.addSubview(iconImageView)
+        contentView.addSubview(keywordLabel)
+        contentView.addSubview(deleteButton)
     }
-
+    
+    func setupConstraints() {
+        iconImageView.snp.makeConstraints { make in
+            make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(24)
+            make.width.equalTo(iconImageView.snp.height)
+            make.verticalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(12)
+        }
+        
+        keywordLabel.snp.makeConstraints { make in
+            make.leading.equalTo(iconImageView.snp.trailing).offset(12)
+            make.centerY.equalTo(iconImageView.snp.centerY)
+        }
+        
+        deleteButton.snp.makeConstraints { make in
+            make.leading.equalTo(keywordLabel.snp.trailing).offset(8)
+            make.centerY.equalTo(keywordLabel.snp.centerY)
+            make.trailing.equalTo(contentView.snp.trailing).inset(24)
+            make.size.equalTo(iconImageView.snp.size)
+        }
+    }
+    
+    private func configureLayout() {
+        selectionStyle = .none
+    }
+    
+    func configureCell(_ keyword: String) {
+        keywordLabel.text = keyword
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }

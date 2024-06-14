@@ -10,7 +10,7 @@ import SnapKit
 
 class ProfileNicknameViewController: UIViewController, SetupView {
     
-    lazy var ud = UserDefaultsManager()
+    lazy var ud = UserDefaultsManager.self
     
     private lazy var naviBorder = CustomBorder()
     

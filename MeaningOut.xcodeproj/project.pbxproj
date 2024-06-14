@@ -24,14 +24,14 @@
 		E0B0B7432C1AF59200A24154 /* OnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7422C1AF59200A24154 /* OnboardingButton.swift */; };
 		E0B0B7462C1AF96200A24154 /* ProfileNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7452C1AF96200A24154 /* ProfileNicknameViewController.swift */; };
 		E0B0B74D2C1AFBC100A24154 /* CustomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B74C2C1AFBC100A24154 /* CustomBorder.swift */; };
-		E0B0B74F2C1AFDB500A24154 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B74E2C1AFDB500A24154 /* ProfileImageView.swift */; };
 		E0B0B7512C1B012600A24154 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7502C1B012600A24154 /* ProfileImage.swift */; };
 		E0B0B7552C1B0B5100A24154 /* NicknameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7542C1B0B5100A24154 /* NicknameTextField.swift */; };
-		E0B0B7592C1B498900A24154 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7582C1B498900A24154 /* User.swift */; };
 		E0B0B75C2C1B4C4600A24154 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B75B2C1B4C4600A24154 /* ProfileViewController.swift */; };
 		E0B0B75F2C1BF61C00A24154 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B75E2C1BF61C00A24154 /* ProfileCollectionViewCell.swift */; };
 		E0B0B7612C1BF7FB00A24154 /* ReusableIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7602C1BF7FB00A24154 /* ReusableIdentifier.swift */; };
 		E0B0B7632C1C0FD600A24154 /* ProfileLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7622C1C0FD600A24154 /* ProfileLayerView.swift */; };
+		E0B0B7692C1C212D00A24154 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7682C1C212D00A24154 /* EmptyView.swift */; };
+		E0B0B76C2C1C25B200A24154 /* SearchKeywordsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B76B2C1C25B200A24154 /* SearchKeywordsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,14 +52,14 @@
 		E0B0B7422C1AF59200A24154 /* OnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingButton.swift; sourceTree = "<group>"; };
 		E0B0B7452C1AF96200A24154 /* ProfileNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameViewController.swift; sourceTree = "<group>"; };
 		E0B0B74C2C1AFBC100A24154 /* CustomBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBorder.swift; sourceTree = "<group>"; };
-		E0B0B74E2C1AFDB500A24154 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		E0B0B7502C1B012600A24154 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
 		E0B0B7542C1B0B5100A24154 /* NicknameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameTextField.swift; sourceTree = "<group>"; };
-		E0B0B7582C1B498900A24154 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E0B0B75B2C1B4C4600A24154 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E0B0B75E2C1BF61C00A24154 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		E0B0B7602C1BF7FB00A24154 /* ReusableIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableIdentifier.swift; sourceTree = "<group>"; };
 		E0B0B7622C1C0FD600A24154 /* ProfileLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLayerView.swift; sourceTree = "<group>"; };
+		E0B0B7682C1C212D00A24154 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		E0B0B76B2C1C25B200A24154 /* SearchKeywordsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchKeywordsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,9 +118,9 @@
 				E0B0B7352C1AEDB300A24154 /* TabBarController.swift */,
 				E0B0B7422C1AF59200A24154 /* OnboardingButton.swift */,
 				E0B0B74C2C1AFBC100A24154 /* CustomBorder.swift */,
-				E0B0B74E2C1AFDB500A24154 /* ProfileImageView.swift */,
 				E0B0B7542C1B0B5100A24154 /* NicknameTextField.swift */,
 				E0B0B7622C1C0FD600A24154 /* ProfileLayerView.swift */,
+				E0B0B7682C1C212D00A24154 /* EmptyView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -156,6 +156,7 @@
 		E0B0B7492C1AFB7500A24154 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				E0B0B76A2C1C258E00A24154 /* Cell */,
 				E0B0B7082C1AE88A00A24154 /* MainViewController.swift */,
 			);
 			path = Main;
@@ -164,7 +165,6 @@
 		E0B0B75A2C1B4BB300A24154 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E0B0B7582C1B498900A24154 /* User.swift */,
 				E0B0B7502C1B012600A24154 /* ProfileImage.swift */,
 			);
 			path = Model;
@@ -174,6 +174,14 @@
 			isa = PBXGroup;
 			children = (
 				E0B0B75E2C1BF61C00A24154 /* ProfileCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		E0B0B76A2C1C258E00A24154 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				E0B0B76B2C1C25B200A24154 /* SearchKeywordsTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -262,10 +270,8 @@
 				E0B0B7092C1AE88A00A24154 /* MainViewController.swift in Sources */,
 				E0B0B6F12C1AE7D200A24154 /* AppDelegate.swift in Sources */,
 				E0B0B7552C1B0B5100A24154 /* NicknameTextField.swift in Sources */,
-				E0B0B74F2C1AFDB500A24154 /* ProfileImageView.swift in Sources */,
 				E0B0B75C2C1B4C4600A24154 /* ProfileViewController.swift in Sources */,
 				E0B0B7342C1AED4800A24154 /* OnboardingViewController.swift in Sources */,
-				E0B0B7592C1B498900A24154 /* User.swift in Sources */,
 				E0B0B7612C1BF7FB00A24154 /* ReusableIdentifier.swift in Sources */,
 				E0B0B7632C1C0FD600A24154 /* ProfileLayerView.swift in Sources */,
 				E0B0B73C2C1AF1D700A24154 /* SettingViewController.swift in Sources */,
@@ -276,6 +282,8 @@
 				E0B0B6F32C1AE7D200A24154 /* SceneDelegate.swift in Sources */,
 				E0B0B74D2C1AFBC100A24154 /* CustomBorder.swift in Sources */,
 				E0B0B75F2C1BF61C00A24154 /* ProfileCollectionViewCell.swift in Sources */,
+				E0B0B76C2C1C25B200A24154 /* SearchKeywordsTableViewCell.swift in Sources */,
+				E0B0B7692C1C212D00A24154 /* EmptyView.swift in Sources */,
 				E0B0B7392C1AEE7E00A24154 /* Resource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

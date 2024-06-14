@@ -37,6 +37,7 @@ class ProfileViewController: UIViewController, SetupView {
         super.viewDidLoad()
         setupHierarchy()
         setupConstraints()
+        setupCollectionView()
         setupUI()
     }
     
@@ -72,7 +73,9 @@ class ProfileViewController: UIViewController, SetupView {
     func setupUI() {
         view.backgroundColor = .systemBackground
         navigationItem.title = ProfileViewType.rawValue
-
+    }
+    
+    func setupCollectionView() {
         collectionView.allowsMultipleSelection = false
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -107,6 +110,6 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         nowSelectedImage = profileList[indexPath.row]
-        UserDefaultsManager().selectedImage = nowSelectedImage.imageName
+        UserDefaultsManager.selectedImage = nowSelectedImage.imageName
     }
 }

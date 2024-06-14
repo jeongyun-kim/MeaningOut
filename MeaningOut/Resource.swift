@@ -20,11 +20,12 @@ enum Color {
 
 enum Images {
     static let launch = UIImage(named: "launch")
+    static let empty = UIImage(named: "empty")
     static let search = UIImage(systemName: "magnifyingglass")
     static let setting = UIImage(systemName: "person")
     static let next = UIImage(systemName: "chevron.right")
     static let clock = UIImage(systemName: "clock")
-    static let close = UIImage(systemName: "xmark")
+    static let delete = UIImage(systemName: "xmark")
     static let profileCamera = UIImage(systemName: "camera.fill")
 }
 
