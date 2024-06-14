@@ -13,6 +13,8 @@ class DetailViewController: UIViewController, SetupView {
    
     lazy var selectedItem: SearchItem = SearchItem(title: "", link: "", image: "", lprice: "", mallName: "", productId: "")
    
+    lazy var border = CustomBorder()
+    
     lazy var webView = WKWebView()
     
     override func viewDidLoad() {
@@ -24,12 +26,19 @@ class DetailViewController: UIViewController, SetupView {
     }
 
     func setupHierarchy() {
+        view.addSubview(border)
         view.addSubview(webView)
     }
     
     func setupConstraints() {
+        border.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(1)
+        }
+        
         webView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(border.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
