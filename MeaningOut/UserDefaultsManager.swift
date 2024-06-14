@@ -55,4 +55,21 @@ class UserDefaultsManager {
         }
     }
     
+    static var likedItemId: [String] {
+        get {
+            UserDefaults.standard.stringArray(forKey: "likedItemId") ?? []
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: "likedItemId")
+        }
+    }
+    
+    static var likeCnt: Int {
+        get {
+            UserDefaults.standard.integer(forKey: "likeCnt")
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: "likeCnt")
+        }
+    }
 }

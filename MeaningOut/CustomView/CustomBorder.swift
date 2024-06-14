@@ -19,7 +19,7 @@ class CustomBorder: UIView {
     }
     
     private func configureBorder() {
-        backgroundColor = Color.borderColor
+        backgroundColor = ColorCase.borderColor
         snp.makeConstraints { make in
             make.height.equalTo(1)
         }

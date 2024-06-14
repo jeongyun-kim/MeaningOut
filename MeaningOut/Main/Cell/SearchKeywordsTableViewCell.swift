@@ -12,21 +12,21 @@ class SearchKeywordsTableViewCell: UITableViewCell, SetupView {
 
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = Images.clock
-        imageView.tintColor = Color.black
+        imageView.image = ImageCase.clock
+        imageView.tintColor = ColorCase.black
         return imageView
     }()
     
     private lazy var keywordLabel: UILabel = {
         let label = UILabel()
-        label.font = CustomFont.regular14
+        label.font = FontCase.regular14
         return label
     }()
     
     lazy var deleteButton: UIButton = {
         let button = UIButton()
-        button.setImage(Images.delete, for: .normal)
-        button.imageView?.tintColor = Color.black
+        button.setImage(ImageCase.delete, for: .normal)
+        button.imageView?.tintColor = ColorCase.black
         return button
     }()
     

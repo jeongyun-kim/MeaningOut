@@ -34,8 +34,8 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     private lazy var checkNicknameLabel: UILabel = {
         let label = UILabel()
-        label.font = CustomFont.regular13
-        label.textColor = Color.primaryColor
+        label.font = FontCase.regular13
+        label.textColor = ColorCase.primaryColor
         return label
     }()
     

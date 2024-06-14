@@ -12,15 +12,15 @@ class OnboardingViewController: UIViewController, SetupView {
     private lazy var onboardingLabel: UILabel = {
         let label = UILabel()
         label.text = "MeaningOut"
-        label.font = CustomFont.bold48
-        label.textColor = Color.primaryColor
+        label.font = FontCase.bold48
+        label.textColor = ColorCase.primaryColor
         return label
     }()
     
     private lazy var onboardingImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = Images.launch
+        imageView.image = ImageCase.launch
         return imageView
     }()
     
@@ -67,7 +67,7 @@ class OnboardingViewController: UIViewController, SetupView {
     func setupUI() {
         view.backgroundColor = .systemBackground
         navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.tintColor = Color.black
+        navigationController?.navigationBar.tintColor = ColorCase.black
     }
     
     func addActions() {

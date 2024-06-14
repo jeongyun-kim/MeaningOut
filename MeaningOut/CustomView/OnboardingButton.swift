@@ -21,8 +21,8 @@ class OnboardingButton: UIButton {
     private func configureButton(_ title: String) {
         setTitle(title, for: .normal)
         titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        setTitleColor(Color.white, for: .normal)
-        backgroundColor = Color.primaryColor
+        setTitleColor(ColorCase.white, for: .normal)
+        backgroundColor = ColorCase.primaryColor
         layer.cornerRadius = 23
         snp.makeConstraints { make in
             make.height.equalTo(46)

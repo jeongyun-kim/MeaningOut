@@ -11,10 +11,10 @@ import SnapKit
 class TagCollectionViewCell: UICollectionViewCell, SetupView {
     let tagLabel: UILabel = {
         let label = PaddingLabel(frame: .zero)
-        label.layer.cornerRadius = 15
+        label.layer.cornerRadius = CGFloat(CornerRadiusCase.label.rawValue)
         label.clipsToBounds = true
         label.layer.borderWidth = 1
-        label.layer.borderColor = Color.gray3.cgColor
+        label.layer.borderColor = ColorCase.gray3.cgColor
         return label
     }()
     
@@ -35,18 +35,18 @@ class TagCollectionViewCell: UICollectionViewCell, SetupView {
     }
     
     func configureCell(_ title: String) {
-        let attributedTitle = NSAttributedString(string: title, attributes: [NSAttributedString.Key.font: CustomFont.regular13, NSAttributedString.Key.foregroundColor: Color.black])
+        let attributedTitle = NSAttributedString(string: title, attributes: [NSAttributedString.Key.font: FontCase.regular13, NSAttributedString.Key.foregroundColor: ColorCase.black])
         tagLabel.attributedText = attributedTitle
     }
     
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                tagLabel.backgroundColor = Color.gray1
-                tagLabel.textColor = Color.white
+                tagLabel.backgroundColor = ColorCase.gray1
+                tagLabel.textColor = ColorCase.white
             } else {
-                tagLabel.backgroundColor = Color.white
-                tagLabel.textColor = Color.black
+                tagLabel.backgroundColor = ColorCase.white
+                tagLabel.textColor = ColorCase.black
             }
         }
     }

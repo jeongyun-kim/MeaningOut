@@ -41,7 +41,7 @@ class MainViewController: UIViewController, SetupView {
     
     private lazy var recentSearchLabel: UILabel = {
          let label = UILabel()
-         label.font = CustomFont.bold16
+         label.font = FontCase.bold16
          label.text = "최근 검색"
          return label
      }()
@@ -49,8 +49,8 @@ class MainViewController: UIViewController, SetupView {
      private lazy var deleteAllButton: UIButton = {
          let button = UIButton()
          button.setTitle("전체 삭제", for: .normal)
-         button.setTitleColor(Color.primaryColor, for: .normal)
-         button.titleLabel?.font = CustomFont.regular14
+         button.setTitleColor(ColorCase.primaryColor, for: .normal)
+         button.titleLabel?.font = FontCase.regular14
          return button
      }()
     
@@ -131,7 +131,7 @@ class MainViewController: UIViewController, SetupView {
         view.backgroundColor = .systemBackground
         navigationItem.title = "\(ud.userName)'s MEANING OUT"
         navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.tintColor = Color.black
+        navigationController?.navigationBar.tintColor = ColorCase.black
         searchBar.delegate = self
     }
     

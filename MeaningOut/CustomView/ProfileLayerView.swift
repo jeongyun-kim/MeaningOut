@@ -17,8 +17,8 @@ class ProfileLayerView: UIView{
     }
    
     private func configureLayout() {
-        layer.borderWidth = Border.profile
-        layer.borderColor = Color.primaryColor.cgColor
+        layer.borderWidth = BorderCase.profile
+        layer.borderColor = ColorCase.primaryColor.cgColor
         layer.masksToBounds = true
         snp.makeConstraints { make in
             make.size.equalTo(size)

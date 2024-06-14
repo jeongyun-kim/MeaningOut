@@ -13,14 +13,14 @@ class EmptyView: UIView, SetupView {
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = Images.empty
+        imageView.image = ImageCase.empty
         return imageView
     }()
     
     lazy var resultLabel: UILabel = {
         let label = UILabel()
         label.text = "최근 검색어가 없어요"
-        label.font = CustomFont.bold16
+        label.font = FontCase.bold16
         label.textAlignment = .center
         return label
     }()

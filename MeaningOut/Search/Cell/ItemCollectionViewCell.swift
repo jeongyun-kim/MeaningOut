@@ -12,7 +12,7 @@ import Kingfisher
 class ItemCollectionViewCell: UICollectionViewCell, SetupView {
     private lazy var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 6
+        imageView.layer.cornerRadius = CGFloat(CornerRadiusCase.image.rawValue)
         imageView.backgroundColor = .lightGray
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
@@ -21,15 +21,15 @@ class ItemCollectionViewCell: UICollectionViewCell, SetupView {
     
     private lazy var mallNameLabel: UILabel = {
         let label = UILabel()
-        label.font = CustomFont.regular13
+        label.font = FontCase.regular13
         label.text = "네이버"
-        label.textColor = Color.gray2
+        label.textColor = ColorCase.gray2
         return label
     }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = CustomFont.regular14
+        label.font = FontCase.regular14
         label.numberOfLines = 2
         label.text = "애플 레트로 키캡 XDA PBT 한무무 기계식 키보드"
         return label
@@ -37,9 +37,15 @@ class ItemCollectionViewCell: UICollectionViewCell, SetupView {
     
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.font = CustomFont.bold16
+        label.font = FontCase.bold16
         label.text = "22,800원"
         return label
+    }()
+    
+    lazy var likeButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = CGFloat(CornerRadiusCase.button.rawValue)
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -50,6 +56,7 @@ class ItemCollectionViewCell: UICollectionViewCell, SetupView {
     
     func setupHierarchy() {
         contentView.addSubview(thumbnailImageView)
+        contentView.addSubview(likeButton)
         contentView.addSubview(mallNameLabel)
         contentView.addSubview(titleLabel)
         contentView.addSubview(priceLabel)
@@ -59,6 +66,11 @@ class ItemCollectionViewCell: UICollectionViewCell, SetupView {
         thumbnailImageView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide)
             make.height.equalTo(contentView.snp.height).multipliedBy(0.7)
+        }
+        
+        likeButton.snp.makeConstraints { make in
+            make.bottom.trailing.equalTo(thumbnailImageView).inset(8)
+            make.size.equalTo(40)
         }
         
         mallNameLabel.snp.makeConstraints { make in
@@ -83,6 +95,11 @@ class ItemCollectionViewCell: UICollectionViewCell, SetupView {
         mallNameLabel.text = item.mallName
         titleLabel.text = item.replacedTitle
         priceLabel.text = item.price
+        
+
+        likeButton.setImage(item.likeImage, for: .normal)
+        likeButton.tintColor = item.likeTintColor
+        likeButton.backgroundColor = item.likeBackgroundColor
     }
     
     required init?(coder: NSCoder) {

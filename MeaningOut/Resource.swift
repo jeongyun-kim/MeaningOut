@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum Color {
+enum ColorCase {
     static let primaryColor = UIColor(hue: 0.0639, saturation: 0.7, brightness: 0.93, alpha: 1.0)
     static let black = UIColor.black
     // 회색은 진한순
@@ -18,7 +18,7 @@ enum Color {
     static let white = UIColor.white
 }
 
-enum Images {
+enum ImageCase {
     static let launch = UIImage(named: "launch")
     static let empty = UIImage(named: "empty")
     static let search = UIImage(systemName: "magnifyingglass")
@@ -27,15 +27,17 @@ enum Images {
     static let clock = UIImage(systemName: "clock")
     static let delete = UIImage(systemName: "xmark")
     static let profileCamera = UIImage(systemName: "camera.fill")
+    static let like_unselected = UIImage(named: "like_unselected")
+    static let like_selected = UIImage(named: "like_selected")
 }
 
-enum Border {
+enum BorderCase {
     static let profile: CGFloat = 5
     static let selected: CGFloat = 3
     static let deselected: CGFloat = 1
 }
 
-enum CustomFont {
+enum FontCase {
     static let bold48 = UIFont.systemFont(ofSize: 48, weight: .bold)
     static let bold16 = UIFont.systemFont(ofSize: 16, weight: .bold)
     static let regular15 = UIFont.systemFont(ofSize: 15)
@@ -70,4 +72,9 @@ enum TagName: String, CaseIterable {
     case date = "날짜순"
     case dsc = "가격높은순"
     case asc = "가격낮은순"
+}
+
+enum CornerRadiusCase: Int {
+    case image, button = 6
+    case label = 15
 }

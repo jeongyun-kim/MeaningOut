@@ -11,11 +11,16 @@ import SnapKit
 
 class SearchViewController: UIViewController, SetupView {
 
-    private lazy var itemList: [item] = [] {
-        didSet {
-            itemCollectionView.reloadData()
+    lazy var ud = UserDefaultsManager.self
+    
+    // 좋아요한 아이디 리스트
+    private lazy var likedItemIdList: [String] = ud.likedItemId {
+        didSet { // 리스트 변경 시마다 저장
+            ud.likedItemId = likedItemIdList
         }
     }
+    
+    private lazy var itemList: [item] = []
     
     private lazy var display: Int = 30
     
@@ -31,8 +36,8 @@ class SearchViewController: UIViewController, SetupView {
     
     private lazy var productCntLabel: UILabel = {
         let label = UILabel()
-        label.font = CustomFont.bold16
-        label.textColor = Color.primaryColor
+        label.font = FontCase.bold16
+        label.textColor = ColorCase.primaryColor
         label.text = "202,122개의 검색 결과"
         return label
     }()
@@ -101,13 +106,12 @@ class SearchViewController: UIViewController, SetupView {
     
     private func itemCollectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        let sectionInsets: CGFloat = 16
-        let spacing: CGFloat = 12
-        let size = (UIScreen.main.bounds.width - sectionInsets*2 - spacing) / 2
+        let sectionInsetAndSpacing: CGFloat = 16
+        let size = (UIScreen.main.bounds.width - sectionInsetAndSpacing * 3) / 2
         
-        layout.minimumLineSpacing = spacing
-        layout.minimumInteritemSpacing = spacing
-        layout.sectionInset = UIEdgeInsets(top: 0, left: sectionInsets, bottom: sectionInsets, right: sectionInsets)
+        layout.minimumLineSpacing = sectionInsetAndSpacing
+        layout.minimumInteritemSpacing = sectionInsetAndSpacing
+        layout.sectionInset = UIEdgeInsets(top: 0, left: sectionInsetAndSpacing, bottom: sectionInsetAndSpacing, right: sectionInsetAndSpacing)
         layout.itemSize = CGSize(width: size, height: size*1.7)
         
         return layout
@@ -133,13 +137,19 @@ class SearchViewController: UIViewController, SetupView {
         AF.request(APIData.url, parameters: params, headers: APIData.header).responseDecodable(of: SearchResult.self) { response in
             switch response.result {
             case .success(let value):
+                let items = value.items.map({
+                    item(title: $0.title, link: $0.link, image: $0.image, lprice: $0.lprice, mallName: $0.mallName, productId: $0.productId)
+                })
+                
                 if self.startPoint == 1 {
                     self.maxStartPoint = value.total
-                    self.itemList = value.items
+                    self.itemList = items
                     self.productCntLabel.text = "\(value.total.formatted())개의 검색 결과"
                 } else {
-                    self.itemList.append(contentsOf: value.items)
+                    self.itemList.append(contentsOf: items)
                 }
+                
+                self.itemCollectionView.reloadData()
                 
                 if self.startPoint == 1 {
                     self.itemCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
@@ -148,6 +158,24 @@ class SearchViewController: UIViewController, SetupView {
             case .failure(let error):
                 print(error)
             }
+        }
+    }
+    
+    @objc func likeBtnTapped(_ sender: UIButton) {
+        // 현재 좋아요 누른 아이템 아이디
+        let itemId = itemList[sender.tag].productId
+        
+        // 만약 이미 좋아요가 눌러져있던 아이템이라면 좋아요 리스트에서 삭제
+        if likedItemIdList.contains(itemId) {
+            guard let idx = ud.likedItemId.firstIndex(of: itemList[sender.tag].productId) else { return }
+            likedItemIdList.remove(at: idx)
+        } else { // 좋아요 리스트에 없던 아이디라면 좋아요 추가
+            likedItemIdList.append(itemId)
+        }
+        
+        // reload 애니메이션 없이 좋아요한 셀만 리로드
+        UIView.performWithoutAnimation {
+            itemCollectionView.reloadItems(at: [IndexPath(row: sender.tag, section: 0)])
         }
     }
 }
@@ -179,6 +207,8 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         } else {
             let cell = itemCollectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as! ItemCollectionViewCell
             cell.configureCell(itemList[indexPath.row])
+            cell.likeButton.tag = indexPath.row
+            cell.likeButton.addTarget(self, action: #selector(likeBtnTapped), for: .touchUpInside)
             return cell
         }
     }
