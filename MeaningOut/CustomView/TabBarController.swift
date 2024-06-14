@@ -15,10 +15,10 @@ class TabBarController: UITabBarController {
         
         // 탭바에 연결할 뷰컨 불러오기
         let mainView = UINavigationController(rootViewController: MainViewController())
-        mainView.tabBarItem = UITabBarItem(title: nil, image: Images.search, tag: 0)
+        mainView.tabBarItem = UITabBarItem(title: "검색", image: Images.search, tag: 0)
         
         let settingView = UINavigationController(rootViewController: SettingViewController())
-        settingView.tabBarItem = UITabBarItem(title: nil, image: Images.setting, tag: 1)
+        settingView.tabBarItem = UITabBarItem(title: "설정", image: Images.setting, tag: 1)
         
         // 탭바에 뷰컨 연결 
         setViewControllers([mainView, settingView], animated: true)
