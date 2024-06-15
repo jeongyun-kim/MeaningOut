@@ -56,11 +56,20 @@ class DetailViewController: UIViewController, SetupView {
         navigationItem.rightBarButtonItem?.image = selectedItem.likeImage
     }
     
+    private func showAlert() {
+        let alert = UIAlertController(title: AlertCase.urlErrorTitle, message: AlertCase.urlErrorMessage, preferredStyle: .alert)
+        let confirm = UIAlertAction(title: AlertCase.confirmActionTitle, style: .cancel) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
+        alert.addAction(confirm)
+        present(alert, animated: true)
+    }
+    
     private func configureWebView() {
         // url로 전환 -> request 생성 -> request로 load
         // http 링크위해 ATS = YES
-        let url = URL(string: selectedItem.link)
-        let request = URLRequest(url: url!)
+        guard let url = URL(string: selectedItem.link) else { return showAlert() }
+        let request = URLRequest(url: url)
         webView.load(request)
     }
     

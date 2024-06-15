@@ -141,6 +141,16 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         }
     }
     
+    private func getJoinDate() -> String {
+        let dateFormatter = DateFormatter()
+        let localeID = Locale.preferredLanguages.first
+        let deviceLocale = Locale(identifier: localeID ?? "ko-kr").languageCode
+        dateFormatter.locale = Locale(identifier: deviceLocale ?? "ko-kr")
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "YYYY.MM.dd 가입"
+        return dateFormatter.string(from: Date())
+    }
+    
     func addActions() {
         nicknameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         confirmButton.addTarget(self, action: #selector(confirmBtnTapped), for: .touchUpInside)
@@ -150,7 +160,8 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     @objc func saveData() {
         ud.userName = nicknameTextField.text!
         ud.userProfileImage = ProfileImage.tempSelectedImage!.imageName
-
+        ud.joinDate = getJoinDate()
+        
         if nicknameViewType == .edit {
             navigationController?.popViewController(animated: true)
         }

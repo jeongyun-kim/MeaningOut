@@ -72,8 +72,8 @@ class SettingViewController: UIViewController, SetupView {
         navigationItem.title = "SETTING"
     }
     
-    private func showAlert(_ item: CancelAlert.Type) {
-        let alert = UIAlertController(title: item.title, message: item.message, preferredStyle: .alert)
+    private func showAlert(_ item: AlertCase.Type) {
+        let alert = UIAlertController(title: item.cancelTitle, message: item.cancelMessage, preferredStyle: .alert)
         
         let confirm = UIAlertAction(title: item.confirmActionTitle, style: .default) { [unowned self] _ in
             self.ud.deleteAllDatas()
@@ -111,13 +111,13 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingTableViewHeader.identifier) as! SettingTableViewHeader
         header.button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        header.configureHeaderView(profile: ud.userProfileImage, nickname: ud.userName)
+        header.configureHeaderView(profile: ud.userProfileImage, nickname: ud.userName, joinDate: ud.joinDate)
         return header
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if SettingCellTitle.allCases[indexPath.row] == SettingCellTitle.cancel {
-            showAlert(CancelAlert.self)
+            showAlert(AlertCase.self)
         }
     }
 

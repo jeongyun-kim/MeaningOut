@@ -89,9 +89,11 @@ enum SettingCellTitle: String, CaseIterable {
     case cancel = "탈퇴하기"
 }
 
-enum CancelAlert {
+enum AlertCase {
     static let confirmActionTitle = "확인"
     static let cancelActionTitle = "취소"
-    static let title = "회원탈퇴"
-    static let message = "탈퇴를 하면 데이터가 모두 초기화됩니다.\n탈퇴 하시겠습니까?"
+    static let cancelTitle = "회원탈퇴"
+    static let cancelMessage = "탈퇴를 하면 데이터가 모두 초기화됩니다.\n탈퇴 하시겠습니까?"
+    static let urlErrorTitle = "링크 오류"
+    static let urlErrorMessage = "해당 상품의 링크를 찾지 못했습니다"
 }

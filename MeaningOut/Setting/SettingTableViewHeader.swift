@@ -27,7 +27,7 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
     
     lazy var nicknameLabel = CustomLabel(fontCase: FontCase.bold20)
     
-    lazy var dateLabel = CustomLabel(title: "dmdfldmflkdklfdmfl", color: ColorCase.gray2, fontCase: FontCase.regular14)
+    lazy var dateLabel = CustomLabel(color: ColorCase.gray2, fontCase: FontCase.regular14)
     
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -46,9 +46,10 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
         setupConstraints()
     }
     
-    func configureHeaderView(profile: String, nickname: String) {
+    func configureHeaderView(profile: String, nickname: String, joinDate: String) {
         profileImageView.image = UIImage(named: profile)
         nicknameLabel.text = nickname
+        dateLabel.text = joinDate
     }
     
     func setupHierarchy() {
