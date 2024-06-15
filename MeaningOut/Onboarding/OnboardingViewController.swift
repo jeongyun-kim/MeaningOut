@@ -37,7 +37,8 @@ class OnboardingViewController: UIViewController, SetupView {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 프로필 설정 화면에서 온보딩 화면으로 다시 오면 선택해뒀던 프로필 이미지도 삭제
-        UserDefaults.standard.removeObject(forKey: "selectedImage")
+        //UserDefaults.standard.removeObject(forKey: "profileImage")
+        ProfileImage.tempSelectedImage = nil
     }
     
     func setupHierarchy() {

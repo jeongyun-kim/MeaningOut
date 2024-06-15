@@ -27,8 +27,9 @@ class SettingViewController: UIViewController, SetupView {
     /// UITableView was told to layout its visible cells and other contents without being in the view hierarchy?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 좋아요 등록/해제하고 왔을 때, 바뀐 좋아요 개수 반영하기
+        // 좋아요 등록/해제하고 왔을 때, 바뀐 데이터 반영
         tableView.reloadData()
+        
         // 프로필 수정화면에서 설정화면으로 다시 오면 수정화면에서 선택했던 임시프로필데이터를 현재 찐프로필데이터로 덮기
         // <- 프로필 닉네임 수정화면에서 임시프로필데이터를 기준으로 이미지를 보여주고 있기 때문 
         ProfileImage.tempSelectedImage = ProfileImage(imageName: ud.userProfileImage)

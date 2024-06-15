@@ -16,10 +16,6 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     private lazy var naviBorder = CustomBorder()
     
-    // 현재 프로필에 걸려있는 프로필 이미지
-    // 뷰를 불러올 때에는 찐데이터 -> 저장 전까지는 임시데이터
-    //private lazy var profileImage = ProfileImage.tempSelectedImage
-    
     // 프로필뷰
     private lazy var profileLayerView = ProfileLayerView(120)
     
@@ -60,12 +56,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        profileImageView.image = UIImage(named: ProfileImage.tempSelectedImage.imageName)
-        
-        if nicknameViewType == .edit {
-            nicknameTextField.text = ud.userName
-            confirmButton.isHidden = true
-        }
+        configureProfileImageView()
     }
     
     func setupHierarchy() {
@@ -122,10 +113,6 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-    
     func setupUI() {
         view.backgroundColor = .systemBackground
         confirmButton.isEnabled = false
@@ -133,9 +120,24 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         navigationController?.navigationBar.tintColor = ColorCase.black
         navigationItem.title = nicknameViewType.rawValue
         navigationItem.backButtonTitle = ""
+        
         if nicknameViewType == .edit {
+            nicknameTextField.text = ud.userName
+            confirmButton.isHidden = true
             let rightBarItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveData))
             navigationItem.rightBarButtonItem = rightBarItem
+        }
+    }
+    
+    private func configureProfileImageView() {
+        // 프로필 선택화면에서 선택하고 넘어온 상태라면
+        if let profile = ProfileImage.tempSelectedImage {
+            let imageName = profile.imageName
+            profileImageView.image = UIImage(named: imageName)
+        } else { // 온보딩 화면에서 넘어온 상태라면
+            let imageName = ProfileImage.randomImage.imageName
+            profileImageView.image = UIImage(named: imageName)
+            ProfileImage.tempSelectedImage = ProfileImage(imageName: imageName)
         }
     }
     
@@ -147,7 +149,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     @objc func saveData() {
         ud.userName = nicknameTextField.text!
-        ud.userProfileImage = ProfileImage.tempSelectedImage.imageName
+        ud.userProfileImage = ProfileImage.tempSelectedImage!.imageName
 
         if nicknameViewType == .edit {
             navigationController?.popViewController(animated: true)
@@ -156,8 +158,9 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     @objc func profileImageTapped(_ sender: UIButton) {
         let vc = ProfileViewController()
-        vc.tempProfileImage = ProfileImage.tempSelectedImage
-        vc.profileViewType = .edit
+        guard let tempProfileImage = ProfileImage.tempSelectedImage else { return }
+        vc.tempProfileImage = tempProfileImage
+        vc.profileViewType = nicknameViewType
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -209,5 +212,9 @@ class ProfileNicknameViewController: UIViewController, SetupView {
             nicknameCheck = .confirm
             //configureCheckLabel(.confirm)
         }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 }
