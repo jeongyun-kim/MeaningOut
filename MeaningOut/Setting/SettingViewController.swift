@@ -24,6 +24,12 @@ class SettingViewController: UIViewController, SetupView {
         setupUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 좋아요 등록/해제하고 왔을 때, 바뀐 좋아요 개수 반영하기
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+    }
+    
     func setupHierarchy() {
         view.addSubview(border)
         view.addSubview(tableView)
@@ -50,8 +56,6 @@ class SettingViewController: UIViewController, SetupView {
         
         tableView.sectionHeaderTopPadding = 0
         tableView.sectionHeaderHeight = 120
-//        tableView.sectionHeaderHeight = UITableView.automaticDimension
-//        tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
@@ -78,6 +82,10 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingTableViewHeader.identifier) as! SettingTableViewHeader
         return header
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 
 }
