@@ -69,7 +69,7 @@ class MainViewController: UIViewController, SetupView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //searchKeywordsList = ud.searchKeywords
+        searchKeywordsList = ud.searchKeywords
     }
     
     func setupHierarchy() {
