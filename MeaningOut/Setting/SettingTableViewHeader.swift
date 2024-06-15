@@ -29,7 +29,6 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
     
     lazy var dateLabel = CustomLabel(title: "dmdfldmflkdklfdmfl", color: ColorCase.gray2, fontCase: FontCase.regular14)
     
-
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -91,6 +90,11 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
         
         button.snp.makeConstraints { make in
             make.edges.equalTo(contentView.safeAreaLayoutGuide)
+        }
+        
+        border.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(16)
+            make.bottom.equalTo(contentView.safeAreaLayoutGuide)
         }
     }
     
