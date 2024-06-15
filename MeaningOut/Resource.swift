@@ -68,6 +68,11 @@ enum ProfileViewType: String {
     case edit = "EDIT PROFILE"
 }
 
+enum CornerRadiusCase: Int {
+    case image, button = 6
+    case label = 15
+}
+
 enum TagName: String, CaseIterable {
     case sim = "정확도순"
     case date = "날짜순"
@@ -75,7 +80,10 @@ enum TagName: String, CaseIterable {
     case asc = "가격낮은순"
 }
 
-enum CornerRadiusCase: Int {
-    case image, button = 6
-    case label = 15
+enum SettingCellTitle: String, CaseIterable {
+    case likeList = "나의 장바구니 목록"
+    case question = "자주 묻는 질문"
+    case contact = "1:1 문의"
+    case notification = "알림 설정"
+    case cancel = "탈퇴하기"
 }

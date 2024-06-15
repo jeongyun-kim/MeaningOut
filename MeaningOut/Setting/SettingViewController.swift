@@ -46,10 +46,15 @@ class SettingViewController: UIViewController, SetupView {
         tableView.dataSource = self
         
         tableView.register(SettingTableViewHeader.self, forHeaderFooterViewReuseIdentifier: SettingTableViewHeader.identifier)
+        tableView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
         
         tableView.sectionHeaderTopPadding = 0
-        tableView.sectionHeaderHeight = UITableView.automaticDimension
-        tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
+        tableView.sectionHeaderHeight = 120
+//        tableView.sectionHeaderHeight = UITableView.automaticDimension
+//        tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.separatorStyle = .none
     }
     
     func setupUI() {
@@ -61,11 +66,13 @@ class SettingViewController: UIViewController, SetupView {
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return SettingCellTitle.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.identifier, for: indexPath) as! SettingTableViewCell
+        cell.configureCell(SettingCellTitle.allCases[indexPath.row])
+        return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

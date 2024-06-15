@@ -50,6 +50,9 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
         return imageView
     }()
     
+    lazy var border = CustomBorder(color: ColorCase.black)
+  
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupHierarchy()
@@ -64,11 +67,13 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
             stackView.addArrangedSubview($0)
         }
         contentView.addSubview(imageView)
+        contentView.addSubview(border)
     }
     
+    // 다시 잡기
     func setupConstraints() {
         profileLayerView.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(24)
+            make.centerY.equalTo(contentView.safeAreaLayoutGuide)
             make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(16)
         }
         

@@ -9,17 +9,17 @@ import UIKit
 import SnapKit
 
 class CustomBorder: UIView {
-    init(){
+    init(color: UIColor = ColorCase.borderColor){
         super.init(frame: .zero)
-        configureBorder()
+        configureBorder(color)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureBorder() {
-        backgroundColor = ColorCase.borderColor
+    private func configureBorder(_ color: UIColor) {
+        backgroundColor = color
         snp.makeConstraints { make in
             make.height.equalTo(1)
         }
