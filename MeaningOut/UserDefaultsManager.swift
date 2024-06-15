@@ -72,4 +72,10 @@ class UserDefaultsManager {
             UserDefaults.standard.setValue(newValue, forKey: "likeCnt")
         }
     }
+    
+    static func deleteAllDatas() {
+        for key in UserDefaults.standard.dictionaryRepresentation().keys {
+            UserDefaults.standard.removeObject(forKey: key.description)
+        }
+    }
 }

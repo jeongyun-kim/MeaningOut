@@ -68,6 +68,21 @@ class SettingViewController: UIViewController, SetupView {
         view.backgroundColor = .systemBackground
         navigationItem.title = "SETTING"
     }
+    
+    private func showAlert(_ item: CancelAlert.Type) {
+        let alert = UIAlertController(title: item.title, message: item.message, preferredStyle: .alert)
+        
+        let confirm = UIAlertAction(title: item.confirmActionTitle, style: .default) { [unowned self] _ in
+            self.ud.deleteAllDatas()
+            self.getNewScene(rootVC: OnboardingViewController())
+        }
+        let cancel = UIAlertAction(title: item.cancelActionTitle, style: .cancel)
+        
+        alert.addAction(confirm)
+        alert.addAction(cancel)
+
+        present(alert, animated: true)
+    }
 }
 
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
@@ -88,7 +103,9 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if SettingCellTitle.allCases[indexPath.row] == SettingCellTitle.cancel {
+            showAlert(CancelAlert.self)
+        }
     }
 
 }
