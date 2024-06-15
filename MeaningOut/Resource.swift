@@ -39,6 +39,7 @@ enum BorderCase {
 
 enum FontCase {
     static let bold48 = UIFont.systemFont(ofSize: 48, weight: .bold)
+    static let bold20 = UIFont.systemFont(ofSize: 20, weight: .bold)
     static let bold16 = UIFont.systemFont(ofSize: 16, weight: .bold)
     static let regular15 = UIFont.systemFont(ofSize: 15)
     static let regular14 = UIFont.systemFont(ofSize: 14)

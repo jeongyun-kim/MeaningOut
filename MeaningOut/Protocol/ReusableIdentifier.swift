@@ -22,3 +22,10 @@ extension UITableViewCell: ReusableIdentifier {
         return String(describing: self)
     }
 }
+
+extension UITableViewHeaderFooterView: ReusableIdentifier {
+    static var identifier: String {
+        return String(describing: self)
+    }
+}
+
