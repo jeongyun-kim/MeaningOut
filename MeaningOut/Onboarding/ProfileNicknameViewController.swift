@@ -20,7 +20,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     }
     
     // 프로필뷰
-    private lazy var profileLayerView = ProfileLayerView()
+    private lazy var profileLayerView = ProfileLayerView(120)
     
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()

@@ -9,14 +9,13 @@ import UIKit
 import SnapKit
 
 class ProfileLayerView: UIView{
-    let size = 120
-    
-    override init(frame: CGRect) {
+
+    init(_ size: Int) {
         super.init(frame: CGRect(x: 0, y: 0, width: size, height: size))
-        configureLayout()
+        configureLayout(size)
     }
    
-    private func configureLayout() {
+    private func configureLayout(_ size: Int) {
         layer.borderWidth = BorderCase.profile
         layer.borderColor = ColorCase.primaryColor.cgColor
         layer.masksToBounds = true

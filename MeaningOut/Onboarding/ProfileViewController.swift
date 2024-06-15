@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController, SetupView {
     
     private lazy var naviBorder = CustomBorder()
     
-    private lazy var profileLayerView = ProfileLayerView()
+    private lazy var profileLayerView = ProfileLayerView(120)
     
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
