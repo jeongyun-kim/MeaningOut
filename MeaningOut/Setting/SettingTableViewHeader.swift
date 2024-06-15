@@ -13,12 +13,7 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
     
     lazy var profileLayerView = ProfileLayerView(80)
     
-    lazy var profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: ud.userProfileImage)
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    lazy var profileImageView = CustomImageView(img: UIImage(named: ud.userProfileImage)!)
     
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -27,20 +22,10 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
         return stackView
     }()
     
-    lazy var nicknameLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontCase.bold20
-        label.text = ud.userName
-        return label
-    }()
+    lazy var nicknameLabel = CustomLabel(title: ud.userName, fontCase: FontCase.bold20)
     
-    lazy var dateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "2024.06.15 가입dafkmdalfmalsdfmaldfmkamdfakdfmalkmflkadadf"
-        label.font = FontCase.regular14
-        label.textColor = ColorCase.gray2
-        return label
-    }()
+    lazy var dateLabel = CustomLabel(color: ColorCase.gray2, fontCase: FontCase.regular14)
+    
 
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()

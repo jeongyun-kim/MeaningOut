@@ -10,14 +10,8 @@ import SnapKit
 import Kingfisher
 
 class ItemCollectionViewCell: UICollectionViewCell, SetupView {
-    private lazy var thumbnailImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = CGFloat(CornerRadiusCase.image.rawValue)
-        imageView.backgroundColor = .lightGray
-        imageView.layer.masksToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+
+    private lazy var thumbnailImageView = CustomImageView(radius: .image)
     
     private lazy var mallNameLabel: UILabel = {
         let label = UILabel()

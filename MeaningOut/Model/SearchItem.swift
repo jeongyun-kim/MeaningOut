@@ -63,5 +63,6 @@ struct SearchItem {
         }
         
         ud.likedItemId = likedItemIdList
+        ud.likeCnt = likedItemIdList.count
     }
 }

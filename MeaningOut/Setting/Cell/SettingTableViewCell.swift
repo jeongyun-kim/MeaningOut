@@ -10,24 +10,28 @@ import SnapKit
 
 class SettingTableViewCell: UITableViewCell, SetupView {
     
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontCase.regular14
-        label.text = "오에에에엥"
-        return label
-    }()
+    private lazy var titleLabel = CustomLabel(title: "", fontCase: FontCase.regular14)
     
-    lazy var border = CustomBorder(color: ColorCase.black)
+    private lazy var border = CustomBorder(color: ColorCase.black)
+    
+    private lazy var likeButton: UIButton = {
+        let button = UIButton(configuration: .plain())
+        button.setImage(ImageCase.like_selected, for: .normal)
+        button.tintColor = ColorCase.black
+        return button
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupHierarchy()
         setupConstraints()
+        configureLayout()
     }
     
     func setupHierarchy() {
         contentView.addSubview(titleLabel)
         contentView.addSubview(border)
+        contentView.addSubview(likeButton)
     }
     
     func setupConstraints() {
@@ -40,10 +44,40 @@ class SettingTableViewCell: UITableViewCell, SetupView {
             make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(16)
             make.bottom.equalTo(contentView.snp.bottom)
         }
+        
+        likeButton.snp.makeConstraints { make in
+            make.leading.greaterThanOrEqualTo(titleLabel.snp.trailing).offset(10)
+            make.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(16)
+            make.centerY.equalTo(titleLabel.snp.centerY)
+        }
+    }
+    
+    private func configureLayout() {
+        selectionStyle = .none
     }
     
     func configureCell(_ data: SettingCellTitle) {
         titleLabel.text = data.rawValue
+        
+        if data == .likeList {
+            likeButton.setAttributedTitle(getAttributedLikeCntTitle(), for: .normal)
+        } else {
+            likeButton.isHidden = true
+        }
+    }
+    
+    private func getAttributedLikeCntTitle() -> NSAttributedString {
+        let text = "\(UserDefaultsManager.likeCnt)개" // 상품 개수
+        let title = "\(text)의 상품" // 찐타이틀
+        let attributedString = NSMutableAttributedString(string: title)
+        
+        // 상품 개수에만 14 bold 적용
+        attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 14), range: (title as NSString).range(of: text))
+        // 그 외에는 크기 14만 적용
+        attributedString.addAttribute(.font, value: FontCase.regular14, range: (title as NSString).range(of: "의 상품"))
+        
+        // 설정먹인 문자열 반환 
+        return attributedString
     }
     
     required init?(coder: NSCoder) {

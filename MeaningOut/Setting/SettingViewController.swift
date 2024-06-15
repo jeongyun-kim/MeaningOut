@@ -24,10 +24,13 @@ class SettingViewController: UIViewController, SetupView {
         setupUI()
     }
     
+    /// UITableView was told to layout its visible cells and other contents without being in the view hierarchy?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 좋아요 등록/해제하고 왔을 때, 바뀐 좋아요 개수 반영하기
-        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        DispatchQueue.main.async {
+            self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        }
     }
     
     func setupHierarchy() {

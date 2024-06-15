@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E029212C2C1D58E800A12B1D /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E029212B2C1D58E800A12B1D /* SettingTableViewCell.swift */; };
+		E02921302C1D601000A12B1D /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E029212F2C1D601000A12B1D /* CustomLabel.swift */; };
+		E02921322C1D615100A12B1D /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02921312C1D615100A12B1D /* CustomImageView.swift */; };
 		E07D8F752C1C522500282A16 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07D8F742C1C522500282A16 /* PaddingLabel.swift */; };
 		E07D8F772C1C653600282A16 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07D8F762C1C653600282A16 /* SearchResult.swift */; };
 		E07D8F792C1C690800282A16 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07D8F782C1C690800282A16 /* ItemCollectionViewCell.swift */; };
@@ -47,6 +49,8 @@
 
 /* Begin PBXFileReference section */
 		E029212B2C1D58E800A12B1D /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		E029212F2C1D601000A12B1D /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		E02921312C1D615100A12B1D /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		E07D8F742C1C522500282A16 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		E07D8F762C1C653600282A16 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		E07D8F782C1C690800282A16 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -154,6 +158,8 @@
 				E0B0B7622C1C0FD600A24154 /* ProfileLayerView.swift */,
 				E0B0B7682C1C212D00A24154 /* EmptyView.swift */,
 				E07D8F742C1C522500282A16 /* PaddingLabel.swift */,
+				E029212F2C1D601000A12B1D /* CustomLabel.swift */,
+				E02921312C1D615100A12B1D /* CustomImageView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -332,6 +338,7 @@
 				E029212C2C1D58E800A12B1D /* SettingTableViewCell.swift in Sources */,
 				E0B0B7742C1C3E1500A24154 /* TagCollectionViewCell.swift in Sources */,
 				E0B0B7712C1C325C00A24154 /* APIKey.swift in Sources */,
+				E02921322C1D615100A12B1D /* CustomImageView.swift in Sources */,
 				E0B0B7342C1AED4800A24154 /* OnboardingViewController.swift in Sources */,
 				E0B0B7612C1BF7FB00A24154 /* ReusableIdentifier.swift in Sources */,
 				E07D8F7E2C1C86A100282A16 /* SearchItem.swift in Sources */,
@@ -340,6 +347,7 @@
 				E07D8F822C1CA01000282A16 /* SettingTableViewHeader.swift in Sources */,
 				E07D8F772C1C653600282A16 /* SearchResult.swift in Sources */,
 				E07D8F752C1C522500282A16 /* PaddingLabel.swift in Sources */,
+				E02921302C1D601000A12B1D /* CustomLabel.swift in Sources */,
 				E0B0B7412C1AF37B00A24154 /* SetupView.swift in Sources */,
 				E0B0B7362C1AEDB300A24154 /* TabBarController.swift in Sources */,
 				E0B0B7512C1B012600A24154 /* ProfileImage.swift in Sources */,
