@@ -8,7 +8,7 @@
 import UIKit
 
 class CustomImageView: UIImageView {
-    init(img: UIImage = .empty, radius: CornerRadiusCase = .none, bgColor: UIColor = ColorCase.gray3) {
+    init(img: UIImage = .empty, radius: CornerRadiusCase = .none, bgColor: UIColor = ColorCase.white) {
         super.init(image: .empty)
         configureImageView(img, radius, bgColor)
     }

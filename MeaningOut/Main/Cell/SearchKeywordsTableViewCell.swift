@@ -17,11 +17,7 @@ class SearchKeywordsTableViewCell: UITableViewCell, SetupView {
         return imageView
     }()
     
-    private lazy var keywordLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontCase.regular14
-        return label
-    }()
+    private lazy var keywordLabel = CustomLabel(fontCase: FontCase.regular14)
     
     lazy var deleteButton: UIButton = {
         let button = UIButton()

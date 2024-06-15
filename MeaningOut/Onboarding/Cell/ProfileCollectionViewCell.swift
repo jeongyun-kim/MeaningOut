@@ -10,7 +10,7 @@ import UIKit
 class ProfileCollectionViewCell: UICollectionViewCell, SetupView {
     lazy var view = UIView()
     
-    lazy var imageView = UIImageView()
+    lazy var imageView = CustomImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,7 +49,6 @@ class ProfileCollectionViewCell: UICollectionViewCell, SetupView {
             setSelected(false)
         }
         imageView.image = UIImage(named: data.imageName)
-        imageView.contentMode = .scaleAspectFill
     }
     
     // 선택된 상태인지 아닌지에 따라 다르게

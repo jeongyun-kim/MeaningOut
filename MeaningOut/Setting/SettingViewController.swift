@@ -28,9 +28,10 @@ class SettingViewController: UIViewController, SetupView {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 좋아요 등록/해제하고 왔을 때, 바뀐 좋아요 개수 반영하기
-        DispatchQueue.main.async {
-            self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
-        }
+        tableView.reloadData()
+        // 프로필 수정화면에서 설정화면으로 다시 오면 수정화면에서 선택했던 임시프로필데이터를 현재 찐프로필데이터로 덮기
+        // <- 프로필 닉네임 수정화면에서 임시프로필데이터를 기준으로 이미지를 보여주고 있기 때문 
+        ProfileImage.tempSelectedImage = ProfileImage(imageName: ud.userProfileImage)
     }
     
     func setupHierarchy() {
@@ -66,6 +67,8 @@ class SettingViewController: UIViewController, SetupView {
     
     func setupUI() {
         view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.tintColor = ColorCase.black
+        navigationItem.backButtonTitle = ""
         navigationItem.title = "SETTING"
     }
     
@@ -74,7 +77,9 @@ class SettingViewController: UIViewController, SetupView {
         
         let confirm = UIAlertAction(title: item.confirmActionTitle, style: .default) { [unowned self] _ in
             self.ud.deleteAllDatas()
-            self.getNewScene(rootVC: OnboardingViewController())
+            
+            let rootViewController = UINavigationController(rootViewController: OnboardingViewController())
+            self.getNewScene(rootVC: rootViewController)
         }
         let cancel = UIAlertAction(title: item.cancelActionTitle, style: .cancel)
         
@@ -82,6 +87,12 @@ class SettingViewController: UIViewController, SetupView {
         alert.addAction(cancel)
 
         present(alert, animated: true)
+    }
+    
+    @objc func buttonTapped(_ sender: UIButton) {
+        let vc = ProfileNicknameViewController()
+        vc.nicknameViewType = .edit
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -99,6 +110,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingTableViewHeader.identifier) as! SettingTableViewHeader
+        header.button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        header.configureHeaderView(profile: ud.userProfileImage, nickname: ud.userName)
         return header
     }
     

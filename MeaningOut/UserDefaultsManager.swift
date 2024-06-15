@@ -20,7 +20,7 @@ class UserDefaultsManager {
     
     static var userProfileImage: String {
         get {
-            UserDefaults.standard.string(forKey: "profileImage") ?? ""
+            UserDefaults.standard.string(forKey: "profileImage") ?? ProfileImage.randomImage.imageName
         }
         set {
             UserDefaults.standard.setValue(newValue, forKey: "profileImage")
@@ -36,15 +36,15 @@ class UserDefaultsManager {
         }
     }
     
-    static var selectedImage: String {
-        // 사용자가 선택한 이미지가 저장되어있지않으면 랜덤이미지 불러오기
-        get {
-            UserDefaults.standard.string(forKey: "selectedImage") ?? ProfileImage.randomImage.imageName
-        }
-        set {
-            UserDefaults.standard.setValue(newValue, forKey: "selectedImage")
-        }
-    }
+//    static var selectedImage: String {
+//        // 사용자가 선택한 이미지가 저장되어있지않으면 랜덤이미지 불러오기
+//        get {
+//            UserDefaults.standard.string(forKey: "selectedImage") ?? ProfileImage.randomImage.imageName
+//        }
+//        set {
+//            UserDefaults.standard.setValue(newValue, forKey: "selectedImage")
+//        }
+//    }
     
     static var searchKeywords: [String] {
         get {

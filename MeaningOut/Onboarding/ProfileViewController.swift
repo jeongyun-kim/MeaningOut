@@ -10,10 +10,14 @@ import SnapKit
 
 class ProfileViewController: UIViewController, SetupView {
     
-    lazy var nowSelectedImage: ProfileImage = ProfileImage(imageName: "") {
-        didSet { // 현재 선택한 이미지로 변경
-            profileImageView.image = UIImage(named: nowSelectedImage.imageName)
-            collectionView.reloadData() // 현재 선택한 이미지, 아닌 이미지 셀 다시 그리기 위해
+    lazy var tempProfileImage: ProfileImage = ProfileImage(imageName: "") {
+        didSet { 
+            // 현재 선택한 이미지로 변경
+            profileImageView.image = UIImage(named: tempProfileImage.imageName)
+            // 현재 선택한 이미지, 아닌 이미지 셀 다시 그리기 위해
+            collectionView.reloadData()
+            // 임시 이미지 저장
+            ProfileImage.tempSelectedImage = tempProfileImage
         }
     }
     
@@ -21,17 +25,13 @@ class ProfileViewController: UIViewController, SetupView {
     
     private lazy var profileLayerView = ProfileLayerView(120)
     
-    private lazy var profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-    
+    private lazy var profileImageView = CustomImageView()
+
     private lazy var profileList: [ProfileImage] = ProfileImage.imageList
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
-    private lazy var ProfileViewType: ProfileViewType = .setting
+    lazy var profileViewType: ViewType = .setting
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +72,7 @@ class ProfileViewController: UIViewController, SetupView {
     
     func setupUI() {
         view.backgroundColor = .systemBackground
-        navigationItem.title = ProfileViewType.rawValue
+        navigationItem.title = profileViewType.rawValue
     }
     
     func setupCollectionView() {
@@ -104,12 +104,11 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCollectionViewCell.identifier, for: indexPath) as! ProfileCollectionViewCell
-        cell.configureCell(profileList[indexPath.row], nowData: nowSelectedImage)
+        cell.configureCell(profileList[indexPath.row], nowData: tempProfileImage)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        nowSelectedImage = profileList[indexPath.row]
-        UserDefaultsManager.selectedImage = nowSelectedImage.imageName
+        tempProfileImage = profileList[indexPath.row]
     }
 }

@@ -70,6 +70,7 @@ class MainViewController: UIViewController, SetupView {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         searchKeywordsList = ud.searchKeywords
+        navigationItem.title = "\(ud.userName)'s MEANING OUT"
     }
     
     func setupHierarchy() {
@@ -129,7 +130,6 @@ class MainViewController: UIViewController, SetupView {
     
     func setupUI() {
         view.backgroundColor = .systemBackground
-        navigationItem.title = "\(ud.userName)'s MEANING OUT"
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = ColorCase.black
         searchBar.delegate = self
@@ -184,6 +184,7 @@ extension MainViewController: UISearchBarDelegate {
             ud.searchKeywords = searchKeywordsList
         }
         
+        searchBar.text = ""
         pushSearchVC(keyword)
     }
 }

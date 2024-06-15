@@ -11,20 +11,23 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
     
     lazy var ud = UserDefaultsManager.self
     
+    lazy var button = UIButton()
+    
     lazy var profileLayerView = ProfileLayerView(80)
     
-    lazy var profileImageView = CustomImageView(img: UIImage(named: ud.userProfileImage)!)
+    lazy var profileImageView = CustomImageView(bgColor: ColorCase.white)
     
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 4
+        stackView.distribution = .fillEqually
         return stackView
     }()
     
-    lazy var nicknameLabel = CustomLabel(title: ud.userName, fontCase: FontCase.bold20)
+    lazy var nicknameLabel = CustomLabel(fontCase: FontCase.bold20)
     
-    lazy var dateLabel = CustomLabel(color: ColorCase.gray2, fontCase: FontCase.regular14)
+    lazy var dateLabel = CustomLabel(title: "dmdfldmflkdklfdmfl", color: ColorCase.gray2, fontCase: FontCase.regular14)
     
 
     lazy var imageView: UIImageView = {
@@ -44,6 +47,11 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
         setupConstraints()
     }
     
+    func configureHeaderView(profile: String, nickname: String) {
+        profileImageView.image = UIImage(named: profile)
+        nicknameLabel.text = nickname
+    }
+    
     func setupHierarchy() {
         contentView.addSubview(profileLayerView)
         profileLayerView.addSubview(profileImageView)
@@ -53,18 +61,19 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
         }
         contentView.addSubview(imageView)
         contentView.addSubview(border)
+        contentView.addSubview(button)
     }
     
     // 다시 잡기
     func setupConstraints() {
         profileLayerView.snp.makeConstraints { make in
-            make.centerY.equalTo(contentView.safeAreaLayoutGuide)
+            make.verticalEdges.lessThanOrEqualTo(20)
             make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(16)
         }
         
         profileImageView.snp.makeConstraints { make in
-            make.size.equalTo(profileLayerView.snp.width)
-            make.bottom.equalTo(profileImageView.snp.bottom)
+            make.size.equalTo(profileLayerView.snp.width).multipliedBy(0.9)
+            make.bottom.equalTo(profileLayerView.snp.bottom)
             make.centerX.equalTo(profileLayerView.snp.centerX)
         }
         
@@ -78,6 +87,10 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
             make.centerY.equalTo(stackView.snp.centerY)
             make.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(16)
             make.size.equalTo(15)
+        }
+        
+        button.snp.makeConstraints { make in
+            make.edges.equalTo(contentView.safeAreaLayoutGuide)
         }
     }
     

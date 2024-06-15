@@ -10,38 +10,45 @@ import SnapKit
 
 class ProfileNicknameViewController: UIViewController, SetupView {
     
+    lazy var nicknameViewType: ViewType = .setting
+    
     lazy var ud = UserDefaultsManager.self
     
     private lazy var naviBorder = CustomBorder()
     
     // 현재 프로필에 걸려있는 프로필 이미지
-    private var selectedProfileImage: ProfileImage  {
-        ProfileImage(imageName: ud.selectedImage)
-    }
+    // 뷰를 불러올 때에는 찐데이터 -> 저장 전까지는 임시데이터
+    //private lazy var profileImage = ProfileImage.tempSelectedImage
     
     // 프로필뷰
     private lazy var profileLayerView = ProfileLayerView(120)
     
-    private lazy var profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    private lazy var profileImageView = CustomImageView()
 
     private lazy var nicknameTextField = NicknameTextField(placeholderType: .nickname)
     
     private lazy var textFieldBorder = CustomBorder()
     
-    private lazy var checkNicknameLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontCase.regular13
-        label.textColor = ColorCase.primaryColor
-        return label
-    }()
+    private lazy var checkLabel = CustomLabel(color: ColorCase.primaryColor, fontCase: FontCase.regular13)
     
     private lazy var confirmButton = OnboardingButton(title: "완료")
     
     private lazy var profileButton = UIButton()
+    
+    private lazy var nicknameCheck: NicknameCheckType = .wrongNicknameCnt {
+        didSet {
+            checkLabel.text = nicknameCheck.rawValue
+            
+            switch nicknameCheck {
+            case .confirm:
+                navigationItem.rightBarButtonItem?.isEnabled = true
+                confirmButton.isEnabled = true
+            case .wrongNicknameCnt, .containsNumber, .containsSpecialCharacter:
+                navigationItem.rightBarButtonItem?.isEnabled = false
+                confirmButton.isEnabled = false
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +60,12 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        profileImageView.image = UIImage(named: selectedProfileImage.imageName)
+        profileImageView.image = UIImage(named: ProfileImage.tempSelectedImage.imageName)
+        
+        if nicknameViewType == .edit {
+            nicknameTextField.text = ud.userName
+            confirmButton.isHidden = true
+        }
     }
     
     func setupHierarchy() {
@@ -63,7 +75,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         view.addSubview(profileButton)
         view.addSubview(nicknameTextField)
         view.addSubview(textFieldBorder)
-        view.addSubview(checkNicknameLabel)
+        view.addSubview(checkLabel)
         view.addSubview(confirmButton)
     }
     
@@ -99,7 +111,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
             make.top.equalTo(nicknameTextField.snp.bottom)
         }
         
-        checkNicknameLabel.snp.makeConstraints { make in
+        checkLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(textFieldBorder)
             make.top.equalTo(textFieldBorder.snp.bottom).offset(8)
         }
@@ -116,9 +128,15 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     func setupUI() {
         view.backgroundColor = .systemBackground
-        navigationItem.title = "PROFILE SETTING"
-        navigationItem.backButtonTitle = ""
         confirmButton.isEnabled = false
+        
+        navigationController?.navigationBar.tintColor = ColorCase.black
+        navigationItem.title = nicknameViewType.rawValue
+        navigationItem.backButtonTitle = ""
+        if nicknameViewType == .edit {
+            let rightBarItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveData))
+            navigationItem.rightBarButtonItem = rightBarItem
+        }
     }
     
     func addActions() {
@@ -127,19 +145,26 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         profileButton.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
     }
     
+    @objc func saveData() {
+        ud.userName = nicknameTextField.text!
+        ud.userProfileImage = ProfileImage.tempSelectedImage.imageName
+
+        if nicknameViewType == .edit {
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
     @objc func profileImageTapped(_ sender: UIButton) {
-        print(#function)
         let vc = ProfileViewController()
-        vc.nowSelectedImage = selectedProfileImage
+        vc.tempProfileImage = ProfileImage.tempSelectedImage
+        vc.profileViewType = .edit
         navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func confirmBtnTapped(_ sender: UIButton) {
-        ud.userName = nicknameTextField.text!
-        ud.userProfileImage = selectedProfileImage.imageName
         ud.isUser = true
-        
-        getNewScene(rootVC: MainViewController())
+        saveData()
+        getNewScene(rootVC: TabBarController())
     }
     
     @objc func textFieldDidChange(_ sender: UITextField) {
@@ -151,14 +176,16 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         
         // 마지막 글자가 특수문자인지 확인
         if ["$", "%", "@", "#"].contains(lastChr) {
-            configureCheckLabel(.containsSpecialCharacter)
+            nicknameCheck = .containsSpecialCharacter
+            //configureCheckLabel(.containsSpecialCharacter)
             return
         }
         
         // 마지막 글자가 숫자인지 확인
         if Int(String(describing: lastChr)) != nil {
-            configureCheckLabel(.containsNumber)
-            return 
+            nicknameCheck = .containsNumber
+            //configureCheckLabel(.containsNumber)
+            return
         }
         
         // 전체 문자 확인
@@ -170,24 +197,17 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         let isContainsSpecial = text.range(of: NicknameRegex.specialCharacter, options: .regularExpression) != nil
         
         if removeWhiteSpaceCnt < 2 || removeWhiteSpaceCnt > 10 { // 문자열 길이
-            configureCheckLabel(.wrongNicknameCnt)
+            nicknameCheck = .wrongNicknameCnt
+            //configureCheckLabel(.wrongNicknameCnt)
         } else if  isContainsNumber  { // 숫자
-            configureCheckLabel(.containsNumber)
+            nicknameCheck = .containsNumber
+            //configureCheckLabel(.containsNumber)
         } else if isContainsSpecial { // 특수문자
-            configureCheckLabel(.containsSpecialCharacter)
+            nicknameCheck = .containsSpecialCharacter
+            //configureCheckLabel(.containsSpecialCharacter)
         } else {
-            configureCheckLabel(.confirm)
-        }
-    }
-    
-    private func configureCheckLabel(_ type: NicknameCheckType) {
-        checkNicknameLabel.text = type.rawValue
-
-        switch type {
-        case .confirm: 
-            confirmButton.isEnabled = true
-        case .wrongNicknameCnt, .containsNumber, .containsSpecialCharacter:
-            confirmButton.isEnabled = false
+            nicknameCheck = .confirm
+            //configureCheckLabel(.confirm)
         }
     }
 }

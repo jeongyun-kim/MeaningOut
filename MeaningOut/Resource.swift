@@ -63,7 +63,7 @@ enum NicknameCheckType: String {
     case containsSpecialCharacter = "닉네임에 @, #, $, %는 포함할 수 없어요"
 }
 
-enum ProfileViewType: String {
+enum ViewType: String {
     case setting = "PROFILE SETTING"
     case edit = "EDIT PROFILE"
 }
