@@ -28,6 +28,11 @@ class SettingTableViewCell: UITableViewCell, SetupView {
         configureLayout()
     }
     
+    // 셀 재사용될 때 호출
+    override func prepareForReuse() {
+        likeButton.isHidden = false
+    }
+    
     func setupHierarchy() {
         contentView.addSubview(titleLabel)
         contentView.addSubview(border)
@@ -55,7 +60,7 @@ class SettingTableViewCell: UITableViewCell, SetupView {
     private func configureLayout() {
         selectionStyle = .none
     }
-    
+
     func configureCell(_ data: SettingCellTitle) {
         titleLabel.text = data.rawValue
         
@@ -75,8 +80,8 @@ class SettingTableViewCell: UITableViewCell, SetupView {
         attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 14), range: (title as NSString).range(of: text))
         // 그 외에는 크기 14만 적용
         attributedString.addAttribute(.font, value: FontCase.regular14, range: (title as NSString).range(of: "의 상품"))
-        
-        // 설정먹인 문자열 반환 
+
+        // 설정먹인 문자열 반환
         return attributedString
     }
     

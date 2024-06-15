@@ -23,8 +23,7 @@ class SettingViewController: UIViewController, SetupView {
         setupTableView()
         setupUI()
     }
-    
-    /// UITableView was told to layout its visible cells and other contents without being in the view hierarchy?
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 좋아요 등록/해제하고 왔을 때, 바뀐 데이터 반영
