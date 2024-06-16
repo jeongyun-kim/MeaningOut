@@ -8,7 +8,8 @@
 import UIKit
 
 class ProfileCollectionViewCell: UICollectionViewCell, SetupView {
-    lazy var profileLayerView = ProfileLayerView(.zero)
+    
+    lazy var profileLayerView = ProfileLayerView(.none)
     
     lazy var imageView = CustomImageView()
     

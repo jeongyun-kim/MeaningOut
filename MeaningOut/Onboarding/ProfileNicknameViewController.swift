@@ -17,9 +17,11 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     private lazy var naviBorder = CustomBorder()
     
     // 프로필뷰
-    private lazy var profileLayerView = ProfileLayerView(120)
+    private lazy var profileLayerView = ProfileLayerView(.mainProfile)
     
     private lazy var profileImageView = CustomImageView()
+    
+    private lazy var badgeView = ProfileBadgeView(.mainProfile)
     
     private lazy var profileButton = UIButton()
 
@@ -63,6 +65,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         view.addSubview(naviBorder)
         view.addSubview(profileLayerView)
         profileLayerView.addSubview(profileImageView)
+        view.addSubview(badgeView)
         view.addSubview(profileButton)
         view.addSubview(nicknameTextField)
         view.addSubview(textFieldBorder)
@@ -78,6 +81,10 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         profileLayerView.snp.makeConstraints { make in
             make.top.equalTo(naviBorder.snp.bottom).offset(16)
             make.centerX.equalTo(view.snp.centerX)
+        }
+        
+        badgeView.snp.makeConstraints { make in
+            make.trailing.bottom.equalTo(profileLayerView).inset(ProfileLayerSizeCase.mainProfile.inset)
         }
         
         profileImageView.snp.makeConstraints { make in

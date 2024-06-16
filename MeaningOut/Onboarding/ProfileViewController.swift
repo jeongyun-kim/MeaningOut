@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class ProfileViewController: UIViewController, SetupView {
-    
+
     lazy var tempProfileImage: ProfileImage = ProfileImage(imageName: "") {
         didSet { 
             // 현재 선택한 이미지로 변경
@@ -23,9 +23,11 @@ class ProfileViewController: UIViewController, SetupView {
     
     private lazy var naviBorder = CustomBorder()
     
-    private lazy var profileLayerView = ProfileLayerView(120)
+    private lazy var profileLayerView = ProfileLayerView(.mainProfile)
     
     private lazy var profileImageView = CustomImageView()
+    
+    lazy var badgeImage = ProfileBadgeView(.mainProfile)
 
     private lazy var profileList: [ProfileImage] = ProfileImage.imageList
     
@@ -45,6 +47,7 @@ class ProfileViewController: UIViewController, SetupView {
         view.addSubview(naviBorder)
         view.addSubview(profileLayerView)
         profileLayerView.addSubview(profileImageView)
+        view.addSubview(badgeImage)
         view.addSubview(collectionView)
     }
     
@@ -57,6 +60,10 @@ class ProfileViewController: UIViewController, SetupView {
         profileLayerView.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(naviBorder.snp.bottom).offset(16)
+        }
+        
+        badgeImage.snp.makeConstraints { make in
+            make.trailing.bottom.equalTo(profileLayerView).inset(ProfileLayerSizeCase.mainProfile.inset)
         }
         
         profileImageView.snp.makeConstraints { make in

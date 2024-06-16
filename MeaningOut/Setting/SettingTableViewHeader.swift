@@ -13,7 +13,9 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
     
     lazy var button = UIButton()
     
-    lazy var profileLayerView = ProfileLayerView(80)
+    lazy var profileLayerView = ProfileLayerView(.headerProfile)
+    
+    lazy var badgeImage = ProfileBadgeView(.headerProfile)
     
     lazy var profileImageView = CustomImageView(bgColor: ColorCase.white)
     
@@ -61,6 +63,7 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
         contentView.addSubview(imageView)
         contentView.addSubview(border)
         contentView.addSubview(button)
+        contentView.addSubview(badgeImage)
     }
     
     // 다시 잡기
@@ -68,6 +71,10 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
         profileLayerView.snp.makeConstraints { make in
             make.verticalEdges.lessThanOrEqualTo(20)
             make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(16)
+        }
+        
+        badgeImage.snp.makeConstraints { make in
+            make.trailing.bottom.equalTo(profileLayerView).inset(ProfileLayerSizeCase.headerProfile.inset)
         }
         
         profileImageView.snp.makeConstraints { make in

@@ -10,20 +10,22 @@ import SnapKit
 
 class ProfileLayerView: UIView{
 
-    init(_ size: Int) {
-        super.init(frame: CGRect(x: 0, y: 0, width: size, height: size))
-        configureLayout(size)
+    init(_ profileLayerSize: ProfileLayerSizeCase) {
+        super.init(frame: .zero)
+        configureLayout(profileLayerSize)
     }
    
-    private func configureLayout(_ size: Int) {
+    private func configureLayout(_ profileLayerSize: ProfileLayerSizeCase) {
         layer.borderWidth = BorderCase.profile
         layer.borderColor = ColorCase.primaryColor.cgColor
         layer.masksToBounds = true
+        
+        let size = profileLayerSize.rawValue
         if size != 0 {
             snp.makeConstraints { make in
                 make.size.equalTo(size)
             }
-            layer.cornerRadius = frame.width / 2
+            layer.cornerRadius = CGFloat(size / 2)
         }
     }
     
