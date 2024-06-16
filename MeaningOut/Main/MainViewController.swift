@@ -120,6 +120,7 @@ class MainViewController: UIViewController, SetupView {
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
+        tableView.keyboardDismissMode = .onDrag
     }
     
     func setupUI() {
@@ -181,6 +182,7 @@ extension MainViewController: UISearchBarDelegate {
         }
         
         searchBar.text = ""
+        view.endEditing(true)
         pushSearchVC(keyword)
     }
 }
