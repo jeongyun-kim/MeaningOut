@@ -81,6 +81,7 @@ class SearchViewController: UIViewController, SetupView {
     func setupUI() {
         view.backgroundColor = .systemBackground
         navigationItem.title = keyword
+        navigationItem.backButtonTitle = ""
     }
     
     func setupCollectionView() {
@@ -143,7 +144,7 @@ class SearchViewController: UIViewController, SetupView {
                 
                 self.itemCollectionView.reloadData()
                 
-                if self.startPoint == 1 { // 시작점이 1이라면 스크롤 맨위로
+                if self.startPoint == 1 && self.itemList.count > 0 { // 시작점이 1이라면 스크롤 맨위로
                     self.itemCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                 }
                 
