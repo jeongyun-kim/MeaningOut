@@ -9,13 +9,8 @@ import UIKit
 import SnapKit
 
 class OnboardingViewController: UIViewController, SetupView {
-    private lazy var onboardingLabel: UILabel = {
-        let label = UILabel()
-        label.text = "MeaningOut"
-        label.font = FontCase.bold48
-        label.textColor = ColorCase.primaryColor
-        return label
-    }()
+    
+    private lazy var onboardingLabel = CustomLabel(title: "MeaningOut", color: ColorCase.primaryColor, fontCase: FontCase.bold48)
     
     private lazy var onboardingImageView: UIImageView = {
         let imageView = UIImageView()
@@ -36,9 +31,8 @@ class OnboardingViewController: UIViewController, SetupView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 프로필 설정 화면에서 온보딩 화면으로 다시 오면 선택해뒀던 프로필 이미지도 삭제
-        //UserDefaults.standard.removeObject(forKey: "profileImage")
-        ProfileImage.tempSelectedImage = nil
+        // 프로필 설정 화면에서 온보딩 화면으로 다시 오면 선택해뒀던 프로필 이미지 제거 
+        ProfileImage.tempSelectedProfileImage = nil
     }
     
     func setupHierarchy() {

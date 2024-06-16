@@ -20,20 +20,20 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     private lazy var profileLayerView = ProfileLayerView(120)
     
     private lazy var profileImageView = CustomImageView()
+    
+    private lazy var profileButton = UIButton()
 
     private lazy var nicknameTextField = NicknameTextField(placeholderType: .nickname)
     
     private lazy var textFieldBorder = CustomBorder()
     
-    private lazy var checkLabel = CustomLabel(color: ColorCase.primaryColor, fontCase: FontCase.regular13)
+    private lazy var nicknameCheckLabel = CustomLabel(color: ColorCase.primaryColor, fontCase: FontCase.regular13)
     
     private lazy var confirmButton = OnboardingButton(title: "완료")
     
-    private lazy var profileButton = UIButton()
-    
     private lazy var nicknameCheck: NicknameCheckType = .wrongNicknameCnt {
         didSet {
-            checkLabel.text = nicknameCheck.rawValue
+            nicknameCheckLabel.text = nicknameCheck.rawValue
             
             switch nicknameCheck {
             case .confirm:
@@ -66,7 +66,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         view.addSubview(profileButton)
         view.addSubview(nicknameTextField)
         view.addSubview(textFieldBorder)
-        view.addSubview(checkLabel)
+        view.addSubview(nicknameCheckLabel)
         view.addSubview(confirmButton)
     }
     
@@ -102,7 +102,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
             make.top.equalTo(nicknameTextField.snp.bottom)
         }
         
-        checkLabel.snp.makeConstraints { make in
+        nicknameCheckLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(textFieldBorder)
             make.top.equalTo(textFieldBorder.snp.bottom).offset(8)
         }
@@ -131,13 +131,13 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     private func configureProfileImageView() {
         // 프로필 선택화면에서 선택하고 넘어온 상태라면
-        if let profile = ProfileImage.tempSelectedImage {
+        if let profile = ProfileImage.tempSelectedProfileImage {
             let imageName = profile.imageName
             profileImageView.image = UIImage(named: imageName)
         } else { // 온보딩 화면에서 넘어온 상태라면
             let imageName = ProfileImage.randomImage.imageName
             profileImageView.image = UIImage(named: imageName)
-            ProfileImage.tempSelectedImage = ProfileImage(imageName: imageName)
+            ProfileImage.tempSelectedProfileImage = ProfileImage(imageName: imageName)
         }
     }
     
@@ -154,12 +154,12 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     func addActions() {
         nicknameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         confirmButton.addTarget(self, action: #selector(confirmBtnTapped), for: .touchUpInside)
-        profileButton.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
+        profileButton.addTarget(self, action: #selector(profileBtnTapped), for: .touchUpInside)
     }
     
     @objc func saveData() {
         ud.userName = nicknameTextField.text!
-        ud.userProfileImage = ProfileImage.tempSelectedImage!.imageName
+        ud.userProfileImage = ProfileImage.tempSelectedProfileImage!.imageName
         ud.joinDate = getJoinDate()
         
         if nicknameViewType == .edit {
@@ -167,9 +167,9 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         }
     }
     
-    @objc func profileImageTapped(_ sender: UIButton) {
+    @objc func profileBtnTapped(_ sender: UIButton) {
         let vc = ProfileViewController()
-        guard let tempProfileImage = ProfileImage.tempSelectedImage else { return }
+        guard let tempProfileImage = ProfileImage.tempSelectedProfileImage else { return }
         vc.tempProfileImage = tempProfileImage
         vc.profileViewType = nicknameViewType
         navigationController?.pushViewController(vc, animated: true)
@@ -191,14 +191,12 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         // 마지막 글자가 특수문자인지 확인
         if ["$", "%", "@", "#"].contains(lastChr) {
             nicknameCheck = .containsSpecialCharacter
-            //configureCheckLabel(.containsSpecialCharacter)
             return
         }
         
         // 마지막 글자가 숫자인지 확인
         if Int(String(describing: lastChr)) != nil {
             nicknameCheck = .containsNumber
-            //configureCheckLabel(.containsNumber)
             return
         }
         
@@ -208,20 +206,16 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         // 닉네임에 숫자가 들어있는지
         let isContainsNumber = text.range(of: NicknameRegex.number, options: .regularExpression) != nil
         // 닉네임에 # $ @ % 가 들어있는지
-        let isContainsSpecial = text.range(of: NicknameRegex.specialCharacter, options: .regularExpression) != nil
+        let isContainsSpecialChr = text.range(of: NicknameRegex.specialCharacter, options: .regularExpression) != nil
         
         if removeWhiteSpaceCnt < 2 || removeWhiteSpaceCnt > 10 { // 문자열 길이
             nicknameCheck = .wrongNicknameCnt
-            //configureCheckLabel(.wrongNicknameCnt)
         } else if  isContainsNumber  { // 숫자
             nicknameCheck = .containsNumber
-            //configureCheckLabel(.containsNumber)
-        } else if isContainsSpecial { // 특수문자
+        } else if isContainsSpecialChr { // 특수문자
             nicknameCheck = .containsSpecialCharacter
-            //configureCheckLabel(.containsSpecialCharacter)
         } else {
             nicknameCheck = .confirm
-            //configureCheckLabel(.confirm)
         }
     }
     

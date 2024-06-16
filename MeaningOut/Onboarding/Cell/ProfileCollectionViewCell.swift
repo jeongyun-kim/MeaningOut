@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfileCollectionViewCell: UICollectionViewCell, SetupView {
-    lazy var view = UIView()
+    lazy var profileLayerView = ProfileLayerView(.zero)
     
     lazy var imageView = CustomImageView()
     
@@ -20,30 +20,30 @@ class ProfileCollectionViewCell: UICollectionViewCell, SetupView {
     }
     
     func setupHierarchy() {
-        contentView.addSubview(view)
-        view.addSubview(imageView)
+        contentView.addSubview(profileLayerView)
+        profileLayerView.addSubview(imageView)
     }
     
     func setupConstraints() {
-        view.snp.makeConstraints { make in
+        profileLayerView.snp.makeConstraints { make in
             make.edges.equalTo(contentView.safeAreaLayoutGuide)
         }
         
         imageView.snp.makeConstraints { make in
-            make.centerX.equalTo(view.snp.centerX)
-            make.bottom.equalTo(view.snp.bottom)
-            make.size.equalTo(view.snp.width).multipliedBy(0.9)
+            make.centerX.equalTo(profileLayerView.snp.centerX)
+            make.bottom.equalTo(profileLayerView.snp.bottom)
+            make.size.equalTo(profileLayerView.snp.width).multipliedBy(0.9)
         }
     }
     
     private func configureLayout() {
-        view.layer.cornerRadius = contentView.frame.width / 2
-        view.layer.masksToBounds = true
+        profileLayerView.layer.cornerRadius = contentView.frame.width / 2
+        profileLayerView.layer.masksToBounds = true
     }
     
     // 지금 들어온 이미지가 현재 선택되어있는 이미지랑 같은 이미지라면 true
-    func configureCell(_ data: ProfileImage, nowData: ProfileImage) {
-        if data.imageName == nowData.imageName {
+    func configureCell(_ data: ProfileImage, nowSelectedProfileImage: ProfileImage) {
+        if data.imageName == nowSelectedProfileImage.imageName {
             setSelected(true)
         } else {
             setSelected(false)
@@ -54,13 +54,13 @@ class ProfileCollectionViewCell: UICollectionViewCell, SetupView {
     // 선택된 상태인지 아닌지에 따라 다르게
     private func setSelected(_ selected: Bool) {
         if selected {
-            view.alpha = 1
-            view.layer.borderColor = ColorCase.primaryColor.cgColor
-            view.layer.borderWidth = BorderCase.selected
+            profileLayerView.alpha = 1
+            profileLayerView.layer.borderColor = ColorCase.primaryColor.cgColor
+            profileLayerView.layer.borderWidth = BorderCase.selected
         } else {
-            view.alpha = 0.5
-            view.layer.borderColor = ColorCase.gray2.cgColor
-            view.layer.borderWidth = BorderCase.deselected
+            profileLayerView.alpha = 0.5
+            profileLayerView.layer.borderColor = ColorCase.gray2.cgColor
+            profileLayerView.layer.borderWidth = BorderCase.deselected
         }
     }
 

@@ -31,7 +31,7 @@ class SettingViewController: UIViewController, SetupView {
         
         // 프로필 수정화면에서 설정화면으로 다시 오면 수정화면에서 선택했던 임시프로필데이터를 현재 찐프로필데이터로 덮기
         // <- 프로필 닉네임 수정화면에서 임시프로필데이터를 기준으로 이미지를 보여주고 있기 때문 
-        ProfileImage.tempSelectedImage = ProfileImage(imageName: ud.userProfileImage)
+        ProfileImage.tempSelectedProfileImage = ProfileImage(imageName: ud.userProfileImage)
     }
     
     func setupHierarchy() {
@@ -77,7 +77,7 @@ class SettingViewController: UIViewController, SetupView {
         
         let confirm = UIAlertAction(title: item.confirmActionTitle, style: .default) { [unowned self] _ in
             self.ud.deleteAllDatas()
-            
+            // 회원탈퇴 시 온보딩 화면으로 새로 시작 
             let rootViewController = UINavigationController(rootViewController: OnboardingViewController())
             self.getNewScene(rootVC: rootViewController)
         }
@@ -89,13 +89,14 @@ class SettingViewController: UIViewController, SetupView {
         present(alert, animated: true)
     }
     
-    @objc func buttonTapped(_ sender: UIButton) {
+    @objc func headerBtnTapped(_ sender: UIButton) {
         let vc = ProfileNicknameViewController()
         vc.nicknameViewType = .edit
         navigationController?.pushViewController(vc, animated: true)
     }
 }
 
+// MARK: TableViewExtension
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -110,7 +111,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingTableViewHeader.identifier) as! SettingTableViewHeader
-        header.button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        header.button.addTarget(self, action: #selector(headerBtnTapped), for: .touchUpInside)
         header.configureHeaderView(profile: ud.userProfileImage, nickname: ud.userName, joinDate: ud.joinDate)
         return header
     }

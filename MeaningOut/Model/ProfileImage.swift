@@ -33,7 +33,7 @@ extension ProfileImage {
     
     // 임시 저장 이미지
     // 프로필 선택 / 수정 전 데이터 
-    static var tempSelectedImage: ProfileImage? 
+    static var tempSelectedProfileImage: ProfileImage? 
 }
 
 

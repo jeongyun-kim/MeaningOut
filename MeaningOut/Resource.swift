@@ -70,7 +70,7 @@ enum ViewType: String {
 
 enum CornerRadiusCase: Int {
     case none = 0
-    case image, button = 6
+    case buttonOrImage = 6
     case label = 15
 }
 

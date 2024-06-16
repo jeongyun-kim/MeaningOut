@@ -19,10 +19,12 @@ class ProfileLayerView: UIView{
         layer.borderWidth = BorderCase.profile
         layer.borderColor = ColorCase.primaryColor.cgColor
         layer.masksToBounds = true
-        snp.makeConstraints { make in
-            make.size.equalTo(size)
+        if size != 0 {
+            snp.makeConstraints { make in
+                make.size.equalTo(size)
+            }
+            layer.cornerRadius = frame.width / 2
         }
-        layer.cornerRadius = frame.width / 2
     }
     
     required init?(coder: NSCoder) {

@@ -14,12 +14,12 @@ class MainViewController: UIViewController, SetupView {
     
     private lazy var searchKeywordsList: [String] = ud.searchKeywords {
         didSet {
-            if searchKeywordsList.isEmpty {
+            if searchKeywordsList.isEmpty { // 검색어 없으면 emptyView 보여주기
                 recentSearchLabel.isHidden = true
                 deleteAllButton.isHidden = true
                 tableView.isHidden = true
                 emptyView.isHidden = false
-            } else {
+            } else { // 검색어가 있다면 emptyView 숨기고 tableView 보여주기
                 recentSearchLabel.isHidden = false
                 deleteAllButton.isHidden = false
                 tableView.isHidden = false
@@ -39,13 +39,8 @@ class MainViewController: UIViewController, SetupView {
     
     private lazy var border = CustomBorder()
     
-    private lazy var recentSearchLabel: UILabel = {
-         let label = UILabel()
-         label.font = FontCase.bold16
-         label.text = "최근 검색"
-         return label
-     }()
-     
+    private lazy var recentSearchLabel = CustomLabel(title: "최근 검색", fontCase: FontCase.bold16)
+
      private lazy var deleteAllButton: UIButton = {
          let button = UIButton()
          button.setTitle("전체 삭제", for: .normal)
@@ -93,7 +88,6 @@ class MainViewController: UIViewController, SetupView {
         border.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(8)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(1)
         }
         
         emptyView.snp.makeConstraints { make in
@@ -156,6 +150,7 @@ class MainViewController: UIViewController, SetupView {
     }
 }
 
+// MARK: TableViewExtension
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchKeywordsList.count
@@ -175,6 +170,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: SearchBarDelegate
 extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let keyword = searchBar.text else { return }

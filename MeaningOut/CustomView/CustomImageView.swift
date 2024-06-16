@@ -8,20 +8,20 @@
 import UIKit
 
 class CustomImageView: UIImageView {
-    init(img: UIImage = .empty, radius: CornerRadiusCase = .none, bgColor: UIColor = ColorCase.white) {
+    init(img: UIImage = .empty, radius: CornerRadiusCase = .none, bgColor: UIColor = ColorCase.white, content: UIImageView.ContentMode = .scaleAspectFill) {
         super.init(image: .empty)
-        configureImageView(img, radius, bgColor)
+        configureImageView(img, radius, bgColor, content)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureImageView(_ img: UIImage, _ radius: CornerRadiusCase, _ bgColor: UIColor) {
+    private func configureImageView(_ img: UIImage, _ radius: CornerRadiusCase, _ bgColor: UIColor, _ content: UIImageView.ContentMode) {
         layer.masksToBounds = true
         layer.cornerRadius = CGFloat(radius.rawValue)
         backgroundColor = bgColor
-        contentMode = .scaleAspectFill
+        contentMode = contentMode
         image = img
     }
 }

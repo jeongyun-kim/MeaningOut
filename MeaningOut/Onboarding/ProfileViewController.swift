@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController, SetupView {
             // 현재 선택한 이미지, 아닌 이미지 셀 다시 그리기 위해
             collectionView.reloadData()
             // 임시 이미지 저장
-            ProfileImage.tempSelectedImage = tempProfileImage
+            ProfileImage.tempSelectedProfileImage = tempProfileImage
         }
     }
     
@@ -97,6 +97,7 @@ class ProfileViewController: UIViewController, SetupView {
     }
 }
 
+// MARK: CollectionViewExtension
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return profileList.count
@@ -104,7 +105,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCollectionViewCell.identifier, for: indexPath) as! ProfileCollectionViewCell
-        cell.configureCell(profileList[indexPath.row], nowData: tempProfileImage)
+        cell.configureCell(profileList[indexPath.row], nowSelectedProfileImage: tempProfileImage)
         return cell
     }
     

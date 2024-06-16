@@ -38,8 +38,7 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
     }()
     
     lazy var border = CustomBorder(color: ColorCase.black)
-  
-    
+
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupHierarchy()

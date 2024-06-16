@@ -11,7 +11,7 @@ import WebKit
 
 class DetailViewController: UIViewController, SetupView {
    
-    lazy var selectedItem: SearchItem = SearchItem(title: "", link: "", image: "", lprice: "", mallName: "", productId: "")
+    lazy var selectedItem: resultItem = resultItem(title: "", link: "", image: "", lprice: "", mallName: "", productId: "")
    
     lazy var border = CustomBorder()
     
@@ -22,7 +22,7 @@ class DetailViewController: UIViewController, SetupView {
         setupHierarchy()
         setupConstraints()
         setupUI()
-        configureWebView()
+        loadWebView()
     }
 
     func setupHierarchy() {
@@ -52,7 +52,7 @@ class DetailViewController: UIViewController, SetupView {
     }
     
     @objc func rightBarBtnTapped(_ sender: UIButton) {
-        SearchItem.addOrRemoveLikeId(selectedItem.productId)
+        resultItem.addOrRemoveLikeId(selectedItem.productId)
         navigationItem.rightBarButtonItem?.image = selectedItem.likeImage
     }
     
@@ -65,7 +65,7 @@ class DetailViewController: UIViewController, SetupView {
         present(alert, animated: true)
     }
     
-    private func configureWebView() {
+    private func loadWebView() {
         // url로 전환 -> request 생성 -> request로 load
         // http 링크위해 ATS = YES
         guard let url = URL(string: selectedItem.link) else { return showAlert() }

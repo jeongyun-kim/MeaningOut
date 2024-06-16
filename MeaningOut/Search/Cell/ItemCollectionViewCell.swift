@@ -11,34 +11,21 @@ import Kingfisher
 
 class ItemCollectionViewCell: UICollectionViewCell, SetupView {
 
-    private lazy var thumbnailImageView = CustomImageView(radius: .image)
+    private lazy var thumbnailImageView = CustomImageView(radius: .buttonOrImage, content: .scaleAspectFill)
     
-    private lazy var mallNameLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontCase.regular13
-        label.text = "네이버"
-        label.textColor = ColorCase.gray2
-        return label
-    }()
+    private lazy var mallNameLabel = CustomLabel(color: ColorCase.gray2, fontCase: FontCase.regular13)
     
     private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontCase.regular14
+        let label = CustomLabel(fontCase: FontCase.regular14)
         label.numberOfLines = 2
-        label.text = "애플 레트로 키캡 XDA PBT 한무무 기계식 키보드"
         return label
     }()
     
-    private lazy var priceLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontCase.bold16
-        label.text = "22,800원"
-        return label
-    }()
+    private lazy var priceLabel = CustomLabel(fontCase: FontCase.bold16)
     
     lazy var likeButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = CGFloat(CornerRadiusCase.button.rawValue)
+        button.layer.cornerRadius = CGFloat(CornerRadiusCase.buttonOrImage.rawValue)
         return button
     }()
     
@@ -84,7 +71,7 @@ class ItemCollectionViewCell: UICollectionViewCell, SetupView {
         }
     }
     
-    func configureCell(_ item: SearchItem) {
+    func configureCell(_ item: resultItem) {
         thumbnailImageView.kf.setImage(with: item.url)
         mallNameLabel.text = item.mallName
         titleLabel.text = item.replacedTitle

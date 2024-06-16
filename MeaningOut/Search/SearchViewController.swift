@@ -13,10 +13,7 @@ class SearchViewController: UIViewController, SetupView {
 
     lazy var ud = UserDefaultsManager.self
     
-    // 좋아요한 아이디 리스트
-    private lazy var likedItemIdList: [String] = ud.likedItemId
-    
-    private lazy var itemList: [SearchItem] = []
+    private lazy var itemList: [resultItem] = []
     
     private lazy var display: Int = 30
     
@@ -30,13 +27,7 @@ class SearchViewController: UIViewController, SetupView {
     
     private lazy var border = CustomBorder()
     
-    private lazy var productCntLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontCase.bold16
-        label.textColor = ColorCase.primaryColor
-        label.text = "202,122개의 검색 결과"
-        return label
-    }()
+    private lazy var productCntLabel = CustomLabel(color: ColorCase.primaryColor, fontCase: FontCase.bold16)
   
     private lazy var tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: tagCollectionViewLayout())
     
@@ -105,7 +96,7 @@ class SearchViewController: UIViewController, SetupView {
         itemCollectionView.register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: ItemCollectionViewCell.identifier)
     }
     
-    
+    // 검색결과 컬렉션뷰 레이아웃
     private func itemCollectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         let sectionInsetAndSpacing: CGFloat = 16
@@ -119,6 +110,7 @@ class SearchViewController: UIViewController, SetupView {
         return layout
     }
     
+    // 태그 컬렉션뷰 레이아웃
     private func tagCollectionViewLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(1), heightDimension: .absolute(30))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -139,21 +131,19 @@ class SearchViewController: UIViewController, SetupView {
         AF.request(APIData.url, parameters: params, headers: APIData.header).responseDecodable(of: SearchResult.self) { response in
             switch response.result {
             case .success(let value):
-                let items = value.items.map({
-                    SearchItem(title: $0.title, link: $0.link, image: $0.image, lprice: $0.lprice, mallName: $0.mallName, productId: $0.productId)
-                })
-                
+                let items = value.items
+                // 결과 가져오는 시작점이 1이라면
                 if self.startPoint == 1 {
                     self.maxStartPoint = value.total
-                    self.itemList = items
+                    self.itemList = items // 아이템 리스트에 아이템 넣기
                     self.productCntLabel.text = "\(value.total.formatted())개의 검색 결과"
-                } else {
+                } else { // 결과 가져오는 시작점이 1이 아니라면 원래 있던 리스트 뒤에 아이템 붙여주기
                     self.itemList.append(contentsOf: items)
                 }
                 
                 self.itemCollectionView.reloadData()
                 
-                if self.startPoint == 1 {
+                if self.startPoint == 1 { // 시작점이 1이라면 스크롤 맨위로
                     self.itemCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                 }
                 
@@ -168,7 +158,7 @@ class SearchViewController: UIViewController, SetupView {
         let itemId = itemList[sender.tag].productId
         
         // 좋아요 처리 메서드 호출 
-        SearchItem.addOrRemoveLikeId(itemId)
+        resultItem.addOrRemoveLikeId(itemId)
         
         // reload 애니메이션 없이 좋아요한 셀만 리로드
         UIView.performWithoutAnimation {
@@ -177,6 +167,7 @@ class SearchViewController: UIViewController, SetupView {
     }
 }
 
+// MARK: CollectionViewPrefetching
 extension SearchViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         for idx in indexPaths {
@@ -191,6 +182,7 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
     }
 }
 
+// MARK: CollectionViewExtension
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionView == tagCollectionView ? tagNames.count : itemList.count
