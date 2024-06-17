@@ -44,15 +44,18 @@ extension resultItem {
         return "\(Int(lprice)!.formatted())원"
     }
     
-    var likeImage: UIImage {
+    // 좋아요 버튼 이미지
+    var likeBtnImage: UIImage {
         return isLike ? ImageCase.like_selected! : ImageCase.like_unselected!
     }
     
-    var likeTintColor: UIColor {
+    // 좋아요 버튼 틴트컬러
+    var likeBtnTintColor: UIColor {
         return isLike ? ColorCase.black : ColorCase.white
     }
     
-    var likeBackgroundColor: UIColor {
+    // 좋아요 버튼 백그라운드
+    var likeBtnBackgroundColor: UIColor {
         return isLike ? ColorCase.white : ColorCase.black.withAlphaComponent(0.3)
     }
     

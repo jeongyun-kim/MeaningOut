@@ -46,14 +46,14 @@ class DetailViewController: UIViewController, SetupView {
         view.backgroundColor = .systemBackground
         navigationItem.title = selectedItem.replacedTitle
         
-        let rightItemImage = selectedItem.likeImage
+        let rightItemImage = selectedItem.likeBtnImage
         let rightItem = UIBarButtonItem(image: rightItemImage, style: .plain, target: self, action: #selector(rightBarBtnTapped))
         navigationItem.rightBarButtonItem = rightItem
     }
     
     @objc func rightBarBtnTapped(_ sender: UIButton) {
         resultItem.addOrRemoveLikeId(selectedItem.productId)
-        navigationItem.rightBarButtonItem?.image = selectedItem.likeImage
+        navigationItem.rightBarButtonItem?.image = selectedItem.likeBtnImage
     }
     
     private func showAlert() {

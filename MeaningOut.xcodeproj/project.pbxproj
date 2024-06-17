@@ -119,6 +119,16 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		E03711532C1FF10200BDBD5B /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				E0B0B75D2C1BF61300A24154 /* Cell */,
+				E0B0B7452C1AF96200A24154 /* ProfileNicknameViewController.swift */,
+				E0B0B75B2C1B4C4600A24154 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		E0B0B6E42C1AE7D200A24154 = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +156,7 @@
 				E0B0B7472C1AFB5800A24154 /* Protocol */,
 				E0B0B73A2C1AF0CC00A24154 /* CustomView */,
 				E0B0B7442C1AF94200A24154 /* Onboarding */,
+				E03711532C1FF10200BDBD5B /* Profile */,
 				E0B0B7492C1AFB7500A24154 /* Main */,
 				E0B0B76D2C1C320900A24154 /* Search */,
 				E0B0B7482C1AFB6900A24154 /* Setting */,
@@ -179,10 +190,7 @@
 		E0B0B7442C1AF94200A24154 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				E0B0B75D2C1BF61300A24154 /* Cell */,
 				E0B0B7332C1AED4800A24154 /* OnboardingViewController.swift */,
-				E0B0B7452C1AF96200A24154 /* ProfileNicknameViewController.swift */,
-				E0B0B75B2C1B4C4600A24154 /* ProfileViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -312,6 +320,7 @@
 				E0B0B70A2C1AE8FB00A24154 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				E0B0B73D2C1AF25A00A24154 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				E07D8F7A2C1C6CAD00282A16 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				E037114E2C1FE8F100BDBD5B /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = E0B0B6EE2C1AE7D200A24154 /* Products */;
 			projectDirPath = "";
@@ -599,6 +608,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E037114E2C1FE8F100BDBD5B /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.31.0;
+			};
+		};
 		E07D8F7A2C1C6CAD00282A16 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";

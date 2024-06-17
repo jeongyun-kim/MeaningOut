@@ -77,14 +77,16 @@ class ItemCollectionViewCell: UICollectionViewCell, SetupView {
         titleLabel.attributedText = configureTitleLabel(item.replacedTitle, keyword: keyword)
         priceLabel.text = item.price
 
-        likeButton.setImage(item.likeImage, for: .normal)
-        likeButton.tintColor = item.likeTintColor
-        likeButton.backgroundColor = item.likeBackgroundColor
+        likeButton.setImage(item.likeBtnImage, for: .normal)
+        likeButton.tintColor = item.likeBtnTintColor
+        likeButton.backgroundColor = item.likeBtnBackgroundColor
     }
     
     private func configureTitleLabel(_ text: String, keyword: String) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: text)
+        
         attributedString.addAttribute(.backgroundColor, value: ColorCase.highlightColor, range: (text as NSString).range(of: keyword))
+        
         return attributedString
     }
     

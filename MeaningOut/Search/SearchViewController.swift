@@ -113,7 +113,7 @@ class SearchViewController: UIViewController, SetupView {
     
     // 태그 컬렉션뷰 레이아웃
     private func tagCollectionViewLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(1), heightDimension: .absolute(30))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(30))
@@ -128,7 +128,7 @@ class SearchViewController: UIViewController, SetupView {
     
     private func fetchSearchResults(_ sortType: SortRule) {
         guard let keyword = keyword else { return }
-        let params: Parameters = ["query": keyword, "sort": sortType.rawValue, "display": display, "start": startPoint]
+        let params: Parameters = ["query": keyword, "sort": sortType, "display": display, "start": startPoint]
         AF.request(APIData.url, parameters: params, headers: APIData.header).responseDecodable(of: SearchResult.self) { response in
             switch response.result {
             case .success(let value):
@@ -157,7 +157,7 @@ class SearchViewController: UIViewController, SetupView {
     @objc func likeBtnTapped(_ sender: UIButton) {
         // 현재 좋아요 누른 아이템 아이디
         let itemId = itemList[sender.tag].productId
-        
+
         // 좋아요 처리 메서드 호출 
         resultItem.addOrRemoveLikeId(itemId)
         
