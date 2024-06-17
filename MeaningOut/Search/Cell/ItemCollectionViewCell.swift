@@ -71,10 +71,10 @@ class ItemCollectionViewCell: UICollectionViewCell, SetupView {
         }
     }
     
-    func configureCell(_ item: resultItem) {
+    func configureCell(_ item: resultItem, keyword: String) {
         thumbnailImageView.kf.setImage(with: item.url)
         mallNameLabel.text = item.mallName
-        titleLabel.text = item.replacedTitle
+        titleLabel.attributedText = configureTitleLabel(item.replacedTitle, keyword: keyword)
         priceLabel.text = item.price
 
         likeButton.setImage(item.likeImage, for: .normal)
@@ -82,8 +82,13 @@ class ItemCollectionViewCell: UICollectionViewCell, SetupView {
         likeButton.backgroundColor = item.likeBackgroundColor
     }
     
+    private func configureTitleLabel(_ text: String, keyword: String) -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString(string: text)
+        attributedString.addAttribute(.backgroundColor, value: ColorCase.highlightColor, range: (text as NSString).range(of: keyword))
+        return attributedString
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

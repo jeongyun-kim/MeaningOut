@@ -16,6 +16,7 @@ enum ColorCase {
     static let gray3 = UIColor(hue: 0, saturation: 0, brightness: 0.8, alpha: 1.0)
     static let borderColor = UIColor.systemGray5
     static let white = UIColor.white
+    static let highlightColor = UIColor.systemYellow
 }
 
 enum ImageCase {

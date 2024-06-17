@@ -196,7 +196,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return cell
         } else {
             let cell = itemCollectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as! ItemCollectionViewCell
-            cell.configureCell(itemList[indexPath.row])
+            cell.configureCell(itemList[indexPath.row], keyword: keyword!)
             cell.likeButton.tag = indexPath.row
             cell.likeButton.addTarget(self, action: #selector(likeBtnTapped), for: .touchUpInside)
             return cell
