@@ -11,7 +11,7 @@ import WebKit
 
 class DetailViewController: UIViewController, SetupView {
    
-    lazy var selectedItem: resultItem = resultItem(title: "", link: "", image: "", lprice: "", mallName: "", productId: "")
+    lazy var selectedItem: resultItem = resultItem(title: "", link: "", imagePath: "", price: "", mallName: "", productId: "")
    
     lazy var border = CustomBorder()
     

@@ -44,6 +44,7 @@ class UserDefaultsManager {
             UserDefaults.standard.setValue(newValue, forKey: "joinDate")
         }
     }
+    
     static var searchKeywords: [String] {
         get {
             UserDefaults.standard.stringArray(forKey: "searchKeywords") ?? []

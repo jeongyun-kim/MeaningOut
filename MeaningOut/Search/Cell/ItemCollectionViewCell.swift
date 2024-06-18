@@ -75,7 +75,7 @@ class ItemCollectionViewCell: UICollectionViewCell, SetupView {
         thumbnailImageView.kf.setImage(with: item.url)
         mallNameLabel.text = item.mallName
         titleLabel.attributedText = configureTitleLabel(item.replacedTitle, keyword: keyword)
-        priceLabel.text = item.price
+        priceLabel.text = item.priceString
 
         likeButton.setImage(item.likeBtnImage, for: .normal)
         likeButton.tintColor = item.likeBtnTintColor

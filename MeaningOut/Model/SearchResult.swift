@@ -17,10 +17,19 @@ struct SearchResult: Codable {
 struct resultItem: Codable {
     let title: String
     let link: String
-    let image: String
-    let lprice: String
+    let imagePath: String
+    let price: String
     let mallName: String
     let productId: String
+    
+    enum CodingKeys: String, CodingKey {
+        case title
+        case link
+        case imagePath = "image"
+        case price = "lprice"
+        case mallName
+        case productId
+    }
 }
 
 extension resultItem {
@@ -37,11 +46,11 @@ extension resultItem {
     }
     
     var url: URL {
-        return URL(string: image)!
+        return URL(string: imagePath)!
     }
     
-    var price: String {
-        return "\(Int(lprice)!.formatted())원"
+    var priceString: String {
+        return "\(Int(price)!.formatted())원"
     }
     
     // 좋아요 버튼 이미지
