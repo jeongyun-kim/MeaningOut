@@ -13,7 +13,8 @@ class NetworkService {
     
     static let shared = NetworkService()
     
-    func fetchSearchResult(params: Parameters, completionHandler: @escaping (SearchResult) -> Void) {
+    func fetchSearchResult(sortType: SortRule, keyword: String, startPoint: Int, display: Int, completionHandler: @escaping (SearchResult) -> Void) {
+        let params: Parameters = ["query": keyword, "sort": sortType, "display": display, "start": startPoint]
         AF.request(APIData.url, parameters: params, headers: APIData.header).responseDecodable(of: SearchResult.self) { response in
             switch response.result {
             case .success(let value):

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Alamofire
 import SnapKit
 
 class SearchViewController: UIViewController, SetupView {
@@ -128,8 +127,7 @@ class SearchViewController: UIViewController, SetupView {
     
     private func fetchSearchResults(_ sortType: SortRule) {
         guard let keyword = keyword else { return }
-        let params: Parameters = ["query": keyword, "sort": sortType, "display": display, "start": startPoint]
-        NetworkService.shared.fetchSearchResult(params: params) { result in
+        NetworkService.shared.fetchSearchResult(sortType: sortType, keyword: keyword, startPoint: startPoint, display: display) { result in
             let items = result.items
             // 결과 가져오는 시작점이 1이라면
             if self.startPoint == 1 {
