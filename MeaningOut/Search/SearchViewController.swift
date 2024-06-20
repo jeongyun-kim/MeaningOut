@@ -129,31 +129,25 @@ class SearchViewController: UIViewController, SetupView {
     private func fetchSearchResults(_ sortType: SortRule) {
         guard let keyword = keyword else { return }
         let params: Parameters = ["query": keyword, "sort": sortType, "display": display, "start": startPoint]
-        AF.request(APIData.url, parameters: params, headers: APIData.header).responseDecodable(of: SearchResult.self) { response in
-            switch response.result {
-            case .success(let value):
-                let items = value.items
-                // 결과 가져오는 시작점이 1이라면
-                if self.startPoint == 1 {
-                    self.maxStartPoint = value.total
-                    self.itemList = items // 아이템 리스트에 아이템 넣기
-                    self.productCntLabel.text = "\(value.total.formatted())개의 검색 결과"
-                } else { // 결과 가져오는 시작점이 1이 아니라면 원래 있던 리스트 뒤에 아이템 붙여주기
-                    self.itemList.append(contentsOf: items)
-                }
-                
-                self.itemCollectionView.reloadData()
-                
-                if self.startPoint == 1 && self.itemList.count > 0 { // 시작점이 1이라면 스크롤 맨위로
-                    self.itemCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-                }
-                
-            case .failure(let error):
-                print(error)
+        NetworkService.shared.fetchSearchResult(params: params) { result in
+            let items = result.items
+            // 결과 가져오는 시작점이 1이라면
+            if self.startPoint == 1 {
+                self.maxStartPoint = result.total
+                self.itemList = items // 아이템 리스트에 아이템 넣기
+                self.productCntLabel.text = "\(result.total.formatted())개의 검색 결과"
+            } else { // 결과 가져오는 시작점이 1이 아니라면 원래 있던 리스트 뒤에 아이템 붙여주기
+                self.itemList.append(contentsOf: items)
+            }
+            
+            self.itemCollectionView.reloadData()
+            
+            if self.startPoint == 1 && self.itemList.count > 0 { // 시작점이 1이라면 스크롤 맨위로
+                self.itemCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
         }
     }
-    
+
     @objc func likeBtnTapped(_ sender: UIButton) {
         // 현재 좋아요 누른 아이템 아이디
         let itemId = itemList[sender.tag].productId
