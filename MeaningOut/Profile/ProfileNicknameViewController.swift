@@ -11,26 +11,18 @@ import SnapKit
 class ProfileNicknameViewController: UIViewController, SetupView {
     
     lazy var nicknameViewType: ViewType = .setting
-    
     lazy var ud = UserDefaultsManager.self
-    
+
     private lazy var naviBorder = CustomBorder()
-    
     // 프로필뷰
     private lazy var profileLayerView = ProfileLayerView(.mainProfile)
-    
     private lazy var profileImageView = CustomImageView()
-    
     private lazy var badgeView = ProfileBadgeView(.mainProfile)
-    
     private lazy var profileButton = UIButton()
-
+    
     private lazy var nicknameTextField = NicknameTextField(placeholderType: .nickname)
-    
     private lazy var textFieldBorder = CustomBorder()
-    
     private lazy var nicknameCheckLabel = CustomLabel(color: ColorCase.primaryColor, fontCase: FontCase.regular13)
-    
     private lazy var confirmButton = OnboardingButton(title: "완료")
     
     private lazy var nicknameCheck: NicknameCheckType = .wrongNicknameCnt {
@@ -41,7 +33,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
             case .confirm:
                 navigationItem.rightBarButtonItem?.isEnabled = true
                 confirmButton.isEnabled = true
-            case .wrongNicknameCnt, .containsNumber, .containsSpecialCharacter:
+            case .empty, .wrongNicknameCnt, .containsNumber, .containsSpecialCharacter:
                 navigationItem.rightBarButtonItem?.isEnabled = false
                 confirmButton.isEnabled = false
             }
@@ -188,23 +180,18 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         getNewScene(rootVC: TabBarController())
     }
     
-    @objc func textFieldDidChange(_ sender: UITextField) {
-        guard let text = nicknameTextField.text else { return }
-        
+    private func validateNickname(_ text: String) throws ->  Bool {
         // 숫자가 있는 상황에서 @를 입력할 경우에 숫자가 포함되서는 안된다는 메시지만 출력됨
         // 이를 방지하기 위해 마지막 문자까지 비교
-        guard let lastChr = text.last else { return }
-        
-        // 마지막 글자가 특수문자인지 확인
-        if ["$", "%", "@", "#"].contains(lastChr) {
-            nicknameCheck = .containsSpecialCharacter
-            return
+        guard let lastChr = text.last else {
+            throw NicknameErrorCase.empty
         }
-        
-        // 마지막 글자가 숫자인지 확인
-        if Int(String(describing: lastChr)) != nil {
-            nicknameCheck = .containsNumber
-            return
+        // 마지막 글자가 특수문자인지 확인
+        guard !["$", "%", "@", "#"].contains(lastChr) else {
+            throw NicknameErrorCase.containsSpecialCharacter
+        }
+        guard Int(String(describing: lastChr)) == nil else {
+            throw NicknameErrorCase.containsNumber
         }
         
         // 전체 문자 확인
@@ -215,14 +202,36 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         // 닉네임에 # $ @ % 가 들어있는지
         let isContainsSpecialChr = text.range(of: NicknameRegex.specialCharacter, options: .regularExpression) != nil
         
-        if removeWhiteSpaceCnt < 2 || removeWhiteSpaceCnt > 10 { // 문자열 길이
-            nicknameCheck = .wrongNicknameCnt
-        } else if  isContainsNumber  { // 숫자
-            nicknameCheck = .containsNumber
-        } else if isContainsSpecialChr { // 특수문자
-            nicknameCheck = .containsSpecialCharacter
-        } else {
+        guard removeWhiteSpaceCnt >= 2 && removeWhiteSpaceCnt <= 10 else {
+            throw NicknameErrorCase.wrongNicknameCnt
+        }
+        guard !isContainsNumber else {
+            throw NicknameErrorCase.containsNumber
+        }
+        guard !isContainsSpecialChr else {
+            throw NicknameErrorCase.containsSpecialCharacter
+        }
+        return true
+    }
+    
+    @objc func textFieldDidChange(_ sender: UITextField) {
+        guard let text = nicknameTextField.text else { return }
+        do {
+            let _ = try validateNickname(text)
             nicknameCheck = .confirm
+        } catch {
+            switch error {
+            case NicknameErrorCase.empty:
+                nicknameCheck = .empty
+            case NicknameErrorCase.wrongNicknameCnt:
+                nicknameCheck = .wrongNicknameCnt
+            case NicknameErrorCase.containsNumber:
+                nicknameCheck = .containsNumber
+            case NicknameErrorCase.containsSpecialCharacter:
+                nicknameCheck = .containsSpecialCharacter
+            default:
+                break
+            }       
         }
     }
     
