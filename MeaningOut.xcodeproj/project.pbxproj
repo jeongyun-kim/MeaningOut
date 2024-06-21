@@ -47,6 +47,7 @@
 		E0B0B7712C1C325C00A24154 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7702C1C325C00A24154 /* APIKey.swift */; };
 		E0B0B7742C1C3E1500A24154 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7732C1C3E1500A24154 /* TagCollectionViewCell.swift */; };
 		E0BAE9AA2C247696008F795F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BAE9A92C247696008F795F /* NetworkService.swift */; };
+		E0BAE9AC2C253C4C008F795F /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BAE9AB2C253C4C008F795F /* LocalNotification.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +90,7 @@
 		E0B0B7702C1C325C00A24154 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		E0B0B7732C1C3E1500A24154 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		E0BAE9A92C247696008F795F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		E0BAE9AB2C253C4C008F795F /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,9 +153,11 @@
 		E0B0B6EF2C1AE7D200A24154 /* MeaningOut */ = {
 			isa = PBXGroup;
 			children = (
-				E02921362C1D7F3300A12B1D /* Extension */,
+				E0BAE9A92C247696008F795F /* NetworkService.swift */,
 				E0B0B7312C1AECF100A24154 /* UserDefaultsManager.swift */,
 				E0B0B7382C1AEE7E00A24154 /* Resource.swift */,
+				E0BAE9AB2C253C4C008F795F /* LocalNotification.swift */,
+				E02921362C1D7F3300A12B1D /* Extension */,
 				E0B0B75A2C1B4BB300A24154 /* Model */,
 				E0B0B7472C1AFB5800A24154 /* Protocol */,
 				E0B0B73A2C1AF0CC00A24154 /* CustomView */,
@@ -168,7 +172,6 @@
 				E0B0B6FB2C1AE7D300A24154 /* LaunchScreen.storyboard */,
 				E0B0B6FE2C1AE7D300A24154 /* Info.plist */,
 				E0B0B7702C1C325C00A24154 /* APIKey.swift */,
-				E0BAE9A92C247696008F795F /* NetworkService.swift */,
 			);
 			path = MeaningOut;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				E07D8F772C1C653600282A16 /* SearchResult.swift in Sources */,
 				E07D8F752C1C522500282A16 /* PaddingLabel.swift in Sources */,
 				E02921302C1D601000A12B1D /* CustomLabel.swift in Sources */,
+				E0BAE9AC2C253C4C008F795F /* LocalNotification.swift in Sources */,
 				E0B0B7412C1AF37B00A24154 /* SetupView.swift in Sources */,
 				E0B0B7362C1AEDB300A24154 /* TabBarController.swift in Sources */,
 				E0B0B7512C1B012600A24154 /* ProfileImage.swift in Sources */,

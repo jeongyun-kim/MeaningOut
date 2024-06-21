@@ -15,6 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         sleep(2)
+        // 앱의 알림에 대한 권한 받아오기
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { success, error in
+            if success {
+                print("success")
+                LocalNotification.noti.sendNotification()
+            }
+        }
+        
         return true
     }
 
