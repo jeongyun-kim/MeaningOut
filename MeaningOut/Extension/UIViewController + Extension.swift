@@ -18,4 +18,19 @@ extension UIViewController {
         sceneDelegate?.window?.rootViewController = rootVC
         sceneDelegate?.window?.makeKeyAndVisible()
     }
+    
+    func showAlert(type: Alert, completionHandler: @escaping (UIAlertAction) -> Void) {
+        let alertTitle = type == .membershipCancel ? MembershipCancelCase.title.rawValue : UrlErrorCase.title.rawValue
+        let alertMessage = type == .membershipCancel ? MembershipCancelCase.message.rawValue : UrlErrorCase.message.rawValue
+        
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        let confirm = UIAlertAction(title: Alert.confirmActionTitle, style: .default, handler: completionHandler)
+        alert.addAction(confirm)
+        
+        if type == .membershipCancel {
+            let cancel = UIAlertAction(title: Alert.cancelActionTitle, style: .cancel)
+            alert.addAction(cancel)
+        }
+        present(alert, animated: true)
+    }
 }

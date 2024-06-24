@@ -72,23 +72,6 @@ class SettingViewController: UIViewController, SetupView {
         navigationItem.title = "SETTING"
     }
     
-    private func showAlert(_ item: AlertCase.Type) {
-        let alert = UIAlertController(title: item.cancelTitle, message: item.cancelMessage, preferredStyle: .alert)
-        
-        let confirm = UIAlertAction(title: item.confirmActionTitle, style: .default) { [unowned self] _ in
-            self.ud.deleteAllDatas()
-            // 회원탈퇴 시 온보딩 화면으로 새로 시작 
-            let rootViewController = UINavigationController(rootViewController: OnboardingViewController())
-            self.getNewScene(rootVC: rootViewController)
-        }
-        let cancel = UIAlertAction(title: item.cancelActionTitle, style: .cancel)
-        
-        alert.addAction(confirm)
-        alert.addAction(cancel)
-
-        present(alert, animated: true)
-    }
-    
     @objc func headerBtnTapped(_ sender: UIButton) {
         let vc = ProfileNicknameViewController()
         vc.nicknameViewType = .edit
@@ -118,7 +101,12 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if SettingCellTitle.allCases[indexPath.row] == SettingCellTitle.cancel {
-            showAlert(AlertCase.self)
+            showAlert(type: .membershipCancel) { _ in
+                self.ud.deleteAllDatas()
+                // 회원탈퇴 시 온보딩 화면으로 새로 시작
+                let rootViewController = UINavigationController(rootViewController: OnboardingViewController())
+                self.getNewScene(rootVC: rootViewController)
+            }
         }
     }
 
