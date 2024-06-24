@@ -9,11 +9,10 @@ import UIKit
 import SnapKit
 
 class SettingTableViewCell: UITableViewCell, SetupView {
+    lazy var ud = UserDefaultsManager.shared
     
     private lazy var titleLabel = CustomLabel(title: "", fontCase: FontCase.regular14)
-    
     private lazy var border = CustomBorder(color: ColorCase.black)
-    
     private lazy var likeButton: UIButton = {
         let button = UIButton(configuration: .plain())
         button.setImage(ImageCase.like_selected, for: .normal)
@@ -72,7 +71,7 @@ class SettingTableViewCell: UITableViewCell, SetupView {
     }
     
     private func getAttributedLikeCntTitle() -> NSAttributedString {
-        let text = "\(UserDefaultsManager.likeCnt)개" // 상품 개수
+        let text = "\(ud.likeCnt)개" // 상품 개수
         let title = "\(text)의 상품" // 찐타이틀
         let attributedString = NSMutableAttributedString(string: title)
         

@@ -12,17 +12,13 @@ import Kingfisher
 class ItemCollectionViewCell: UICollectionViewCell, SetupView {
 
     private lazy var thumbnailImageView = CustomImageView(radius: .buttonOrImage, content: .scaleAspectFill)
-    
     private lazy var mallNameLabel = CustomLabel(color: ColorCase.gray2, fontCase: FontCase.regular13)
-    
     private lazy var titleLabel: UILabel = {
         let label = CustomLabel(fontCase: FontCase.regular14)
         label.numberOfLines = 2
         return label
     }()
-    
     private lazy var priceLabel = CustomLabel(fontCase: FontCase.bold16)
-    
     lazy var likeButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = CGFloat(CornerRadiusCase.buttonOrImage.rawValue)

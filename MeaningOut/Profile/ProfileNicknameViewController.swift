@@ -11,8 +11,8 @@ import SnapKit
 class ProfileNicknameViewController: UIViewController, SetupView {
     
     lazy var nicknameViewType: ViewType = .setting
-    lazy var ud = UserDefaultsManager.self
-
+    lazy var ud = UserDefaultsManager.shared
+    
     private lazy var naviBorder = CustomBorder()
     // 프로필뷰
     private lazy var profileLayerView = ProfileLayerView(.mainProfile)

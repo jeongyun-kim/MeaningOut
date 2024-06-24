@@ -14,7 +14,6 @@ class DetailViewController: UIViewController, SetupView {
     lazy var selectedItem: resultItem = resultItem(title: "", link: "", imagePath: "", price: "", mallName: "", productId: "")
    
     lazy var border = CustomBorder()
-    
     lazy var webView = WKWebView()
     
     override func viewDidLoad() {

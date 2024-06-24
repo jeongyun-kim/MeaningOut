@@ -10,8 +10,7 @@ import SnapKit
 
 class MainViewController: UIViewController, SetupView {
 
-    lazy var ud = UserDefaultsManager.self
-    
+    lazy var ud = UserDefaultsManager.shared
     private lazy var searchKeywordsList: [String] = ud.searchKeywords {
         didSet {
             if searchKeywordsList.isEmpty { // 검색어 없으면 emptyView 보여주기
@@ -36,21 +35,16 @@ class MainViewController: UIViewController, SetupView {
         searchBar.searchBarStyle = .minimal
         return searchBar
     }()
-    
     private lazy var border = CustomBorder()
-    
     private lazy var recentSearchLabel = CustomLabel(title: "최근 검색", fontCase: FontCase.bold16)
-
-     private lazy var deleteAllButton: UIButton = {
+    private lazy var deleteAllButton: UIButton = {
          let button = UIButton()
          button.setTitle("전체 삭제", for: .normal)
          button.setTitleColor(ColorCase.primaryColor, for: .normal)
          button.titleLabel?.font = FontCase.regular14
          return button
      }()
-    
     private lazy var emptyView = EmptyView(frame: .zero)
-    
     private lazy var tableView = UITableView()
     
     override func viewDidLoad() {

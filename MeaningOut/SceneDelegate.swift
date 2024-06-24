@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         // 가입하지 않은 사용자라면 온보딩 화면 가져오기
-        let mainView = UserDefaultsManager.isUser ? TabBarController() : UINavigationController(rootViewController: OnboardingViewController())
+        let mainView = UserDefaultsManager.shared.isUser ? TabBarController() : UINavigationController(rootViewController: OnboardingViewController())
         
         // 처음 보여질 화면을 root로 설정하고 보여주기
         window?.rootViewController = mainView

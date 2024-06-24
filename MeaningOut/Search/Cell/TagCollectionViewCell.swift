@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class TagCollectionViewCell: UICollectionViewCell, SetupView {
-    let tagLabel: UILabel = {
+    private lazy var tagLabel: UILabel = {
         let label = PaddingLabel(frame: .zero)
         label.layer.cornerRadius = CGFloat(CornerRadiusCase.label.rawValue)
         label.clipsToBounds = true

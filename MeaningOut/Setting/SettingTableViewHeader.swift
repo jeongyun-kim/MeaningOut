@@ -9,16 +9,12 @@ import UIKit
 
 class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
     
-    lazy var ud = UserDefaultsManager.self
+    lazy var ud = UserDefaultsManager.shared
     
     lazy var button = UIButton()
-    
     lazy var profileLayerView = ProfileLayerView(.headerProfile)
-    
     lazy var badgeImage = ProfileBadgeView(.headerProfile)
-    
     lazy var profileImageView = CustomImageView(bgColor: ColorCase.white)
-    
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -26,11 +22,8 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
         stackView.distribution = .fillEqually
         return stackView
     }()
-    
     lazy var nicknameLabel = CustomLabel(fontCase: FontCase.bold20)
-    
     lazy var dateLabel = CustomLabel(color: ColorCase.gray2, fontCase: FontCase.regular14)
-    
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -38,7 +31,6 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
         imageView.tintColor = ColorCase.gray2
         return imageView
     }()
-    
     lazy var border = CustomBorder(color: ColorCase.black)
 
     override init(reuseIdentifier: String?) {
@@ -65,8 +57,7 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
         contentView.addSubview(button)
         contentView.addSubview(badgeImage)
     }
-    
-    // 다시 잡기
+
     func setupConstraints() {
         profileLayerView.snp.makeConstraints { make in
             make.verticalEdges.lessThanOrEqualTo(20)

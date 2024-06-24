@@ -10,26 +10,17 @@ import SnapKit
 
 class SearchViewController: UIViewController, SetupView {
 
-    lazy var ud = UserDefaultsManager.self
-    
+    lazy var ud = UserDefaultsManager.shared
     private lazy var itemList: [resultItem] = []
-    
     private lazy var display: Int = 30
-    
     private lazy var startPoint: Int = 1
-    
     private lazy var maxStartPoint: Int = 0
-    
     lazy var tagNames = TagName.allCases
-    
     lazy var keyword: String? = ""
     
     private lazy var border = CustomBorder()
-    
     private lazy var productCntLabel = CustomLabel(color: ColorCase.primaryColor, fontCase: FontCase.bold16)
-  
     private lazy var tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: tagCollectionViewLayout())
-    
     private lazy var itemCollectionView = UICollectionView(frame: .zero, collectionViewLayout: itemCollectionViewLayout())
     
     override func viewDidLoad() {
