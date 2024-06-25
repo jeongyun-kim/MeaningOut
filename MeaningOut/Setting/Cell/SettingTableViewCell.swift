@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 
 class SettingTableViewCell: UITableViewCell, SetupView {
-    lazy var ud = UserDefaultsManager.shared
+    private let ud = UserDefaultsManager.shared
     
-    private lazy var titleLabel = CustomLabel(title: "", fontCase: FontCase.regular14)
-    private lazy var border = CustomBorder(color: ColorCase.black)
-    private lazy var likeButton: UIButton = {
+    private let titleLabel = CustomLabel(title: "", fontCase: FontCase.regular14)
+    private let border = CustomBorder(color: ColorCase.black)
+    private let likeButton: UIButton = {
         let button = UIButton(configuration: .plain())
         button.setImage(ImageCase.like_selected, for: .normal)
         button.tintColor = ColorCase.black

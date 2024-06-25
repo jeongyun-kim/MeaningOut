@@ -10,7 +10,7 @@ import SnapKit
 
 class MainViewController: UIViewController, SetupView {
 
-    lazy var ud = UserDefaultsManager.shared
+    private let ud = UserDefaultsManager.shared
     private lazy var searchKeywordsList: [String] = ud.searchKeywords {
         didSet {
             if searchKeywordsList.isEmpty { // 검색어 없으면 emptyView 보여주기

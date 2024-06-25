@@ -10,14 +10,14 @@ import SnapKit
 
 class OnboardingViewController: UIViewController, SetupView {
     
-    private lazy var onboardingLabel = CustomLabel(title: "MeaningOut", color: ColorCase.primaryColor, fontCase: FontCase.bold48)
-    private lazy var onboardingImageView: UIImageView = {
+    private let onboardingLabel = CustomLabel(title: "MeaningOut", color: ColorCase.primaryColor, fontCase: FontCase.bold48)
+    private let onboardingImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.image = ImageCase.launch
         return imageView
     }()
-    private lazy var startButton = OnboardingButton(title: "시작하기")
+    private let startButton = OnboardingButton(title: "시작하기")
     
     override func viewDidLoad() {
         super.viewDidLoad()

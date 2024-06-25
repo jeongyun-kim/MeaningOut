@@ -11,10 +11,10 @@ import WebKit
 
 class DetailViewController: UIViewController, SetupView {
    
-    lazy var selectedItem: resultItem = resultItem(title: "", link: "", imagePath: "", price: "", mallName: "", productId: "")
+    var selectedItem: resultItem = resultItem(title: "", link: "", imagePath: "", price: "", mallName: "", productId: "")
    
-    lazy var border = CustomBorder()
-    lazy var webView = WKWebView()
+    private let border = CustomBorder()
+    private let webView = WKWebView()
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -10,10 +10,10 @@ import SnapKit
 
 class ProfileViewController: UIViewController, SetupView {
 
-    lazy var profileViewType: ViewType = .setting
-    private lazy var profileList: [ProfileImage] = ProfileImage.imageList
-    lazy var tempProfileImage: ProfileImage = ProfileImage(imageName: "") {
-        didSet { 
+    var profileViewType: ViewType = .setting
+    private let profileList: [ProfileImage] = ProfileImage.imageList
+    var tempProfileImage: ProfileImage = ProfileImage(imageName: "") {
+        didSet {
             // 현재 선택한 이미지로 변경
             profileImageView.image = UIImage(named: tempProfileImage.imageName)
             // 현재 선택한 이미지, 아닌 이미지 셀 다시 그리기 위해
@@ -23,10 +23,10 @@ class ProfileViewController: UIViewController, SetupView {
         }
     }
     
-    private lazy var naviBorder = CustomBorder()
-    private lazy var profileLayerView = ProfileLayerView(.mainProfile)
-    private lazy var profileImageView = CustomImageView()
-    lazy var badgeImage = ProfileBadgeView(.mainProfile)
+    private let naviBorder = CustomBorder()
+    private let profileLayerView = ProfileLayerView(.mainProfile)
+    private let profileImageView = CustomImageView()
+    private let badgeImage = ProfileBadgeView(.mainProfile)
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
     override func viewDidLoad() {

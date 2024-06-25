@@ -9,29 +9,29 @@ import UIKit
 
 class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
     
-    lazy var ud = UserDefaultsManager.shared
+    private let ud = UserDefaultsManager.shared
     
-    lazy var button = UIButton()
-    lazy var profileLayerView = ProfileLayerView(.headerProfile)
-    lazy var badgeImage = ProfileBadgeView(.headerProfile)
-    lazy var profileImageView = CustomImageView(bgColor: ColorCase.white)
-    lazy var stackView: UIStackView = {
+    let button = UIButton()
+    private let profileLayerView = ProfileLayerView(.headerProfile)
+    private let badgeImage = ProfileBadgeView(.headerProfile)
+    private let profileImageView = CustomImageView(bgColor: ColorCase.white)
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 4
         stackView.distribution = .fillEqually
         return stackView
     }()
-    lazy var nicknameLabel = CustomLabel(fontCase: FontCase.bold20)
-    lazy var dateLabel = CustomLabel(color: ColorCase.gray2, fontCase: FontCase.regular14)
-    lazy var imageView: UIImageView = {
+    private let nicknameLabel = CustomLabel(fontCase: FontCase.bold20)
+    private let dateLabel = CustomLabel(color: ColorCase.gray2, fontCase: FontCase.regular14)
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.image = ImageCase.next
         imageView.tintColor = ColorCase.gray2
         return imageView
     }()
-    lazy var border = CustomBorder(color: ColorCase.black)
+    private let border = CustomBorder(color: ColorCase.black)
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)

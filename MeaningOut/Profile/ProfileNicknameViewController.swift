@@ -10,22 +10,22 @@ import SnapKit
 
 class ProfileNicknameViewController: UIViewController, SetupView {
     
-    lazy var nicknameViewType: ViewType = .setting
-    lazy var ud = UserDefaultsManager.shared
+    var nicknameViewType: ViewType = .setting
+    private let ud = UserDefaultsManager.shared
     
-    private lazy var naviBorder = CustomBorder()
+    private let naviBorder = CustomBorder()
     // 프로필뷰
-    private lazy var profileLayerView = ProfileLayerView(.mainProfile)
-    private lazy var profileImageView = CustomImageView()
-    private lazy var badgeView = ProfileBadgeView(.mainProfile)
-    private lazy var profileButton = UIButton()
+    private let profileLayerView = ProfileLayerView(.mainProfile)
+    private let profileImageView = CustomImageView()
+    private let badgeView = ProfileBadgeView(.mainProfile)
+    private let profileButton = UIButton()
     
-    private lazy var nicknameTextField = NicknameTextField(placeholderType: .nickname)
-    private lazy var textFieldBorder = CustomBorder()
-    private lazy var nicknameCheckLabel = CustomLabel(color: ColorCase.primaryColor, fontCase: FontCase.regular13)
-    private lazy var confirmButton = OnboardingButton(title: "완료")
+    private let nicknameTextField = NicknameTextField(placeholderType: .nickname)
+    private let textFieldBorder = CustomBorder()
+    private let nicknameCheckLabel = CustomLabel(color: ColorCase.primaryColor, fontCase: FontCase.regular13)
+    private let confirmButton = OnboardingButton(title: "완료")
     
-    private lazy var nicknameCheck: NicknameCheckType = .wrongNicknameCnt {
+    private var nicknameCheck: NicknameCheckType = .wrongNicknameCnt {
         didSet {
             nicknameCheckLabel.text = nicknameCheck.rawValue
             

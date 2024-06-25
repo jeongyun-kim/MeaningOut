@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 
 class SettingViewController: UIViewController, SetupView {
-    lazy var ud = UserDefaultsManager.shared
-    lazy var border = CustomBorder()
-    lazy var tableView = UITableView()
+    private let ud = UserDefaultsManager.shared
+    private let border = CustomBorder()
+    private let tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()

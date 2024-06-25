@@ -10,14 +10,14 @@ import SnapKit
 
 class EmptyView: UIView, SetupView {
 
-    lazy var imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.image = ImageCase.empty
         return imageView
     }()
     
-    lazy var resultLabel: UILabel = {
+    private let resultLabel: UILabel = {
         let label = UILabel()
         label.text = "최근 검색어가 없어요"
         label.font = FontCase.bold16
