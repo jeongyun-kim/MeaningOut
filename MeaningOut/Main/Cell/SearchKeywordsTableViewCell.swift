@@ -16,9 +16,7 @@ class SearchKeywordsTableViewCell: UITableViewCell, SetupView {
         imageView.tintColor = ColorCase.black
         return imageView
     }()
-    
     private let keywordLabel = CustomLabel(fontCase: FontCase.regular14)
-    
     let deleteButton: UIButton = {
         let button = UIButton()
         button.setImage(ImageCase.delete, for: .normal)

@@ -9,9 +9,8 @@ import UIKit
 
 class ProfileCollectionViewCell: UICollectionViewCell, SetupView {
     
-    lazy var profileLayerView = ProfileLayerView(.none)
-    
-    lazy var imageView = CustomImageView()
+    private let profileLayerView = ProfileLayerView(.none)
+    private let imageView = CustomImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

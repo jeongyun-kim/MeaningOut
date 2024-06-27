@@ -29,23 +29,23 @@ class MainViewController: UIViewController, SetupView {
         }
     }
     
-    private lazy var searchBar: UISearchBar = {
+    private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = Placeholder.search.rawValue
         searchBar.searchBarStyle = .minimal
         return searchBar
     }()
-    private lazy var border = CustomBorder()
-    private lazy var recentSearchLabel = CustomLabel(title: "최근 검색", fontCase: FontCase.bold16)
-    private lazy var deleteAllButton: UIButton = {
+    private let border = CustomBorder()
+    private let recentSearchLabel = CustomLabel(title: "최근 검색", fontCase: FontCase.bold16)
+    private let deleteAllButton: UIButton = {
          let button = UIButton()
          button.setTitle("전체 삭제", for: .normal)
          button.setTitleColor(ColorCase.primaryColor, for: .normal)
          button.titleLabel?.font = FontCase.regular14
          return button
      }()
-    private lazy var emptyView = EmptyView(frame: .zero)
-    private lazy var tableView = UITableView()
+    private let emptyView = EmptyView(frame: .zero)
+    private let tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()

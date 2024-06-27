@@ -14,7 +14,7 @@ class SearchViewController: UIViewController, SetupView {
     private var itemList: [resultItem] = []
     private let display: Int = 30
     private var startPoint: Int = 1
-    private lazy var maxStartPoint: Int = 0
+    private var maxStartPoint: Int = 0
     private let tagNames = TagName.allCases
     var keyword: String? = ""
     
