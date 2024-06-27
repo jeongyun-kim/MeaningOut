@@ -10,17 +10,18 @@ import Alamofire
 
 class NetworkService {
     private init() {}
-    
     static let shared = NetworkService()
     
-    func fetchSearchResult(sortType: SortRule, keyword: String, startPoint: Int, display: Int, completionHandler: @escaping (SearchResult) -> Void) {
-        let params: Parameters = ["query": keyword, "sort": sortType, "display": display, "start": startPoint]
-        AF.request(APIData.url, parameters: params, headers: APIData.header).responseDecodable(of: SearchResult.self) { response in
+    typealias CompletionHandler = (SearchResult?, String?) -> Void
+    
+    func fetchSearchResult(networkCase: NetworkRequestCase, completionHandler: @escaping CompletionHandler) {
+        AF.request(networkCase.baseURL, method: networkCase.method, parameters: networkCase.params, headers: networkCase.headers).responseDecodable(of: SearchResult.self) { response in
             switch response.result {
             case .success(let value):
-                completionHandler(value)
+                completionHandler(value, nil)
             case .failure(let error):
-                print(error)
+                print(error, response.response?.statusCode)
+                completionHandler(nil, "\(error)")
             }
         }
     }
