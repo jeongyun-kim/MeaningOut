@@ -1,8 +1,8 @@
 //
-//  Resource.swift
+//  ResourceCase.swift
 //  MeaningOut
 //
-//  Created by 김정윤 on 6/13/24.
+//  Created by 김정윤 on 6/27/24.
 //
 
 import UIKit
@@ -47,41 +47,6 @@ enum FontCase {
     static let regular13 = UIFont.systemFont(ofSize: 13)
 }
 
-enum ProfileLayerSizeCase: Int {
-    case mainProfile = 120
-    case headerProfile = 80
-    case none = 0
-    
-    var inset: Int {
-        self.rawValue / 20
-    }
-}
-
-enum Placeholder: String {
-    case nickname = "닉네임을 입력해주세요 :) "
-    case search = "브랜드, 상품 등을 입력하세요"
-}
-
-enum NicknameRegex {
-    static let specialCharacter = "(?=.*[@#$%])"
-    static let number = "(?=.*[0-9])"
-}
-
-enum NicknameCheckType: String {
-    case confirm = "사용할 수 있는 닉네임이에요"
-    case empty = ""
-    case wrongNicknameCnt = "2글자 이상 10글자 미만으로 설정해주세요"
-    case containsNumber = "닉네임에 숫자는 포함할 수 없어요"
-    case containsSpecialCharacter = "닉네임에 @, #, $, %는 포함할 수 없어요"
-}
-
-enum NicknameErrorCase: Error {
-    case empty
-    case wrongNicknameCnt
-    case containsNumber
-    case containsSpecialCharacter
-}
-
 enum ViewType: String {
     case setting = "PROFILE SETTING"
     case edit = "EDIT PROFILE"
@@ -93,17 +58,40 @@ enum CornerRadiusCase: Int {
     case label = 15
 }
 
-enum TagName: String, CaseIterable {
-    case sim = "정확도순"
-    case date = "날짜순"
-    case dsc = "가격높은순"
-    case asc = "가격낮은순"
+enum Placeholder: String {
+    case nickname = "닉네임을 입력해주세요 :) "
+    case search = "브랜드, 상품 등을 입력하세요"
 }
 
-enum SettingCellTitle: String, CaseIterable {
-    case likeList = "나의 장바구니 목록"
-    case question = "자주 묻는 질문"
-    case contact = "1:1 문의"
-    case notification = "알림 설정"
-    case cancel = "탈퇴하기"
+enum ProfileLayerSizeCase: Int {
+    case mainProfile = 120
+    case headerProfile = 80
+    case none = 0
+    
+    var inset: Int {
+        self.rawValue / 20
+    }
 }
+
+//class TestViewController: UIViewController {
+//    required init?(coder: NSCoder) {
+//        fatalError()
+//    }
+//    
+//    init(title: String) {
+//    }
+//}
+//// let vc = TestViewContller(title: "123")
+//transition(vc)
+//
+//extension UIViewController {
+//    func transition(_ vc: UIViewController, option: String) {
+//        if option == "push" {
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        } else if option == "modal" {
+//            self.present(vc, animated: true)
+//        }
+//    }
+//}
+
+

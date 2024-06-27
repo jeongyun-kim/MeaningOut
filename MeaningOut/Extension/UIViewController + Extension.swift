@@ -20,8 +20,6 @@ extension UIViewController {
     }
     
     func showAlert(alertCase: Alert, completionHandler: @escaping (UIAlertAction) -> Void) {
-        
-        
         let alert = UIAlertController(title: alertCase.title, message: alertCase.message, preferredStyle: .alert)
         let confirm = UIAlertAction(title: Alert.confirmActionTitle, style: .default, handler: completionHandler)
         alert.addAction(confirm)

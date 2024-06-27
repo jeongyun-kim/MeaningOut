@@ -20,7 +20,6 @@ class NetworkService {
             case .success(let value):
                 completionHandler(value, nil)
             case .failure(let error):
-                print(error, response.response?.statusCode)
                 completionHandler(nil, "\(error)")
             }
         }
