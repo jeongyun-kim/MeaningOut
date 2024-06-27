@@ -107,21 +107,3 @@ enum SettingCellTitle: String, CaseIterable {
     case notification = "알림 설정"
     case cancel = "탈퇴하기"
 }
-
-enum Alert {
-    case urlError
-    case membershipCancel
-    
-    static let confirmActionTitle = "확인"
-    static let cancelActionTitle = "취소"
-}
-
-enum MembershipCancelCase: String {
-    case title = "회원탈퇴"
-    case message = "탈퇴를 하면 데이터가 모두 초기화됩니다.\n탈퇴하시겠습니까?"
-}
-
-enum UrlErrorCase: String {
-    case title = "링크 오류"
-    case message = "해당 상품의 링크를 찾지 못했습니다"
-}

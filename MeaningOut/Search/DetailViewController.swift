@@ -58,7 +58,7 @@ class DetailViewController: UIViewController, SetupView {
     private func loadWebView() {
         // url로 전환 -> request 생성 -> request로 load
         // http 링크위해 ATS = YES
-        guard let url = URL(string: selectedItem.link) else { return showAlert(type: .urlError) { _ in self.navigationController?.popViewController(animated: true) } }
+        guard let url = URL(string: selectedItem.link) else { return showAlert(alertCase: .detailURLError) { _ in self.navigationController?.popViewController(animated: true) } }
         let request = URLRequest(url: url)
         webView.load(request)
     }

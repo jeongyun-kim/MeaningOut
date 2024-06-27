@@ -98,7 +98,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if SettingCellTitle.allCases[indexPath.row] == SettingCellTitle.cancel {
-            showAlert(type: .membershipCancel) { _ in
+            showAlert(alertCase: .membershipCancel) { _ in
                 self.ud.deleteAllDatas()
                 // 회원탈퇴 시 온보딩 화면으로 새로 시작
                 let rootViewController = UINavigationController(rootViewController: OnboardingViewController())
