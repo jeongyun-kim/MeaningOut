@@ -12,10 +12,10 @@ class NetworkService {
     private init() {}
     static let shared = NetworkService()
     
-    typealias CompletionHandler = (SearchResult?, String?) -> Void
+    typealias CompletionHandler<T: Decodable> = (T?, String?) -> Void
     
-    func fetchSearchResult(networkCase: NetworkRequestCase, completionHandler: @escaping CompletionHandler) {
-        AF.request(networkCase.baseURL, method: networkCase.method, parameters: networkCase.params, headers: networkCase.headers).responseDecodable(of: SearchResult.self) { response in
+    func requestCall<T: Decodable>(networkCase: NetworkRequestCase, completionHandler: @escaping CompletionHandler<T>) {
+        AF.request(networkCase.baseURL, method: networkCase.method, parameters: networkCase.params, headers: networkCase.headers).responseDecodable(of: T.self) { response in
             switch response.result {
             case .success(let value):
                 completionHandler(value, nil)
@@ -23,5 +23,11 @@ class NetworkService {
                 completionHandler(nil, "\(error)")
             }
         }
+    }
+}
+
+extension NetworkService: NetworkCaseProtocol {
+    func fetchSearchResult(sortType: SortRule, keyword: String, startPoint: Int, display: Int, completionHandler: @escaping (SearchResult?, String?) -> Void) {
+        requestCall(networkCase: .search(sortType: sortType, keyword: keyword, startPoint: startPoint, display: display), completionHandler: completionHandler)
     }
 }

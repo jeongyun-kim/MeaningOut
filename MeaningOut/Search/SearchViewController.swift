@@ -126,7 +126,7 @@ class SearchViewController: UIViewController, SetupView {
     
     private func fetchSearchResults(_ sortType: SortRule) {
         guard let keyword = keyword else { return }
-        NetworkService.shared.fetchSearchResult(networkCase: .search(sortType: sortType, keyword: keyword, startPoint: startPoint, display: display)) { result, error in
+        NetworkService.shared.fetchSearchResult(sortType: sortType, keyword: keyword, startPoint: startPoint, display: display) { result, error in
             if let error = error {
                 self.showAlert(alertCase: .searchError) { _ in
                     self.navigationController?.popViewController(animated: true)
