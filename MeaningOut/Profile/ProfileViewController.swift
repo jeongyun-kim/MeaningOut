@@ -9,6 +9,16 @@ import UIKit
 import SnapKit
 
 class ProfileViewController: UIViewController, SetupView {
+    init(tempProfileImage: ProfileImage, profileViewType: ViewType = .setting) {
+        super.init(nibName: nil, bundle: nil)
+        self.tempProfileImage = tempProfileImage
+        self.profileViewType = profileViewType
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 
     var profileViewType: ViewType = .setting
     private let profileList: [ProfileImage] = ProfileImage.imageList
@@ -25,7 +35,11 @@ class ProfileViewController: UIViewController, SetupView {
     
     private let naviBorder = CustomBorder()
     private let profileLayerView = ProfileLayerView(.mainProfile)
-    private let profileImageView = CustomImageView()
+    private lazy var profileImageView: UIImageView = {
+        let imageView = CustomImageView()
+        imageView.image = UIImage(named: tempProfileImage.imageName)
+        return imageView
+    }()
     private let badgeImage = ProfileBadgeView(.mainProfile)
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
@@ -35,6 +49,7 @@ class ProfileViewController: UIViewController, SetupView {
         setupConstraints()
         setupCollectionView()
         setupUI()
+        print(tempProfileImage)
     }
     
     func setupHierarchy() {

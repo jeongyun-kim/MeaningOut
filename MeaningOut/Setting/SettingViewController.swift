@@ -70,9 +70,7 @@ class SettingViewController: UIViewController, SetupView {
     }
     
     @objc func headerBtnTapped(_ sender: UIButton) {
-        let vc = ProfileNicknameViewController()
-        vc.nicknameViewType = .edit
-        navigationController?.pushViewController(vc, animated: true)
+        pushVC(vc: ProfileNicknameViewController(nicknameViewType: .edit))
     }
 }
 

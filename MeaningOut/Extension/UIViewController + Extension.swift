@@ -30,4 +30,8 @@ extension UIViewController {
         }
         present(alert, animated: true)
     }
+    
+    func pushVC(vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

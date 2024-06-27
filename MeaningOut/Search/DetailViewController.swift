@@ -10,7 +10,15 @@ import SnapKit
 import WebKit
 
 class DetailViewController: UIViewController, SetupView {
-   
+    init(selectedItem: resultItem) {
+        super.init(nibName: nil, bundle: nil)
+        self.selectedItem = selectedItem
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var selectedItem: resultItem = resultItem(title: "", link: "", imagePath: "", price: "", mallName: "", productId: "")
    
     private let border = CustomBorder()

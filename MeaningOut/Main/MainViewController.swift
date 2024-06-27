@@ -137,12 +137,6 @@ class MainViewController: UIViewController, SetupView {
         searchKeywordsList.removeAll()
         ud.searchKeywords = searchKeywordsList
     }
-    
-    private func pushSearchVC(_ keyword: String) {
-        let vc = SearchViewController()
-        vc.keyword = keyword
-        navigationController?.pushViewController(vc, animated: true)
-    }
 }
 
 // MARK: TableViewExtension
@@ -161,7 +155,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let keyword = searchKeywordsList[indexPath.row]
-        pushSearchVC(keyword)
+        pushVC(vc: SearchViewController(keyword: keyword))
     }
 }
 
@@ -177,6 +171,6 @@ extension MainViewController: UISearchBarDelegate {
         
         searchBar.text = ""
         view.endEditing(true)
-        pushSearchVC(keyword)
+        pushVC(vc: SearchViewController(keyword: keyword))
     }
 }

@@ -9,7 +9,15 @@ import UIKit
 import SnapKit
 
 class SearchViewController: UIViewController, SetupView {
-
+    init(keyword: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.keyword = keyword
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private let ud = UserDefaultsManager.shared
     private var itemList: [resultItem] = []
     private let display: Int = 30
@@ -198,9 +206,8 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
             startPoint = 1
             fetchSearchResults(SortRule.allCases[indexPath.row])
         } else {
-            let vc = DetailViewController()
-            vc.selectedItem = itemList[indexPath.row]
-            navigationController?.pushViewController(vc, animated: true)
+            let selectedItem = itemList[indexPath.row]
+            pushVC(vc: DetailViewController(selectedItem: selectedItem))
         }
     }
     

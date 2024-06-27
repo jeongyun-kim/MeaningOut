@@ -73,25 +73,4 @@ enum ProfileLayerSizeCase: Int {
     }
 }
 
-//class TestViewController: UIViewController {
-//    required init?(coder: NSCoder) {
-//        fatalError()
-//    }
-//    
-//    init(title: String) {
-//    }
-//}
-//// let vc = TestViewContller(title: "123")
-//transition(vc)
-//
-//extension UIViewController {
-//    func transition(_ vc: UIViewController, option: String) {
-//        if option == "push" {
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        } else if option == "modal" {
-//            self.present(vc, animated: true)
-//        }
-//    }
-//}
-
 

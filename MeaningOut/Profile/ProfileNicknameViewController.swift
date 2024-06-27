@@ -9,6 +9,14 @@ import UIKit
 import SnapKit
 
 class ProfileNicknameViewController: UIViewController, SetupView {
+    init(nicknameViewType: ViewType = .setting) {
+        super.init(nibName: nil, bundle: nil)
+        self.nicknameViewType = nicknameViewType
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     var nicknameViewType: ViewType = .setting
     private let ud = UserDefaultsManager.shared
@@ -167,11 +175,8 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     }
     
     @objc func profileBtnTapped(_ sender: UIButton) {
-        let vc = ProfileViewController()
         guard let tempProfileImage = ProfileImage.tempSelectedProfileImage else { return }
-        vc.tempProfileImage = tempProfileImage
-        vc.profileViewType = nicknameViewType
-        navigationController?.pushViewController(vc, animated: true)
+        pushVC(vc: ProfileViewController(tempProfileImage: tempProfileImage, profileViewType: nicknameViewType))
     }
     
     @objc func confirmBtnTapped(_ sender: UIButton) {
