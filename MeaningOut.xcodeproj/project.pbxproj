@@ -18,6 +18,10 @@
 		E07564632C2D0ADE0065413D /* NicknameCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07564622C2D0ADE0065413D /* NicknameCase.swift */; };
 		E07564652C2D0B060065413D /* CollectionViewCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07564642C2D0B060065413D /* CollectionViewCase.swift */; };
 		E07564672C2D0B300065413D /* TableViewCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07564662C2D0B300065413D /* TableViewCase.swift */; };
+		E07564712C2DC33B0065413D /* NetworkCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07564702C2DC33B0065413D /* NetworkCaseProtocol.swift */; };
+		E07564742C2DC46E0065413D /* URLComponentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07564732C2DC46E0065413D /* URLComponentsManager.swift */; };
+		E07564762C2E82D50065413D /* NetworkErrorCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07564752C2E82D50065413D /* NetworkErrorCase.swift */; };
+		E07564792C2E831A0065413D /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = E07564782C2E831A0065413D /* Toast */; };
 		E07D8F752C1C522500282A16 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07D8F742C1C522500282A16 /* PaddingLabel.swift */; };
 		E07D8F772C1C653600282A16 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07D8F762C1C653600282A16 /* SearchResult.swift */; };
 		E07D8F792C1C690800282A16 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07D8F782C1C690800282A16 /* ItemCollectionViewCell.swift */; };
@@ -67,6 +71,9 @@
 		E07564622C2D0ADE0065413D /* NicknameCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameCase.swift; sourceTree = "<group>"; };
 		E07564642C2D0B060065413D /* CollectionViewCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCase.swift; sourceTree = "<group>"; };
 		E07564662C2D0B300065413D /* TableViewCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCase.swift; sourceTree = "<group>"; };
+		E07564702C2DC33B0065413D /* NetworkCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCaseProtocol.swift; sourceTree = "<group>"; };
+		E07564732C2DC46E0065413D /* URLComponentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLComponentsManager.swift; sourceTree = "<group>"; };
+		E07564752C2E82D50065413D /* NetworkErrorCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorCase.swift; sourceTree = "<group>"; };
 		E07D8F742C1C522500282A16 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		E07D8F762C1C653600282A16 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		E07D8F782C1C690800282A16 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -108,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E07564792C2E831A0065413D /* Toast in Frameworks */,
 				E07D8F7C2C1C6CAD00282A16 /* Kingfisher in Frameworks */,
 				E0B0B70C2C1AE8FB00A24154 /* Alamofire in Frameworks */,
 				E0B0B73F2C1AF25A00A24154 /* SnapKit in Frameworks */,
@@ -158,10 +166,20 @@
 		E07564682C2D0B650065413D /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				E07564722C2DC44E0065413D /* URLComponents */,
 				E075645B2C2CE94D0065413D /* NetworkRequestCase.swift */,
 				E0BAE9A92C247696008F795F /* NetworkService.swift */,
+				E07564752C2E82D50065413D /* NetworkErrorCase.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		E07564722C2DC44E0065413D /* URLComponents */ = {
+			isa = PBXGroup;
+			children = (
+				E07564732C2DC46E0065413D /* URLComponentsManager.swift */,
+			);
+			path = URLComponents;
 			sourceTree = "<group>";
 		};
 		E0B0B6E42C1AE7D200A24154 = {
@@ -237,6 +255,7 @@
 			children = (
 				E0B0B7402C1AF37B00A24154 /* SetupView.swift */,
 				E0B0B7602C1BF7FB00A24154 /* ReusableIdentifier.swift */,
+				E07564702C2DC33B0065413D /* NetworkCaseProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -324,6 +343,7 @@
 				E0B0B70B2C1AE8FB00A24154 /* Alamofire */,
 				E0B0B73E2C1AF25A00A24154 /* SnapKit */,
 				E07D8F7B2C1C6CAD00282A16 /* Kingfisher */,
+				E07564782C2E831A0065413D /* Toast */,
 			);
 			productName = MeaningOut;
 			productReference = E0B0B6ED2C1AE7D200A24154 /* MeaningOut.app */;
@@ -358,6 +378,7 @@
 				E0B0B73D2C1AF25A00A24154 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				E07D8F7A2C1C6CAD00282A16 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E037114E2C1FE8F100BDBD5B /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				E07564772C2E831A0065413D /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = E0B0B6EE2C1AE7D200A24154 /* Products */;
 			projectDirPath = "";
@@ -395,6 +416,7 @@
 				E0B0B75C2C1B4C4600A24154 /* ProfileViewController.swift in Sources */,
 				E029212C2C1D58E800A12B1D /* SettingTableViewCell.swift in Sources */,
 				E0B0B7742C1C3E1500A24154 /* TagCollectionViewCell.swift in Sources */,
+				E07564762C2E82D50065413D /* NetworkErrorCase.swift in Sources */,
 				E0B0B7712C1C325C00A24154 /* APIKey.swift in Sources */,
 				E02921322C1D615100A12B1D /* CustomImageView.swift in Sources */,
 				E0B0B7342C1AED4800A24154 /* OnboardingViewController.swift in Sources */,
@@ -424,8 +446,10 @@
 				E07564672C2D0B300065413D /* TableViewCase.swift in Sources */,
 				E075645F2C2D09070065413D /* AlertCase.swift in Sources */,
 				E0B0B7692C1C212D00A24154 /* EmptyView.swift in Sources */,
+				E07564712C2DC33B0065413D /* NetworkCaseProtocol.swift in Sources */,
 				E07D8F792C1C690800282A16 /* ItemCollectionViewCell.swift in Sources */,
 				E07D8F802C1C925500282A16 /* DetailViewController.swift in Sources */,
+				E07564742C2DC46E0065413D /* URLComponentsManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,6 +684,14 @@
 				minimumVersion = 1.31.0;
 			};
 		};
+		E07564772C2E831A0065413D /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
 		E07D8F7A2C1C6CAD00282A16 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -687,6 +719,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E07564782C2E831A0065413D /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E07564772C2E831A0065413D /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
 		E07D8F7B2C1C6CAD00282A16 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E07D8F7A2C1C6CAD00282A16 /* XCRemoteSwiftPackageReference "Kingfisher" */;

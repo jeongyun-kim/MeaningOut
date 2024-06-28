@@ -126,27 +126,27 @@ class SearchViewController: UIViewController, SetupView {
     
     private func fetchSearchResults(_ sortType: SortRule) {
         guard let keyword = keyword else { return }
-        NetworkService.shared.fetchSearchResult(sortType: sortType, keyword: keyword, startPoint: startPoint, display: display) { result, error in
-            if let error = error {
-                self.showAlert(alertCase: .searchError) { _ in
-                    self.navigationController?.popViewController(animated: true)
-                }
-            } else {
-                guard let result = result else { return }
-                let items = result.items
-                // 결과 가져오는 시작점이 1이라면
-                if self.startPoint == 1 {
-                    self.maxStartPoint = result.total
-                    self.itemList = items // 아이템 리스트에 아이템 넣기
-                    self.productCntLabel.text = "\(result.total.formatted())개의 검색 결과"
-                } else { // 결과 가져오는 시작점이 1이 아니라면 원래 있던 리스트 뒤에 아이템 붙여주기
-                    self.itemList.append(contentsOf: items)
-                }
-                
-                self.itemCollectionView.reloadData()
-                
-                if self.startPoint == 1 && self.itemList.count > 0 { // 시작점이 1이라면 스크롤 맨위로
-                    self.itemCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        NetworkService.shared.requestURLSessionCall(model: SearchResult.self, networkCase: .search(sortType: sortType, keyword: keyword, startPoint: startPoint, display: display)) { result, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    self.showToast(error.rawValue)
+                } else {
+                    guard let result = result else { return }
+                    let items = result.items
+                    // 결과 가져오는 시작점이 1이라면
+                    if self.startPoint == 1 {
+                        self.maxStartPoint = result.total
+                        self.itemList = items // 아이템 리스트에 아이템 넣기
+                        self.productCntLabel.text = "\(result.total.formatted())개의 검색 결과"
+                    } else { // 결과 가져오는 시작점이 1이 아니라면 원래 있던 리스트 뒤에 아이템 붙여주기
+                        self.itemList.append(contentsOf: items)
+                    }
+                    
+                    self.itemCollectionView.reloadData()
+                    
+                    if self.startPoint == 1 && self.itemList.count > 0 { // 시작점이 1이라면 스크롤 맨위로
+                        self.itemCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                    }
                 }
             }
         }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast
 
 extension UIViewController {
     func getNewScene(rootVC: UIViewController) {
@@ -33,5 +34,9 @@ extension UIViewController {
     
     func pushVC(vc: UIViewController) {
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showToast(_ message: String) {
+        self.view.makeToast(message)
     }
 }
