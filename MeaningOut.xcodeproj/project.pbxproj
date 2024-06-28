@@ -166,20 +166,12 @@
 		E07564682C2D0B650065413D /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				E07564722C2DC44E0065413D /* URLComponents */,
+				E07564732C2DC46E0065413D /* URLComponentsManager.swift */,
 				E075645B2C2CE94D0065413D /* NetworkRequestCase.swift */,
 				E0BAE9A92C247696008F795F /* NetworkService.swift */,
 				E07564752C2E82D50065413D /* NetworkErrorCase.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		E07564722C2DC44E0065413D /* URLComponents */ = {
-			isa = PBXGroup;
-			children = (
-				E07564732C2DC46E0065413D /* URLComponentsManager.swift */,
-			);
-			path = URLComponents;
 			sourceTree = "<group>";
 		};
 		E0B0B6E42C1AE7D200A24154 = {
