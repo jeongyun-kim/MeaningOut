@@ -15,7 +15,7 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
     private let profileLayerView = ProfileLayerView(.headerProfile)
     private let badgeImage = ProfileBadgeView(.headerProfile)
     private let profileImageView = CustomImageView(bgColor: ColorCase.white)
-    private let stackView: UIStackView = {
+    private let userInfoLabelStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 4
@@ -24,7 +24,7 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
     }()
     private let nicknameLabel = CustomLabel(fontCase: FontCase.bold20)
     private let dateLabel = CustomLabel(color: ColorCase.gray2, fontCase: FontCase.regular14)
-    private let imageView: UIImageView = {
+    private let goEditImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.image = ImageCase.next
@@ -48,11 +48,11 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
     func setupHierarchy() {
         contentView.addSubview(profileLayerView)
         profileLayerView.addSubview(profileImageView)
-        contentView.addSubview(stackView)
+        contentView.addSubview(userInfoLabelStackView)
         [nicknameLabel, dateLabel].forEach {
-            stackView.addArrangedSubview($0)
+            userInfoLabelStackView.addArrangedSubview($0)
         }
-        contentView.addSubview(imageView)
+        contentView.addSubview(goEditImageView)
         contentView.addSubview(border)
         contentView.addSubview(button)
         contentView.addSubview(badgeImage)
@@ -74,14 +74,14 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
             make.centerX.equalTo(profileLayerView.snp.centerX)
         }
         
-        stackView.snp.makeConstraints { make in
+        userInfoLabelStackView.snp.makeConstraints { make in
             make.leading.equalTo(profileLayerView.snp.trailing).offset(24)
             make.centerY.equalTo(profileLayerView.snp.centerY)
         }
         
-        imageView.snp.makeConstraints { make in
-            make.leading.greaterThanOrEqualTo(stackView.snp.trailing).offset(16)
-            make.centerY.equalTo(stackView.snp.centerY)
+        goEditImageView.snp.makeConstraints { make in
+            make.leading.greaterThanOrEqualTo(userInfoLabelStackView.snp.trailing).offset(16)
+            make.centerY.equalTo(userInfoLabelStackView.snp.centerY)
             make.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(16)
             make.size.equalTo(15)
         }
