@@ -166,7 +166,8 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     @objc func saveData() {
         ud.userName = nicknameTextField.text!
-        ud.userProfileImage = ProfileImage.tempSelectedProfileImage!.imageName
+        guard let tempSelectedProfileImage = ProfileImage.tempSelectedProfileImage else { return }
+        ud.userProfileImage = tempSelectedProfileImage.imageName
         ud.joinDate = getJoinDate()
         
         if nicknameViewType == .edit {

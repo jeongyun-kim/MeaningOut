@@ -45,17 +45,20 @@ extension resultItem {
         return title
     }
     
-    var url: URL {
-        return URL(string: imagePath)!
+    var url: URL? {
+        guard let url = URL(string: imagePath) else { return nil }
+        return url
     }
     
-    var priceString: String {
-        return "\(Int(price)!.formatted())원"
+    var priceString: String? {
+        guard let price = Int(price) else { return nil }
+        return "\(price.formatted())원"
     }
     
     // 좋아요 버튼 이미지
-    var likeBtnImage: UIImage {
-        return isLike ? ImageCase.like_selected! : ImageCase.like_unselected!
+    var likeBtnImage: UIImage? {
+        guard let isLikeImage = isLike ? ImageCase.like_selected : ImageCase.like_unselected else { return nil }
+        return isLikeImage
     }
     
     // 좋아요 버튼 틴트컬러
