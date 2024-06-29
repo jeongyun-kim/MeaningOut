@@ -145,7 +145,7 @@ class SearchViewController: UIViewController, SetupView {
                     self.itemCollectionView.reloadData()
                     
                     if self.startPoint == 1 && self.itemList.count > 0 { // 시작점이 1이라면 스크롤 맨위로
-                        self.itemCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                        self.itemCollectionView.scrollToTheTop()
                     }
                 }
             }
@@ -202,10 +202,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == tagCollectionView {
-            startPoint = 1
-            fetchSearchResults(SortRule.allCases[indexPath.row])
-        } else {
+        if collectionView == itemCollectionView {
             let selectedItem = itemList[indexPath.row]
             pushVC(vc: DetailViewController(selectedItem: selectedItem))
         }
@@ -217,5 +214,21 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if indexPath.row == 0 {
             cell.isSelected = true
         }
+    }
+    
+    // 태그 셀이 새로 눌러질 때, 이전 태그랑 현재 누르고 있는 태그를 비교해서 같다면 스크롤만 위로 올리기 / 다르다면 네트워크 통신
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if collectionView == tagCollectionView {
+            let beforeIdx = collectionView.indexPathsForSelectedItems?.first?.row
+            let afterIdx = indexPath.row
+            
+            if beforeIdx != afterIdx {
+                startPoint = 1
+                fetchSearchResults(SortRule.allCases[indexPath.row])
+            } else {
+                itemCollectionView.scrollToTheTop()
+            }
+        }
+        return true
     }
 }
