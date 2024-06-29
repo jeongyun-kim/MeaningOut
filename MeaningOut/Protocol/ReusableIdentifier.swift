@@ -11,19 +11,7 @@ protocol ReusableIdentifier {
     static var identifier: String { get }
 }
 
-extension UICollectionViewCell: ReusableIdentifier {
-    static var identifier: String {
-        return String(describing: self)
-    }
-}
-
-extension UITableViewCell: ReusableIdentifier {
-    static var identifier: String {
-        return String(describing: self)
-    }
-}
-
-extension UITableViewHeaderFooterView: ReusableIdentifier {
+extension UIView: ReusableIdentifier {
     static var identifier: String {
         return String(describing: self)
     }
