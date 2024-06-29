@@ -28,7 +28,7 @@ class NetworkService {
         }
     }
     
-    func requestURLSessionCall<T: Decodable>(model: T.Type, networkCase: NetworkRequestCase, completionHandler: @escaping URLSessionCompletionHandler<T>) {
+    func requestURLSessionCall<T: Decodable>(session: URLSession = .shared, model: T.Type, networkCase: NetworkRequestCase, completionHandler: @escaping URLSessionCompletionHandler<T>) {
         switch networkCase {
         case .search(let sortType, let keyword, let startPoint, let display):
             // URL Components로 구성한 url 받아오기
@@ -39,7 +39,7 @@ class NetworkService {
             request.addValue(APIData.clientId, forHTTPHeaderField: "X-Naver-Client-Id")
             request.addValue(APIData.clientSecret, forHTTPHeaderField: "X-Naver-Client-Secret")
             // 요청 보내기
-            URLSession.shared.dataTask(with: request) { data, response, error in
+            session.customURLSessionDataTask(request) { data, response, error in
                 // error가 없다면 패스 아니면 failedRequest
                 guard error == nil else {
                     completionHandler(nil, .failedRequest)
@@ -48,7 +48,7 @@ class NetworkService {
                 // 데이터값이 있을 때 패스, 아니면 noData
                 guard let data = data else {
                     completionHandler(nil, .noData)
-                    return 
+                    return
                 }
                 // response값도 있다면 패스, 아니면 invalidResponse
                 guard let response = response as? HTTPURLResponse else {
@@ -69,7 +69,7 @@ class NetworkService {
                 } catch {
                     completionHandler(nil, .invalidData)
                 }
-            }.resume()
+            }
         }
     }
 }
