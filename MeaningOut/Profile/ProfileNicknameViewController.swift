@@ -202,7 +202,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         
         // 전체 문자 확인
         // 공백 모두 제거한 문자열의 길이
-        let removeWhiteSpaceCnt = text.components(separatedBy: " ").joined().count
+        let removeWhiteSpaceCnt = getRemovedWhiteSpaceStringLength(text)
         // 닉네임에 숫자가 들어있는지
         let isContainsNumber = text.range(of: NicknameRegex.number, options: .regularExpression) != nil
         // 닉네임에 # $ @ % 가 들어있는지
