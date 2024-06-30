@@ -39,4 +39,8 @@ extension UIViewController {
     func showToast(_ message: String) {
         self.view.makeToast(message)
     }
+    
+    func getRemovedWhiteSpaceStringLength(_ str: String) -> Int {
+        return str.components(separatedBy: " ").joined().count
+    }
 }

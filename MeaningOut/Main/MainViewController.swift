@@ -94,6 +94,10 @@ extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let keyword = searchBar.text else { return }
         
+        guard getRemovedWhiteSpaceStringLength(keyword) != 0 else {
+            return showToast(ToastMessageCase.emptyKeyword.rawValue)
+        }
+        
         if !searchKeywordsList.contains(keyword) {
             searchKeywordsList.insert(keyword, at: 0) // 가장 최근 검색어가 맨위에 와야하므로 검색어는 0번 인덱스에 넣어주기
             ud.searchKeywords = searchKeywordsList

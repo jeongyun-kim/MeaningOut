@@ -73,4 +73,6 @@ enum ProfileLayerSizeCase: Int {
     }
 }
 
-
+enum ToastMessageCase: String {
+    case emptyKeyword = "검색어를 확인해주세요"
+}
