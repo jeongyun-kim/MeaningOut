@@ -21,8 +21,13 @@ class LocalNotificationManager {
         dateComponent.hour = 19
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: true)
-        
+       
         let request = UNNotificationRequest(identifier: "like", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request)
+        
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            if requests.filter({ $0.identifier == "like" }).count == 0 {
+                UNUserNotificationCenter.current().add(request)
+            }
+        }
     }
 }

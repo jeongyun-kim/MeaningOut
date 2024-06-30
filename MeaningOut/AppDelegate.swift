@@ -19,10 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { success, error in
             if success {
                 print("success")
-                LocalNotification.noti.sendNotification()
+                LocalNotificationManager.noti.sendNotification()
             }
         }
-        
         return true
     }
 
