@@ -8,52 +8,34 @@
 import UIKit
 import SnapKit
 
-class MainViewController: UIViewController, SetupView {
+class MainViewController: BaseTableViewController {
 
+    private let baseView = BaseMainView()
     private let ud = UserDefaultsManager.shared
     private lazy var searchKeywordsList: [String] = ud.searchKeywords {
         didSet {
             if searchKeywordsList.isEmpty { // 검색어 없으면 emptyView 보여주기
-                recentSearchLabel.isHidden = true
-                deleteAllButton.isHidden = true
-                tableView.isHidden = true
-                emptyView.isHidden = false
+                baseView.recentSearchLabel.isHidden = true
+                baseView.deleteAllButton.isHidden = true
+                baseView.tableView.isHidden = true
+                baseView.emptyView.isHidden = false
             } else { // 검색어가 있다면 emptyView 숨기고 tableView 보여주기
-                recentSearchLabel.isHidden = false
-                deleteAllButton.isHidden = false
-                tableView.isHidden = false
-                emptyView.isHidden = true
+                baseView.recentSearchLabel.isHidden = false
+                baseView.deleteAllButton.isHidden = false
+                baseView.tableView.isHidden = false
+                baseView.emptyView.isHidden = true
                 
-                tableView.reloadData()
+                baseView.tableView.reloadData()
             }
         }
     }
     
-    private let searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = Placeholder.search.rawValue
-        searchBar.searchBarStyle = .minimal
-        return searchBar
-    }()
-    private let border = CustomBorder()
-    private let recentSearchLabel = CustomLabel(title: "최근 검색", fontCase: FontCase.bold16)
-    private let deleteAllButton: UIButton = {
-         let button = UIButton()
-         button.setTitle("전체 삭제", for: .normal)
-         button.setTitleColor(ColorCase.primaryColor, for: .normal)
-         button.titleLabel?.font = FontCase.regular14
-         return button
-     }()
-    private let emptyView = EmptyView(frame: .zero)
-    private let tableView = UITableView()
+    override func loadView() {
+        self.view = baseView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupHierarchy()
-        setupConstraints()
-        setupTableView()
-        setupUI()
-        addActions()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,71 +43,19 @@ class MainViewController: UIViewController, SetupView {
         searchKeywordsList = ud.searchKeywords
         navigationItem.title = "\(ud.userName)'s MEANING OUT"
     }
-    
-    func setupHierarchy() {
-        view.addSubview(searchBar)
-        view.addSubview(border)
-        view.addSubview(emptyView)
-        view.addSubview(recentSearchLabel)
-        view.addSubview(deleteAllButton)
-        view.addSubview(deleteAllButton)
-        view.addSubview(tableView)
+
+    override func setupTableView() {
+        baseView.tableView.delegate = self
+        baseView.tableView.dataSource = self
     }
     
-    func setupConstraints() {
-        searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
-            make.height.equalTo(44)
-        }
-        
-        border.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        emptyView.snp.makeConstraints { make in
-            make.top.equalTo(border.snp.bottom)
-            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        recentSearchLabel.snp.makeConstraints { make in
-            make.top.equalTo(border.snp.bottom).offset(16)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(24)
-        }
-        
-        deleteAllButton.snp.makeConstraints { make in
-            make.centerY.equalTo(recentSearchLabel.snp.centerY)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
-        }
-        
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(recentSearchLabel.snp.bottom).offset(16)
-            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
+    override func setupUI() {
+        super.setupUI()
+        baseView.searchBar.delegate = self
     }
     
-    func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        tableView.register(SearchKeywordsTableViewCell.self, forCellReuseIdentifier: SearchKeywordsTableViewCell.identifier)
-        
-        tableView.estimatedRowHeight = UITableView.automaticDimension
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.separatorStyle = .none
-        tableView.keyboardDismissMode = .onDrag
-    }
-    
-    func setupUI() {
-        view.backgroundColor = .systemBackground
-        navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.tintColor = ColorCase.black
-        searchBar.delegate = self
-    }
-    
-    func addActions() {
-        deleteAllButton.addTarget(self, action: #selector(deleteAllBtnTapped), for: .touchUpInside)
+    override func addActions() {
+        baseView.deleteAllButton.addTarget(self, action: #selector(deleteAllBtnTapped), for: .touchUpInside)
     }
     
     @objc func deleteBtnTapped(_ sender: UIButton) {
