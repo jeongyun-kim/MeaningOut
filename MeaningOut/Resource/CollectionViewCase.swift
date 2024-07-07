@@ -13,3 +13,9 @@ enum TagName: String, CaseIterable {
     case dsc = "가격높은순"
     case asc = "가격낮은순"
 }
+
+
+enum CollectionViewType {
+    case search
+    case like
+}

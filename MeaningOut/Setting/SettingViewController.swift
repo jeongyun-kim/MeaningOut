@@ -96,13 +96,18 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if SettingCellTitle.allCases[indexPath.row] == SettingCellTitle.cancel {
+        switch SettingCellTitle.allCases[indexPath.row] {
+        case .cancel:
             showAlert(alertCase: .membershipCancel) { _ in
                 self.repository.removeAllUserData()
                 // 회원탈퇴 시 온보딩 화면으로 새로 시작
                 let rootViewController = UINavigationController(rootViewController: OnboardingViewController())
                 self.getNewScene(rootVC: rootViewController)
             }
+        case .likeList:
+            pushVC(vc: LikedItemViewController())
+        default:
+            break
         }
     }
 

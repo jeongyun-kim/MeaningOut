@@ -24,15 +24,23 @@ extension UICollectionViewLayout {
     }
     
     // 검색결과 컬렉션뷰 레이아웃
-    static func itemCollectionViewLayout() -> UICollectionViewLayout {
+    static func itemCollectionViewLayout(_ type: CollectionViewType = .search) -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         let sectionInsetAndSpacing: CGFloat = 16
-        let size = (UIScreen.main.bounds.width - sectionInsetAndSpacing * 3) / 2
+        var size: CGFloat
         
         layout.minimumLineSpacing = sectionInsetAndSpacing
         layout.minimumInteritemSpacing = sectionInsetAndSpacing
-        layout.sectionInset = UIEdgeInsets(top: 0, left: sectionInsetAndSpacing, bottom: sectionInsetAndSpacing, right: sectionInsetAndSpacing)
-        layout.itemSize = CGSize(width: size, height: size*1.7)
+        switch type {
+        case .like:
+            size = (UIScreen.main.bounds.width - sectionInsetAndSpacing * 4) / 3
+            layout.itemSize = CGSize(width: size, height: size*2.5)
+            layout.sectionInset = UIEdgeInsets(top: sectionInsetAndSpacing, left: sectionInsetAndSpacing, bottom: sectionInsetAndSpacing, right: sectionInsetAndSpacing)
+        case .search:
+            size = (UIScreen.main.bounds.width - sectionInsetAndSpacing * 3) / 2
+            layout.itemSize = CGSize(width: size, height: size*1.7)
+            layout.sectionInset = UIEdgeInsets(top: 0, left: sectionInsetAndSpacing, bottom: sectionInsetAndSpacing, right: sectionInsetAndSpacing)
+        }
         
         return layout
     }

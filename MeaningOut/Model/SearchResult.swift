@@ -81,7 +81,7 @@ extension resultItem {
     static func addOrRemoveLikeItem(_ data: resultItem) {
         let repository = UserDataRepository()
         guard let userData = repository.readUserData() else { return }
-        let item = Item(productId: data.productId, title: data.title, link: data.link, imagePath: data.imagePath, price: data.price, mallName: data.mallName)
+        let item = Item(productId: data.productId, title: data.replacedTitle, link: data.link, imagePath: data.imagePath, price: data.priceString ?? "", mallName: data.mallName)
         repository.updateUserLikeItemList(item)
     }
 }
