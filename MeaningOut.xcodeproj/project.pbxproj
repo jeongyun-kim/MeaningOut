@@ -208,10 +208,9 @@
 		E075647E2C313F370065413D /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				E0ECEDA72C3A776200A67525 /* MainVC */,
+				E0ECEDA52C3A774500A67525 /* CollectionView */,
 				E07564812C313F690065413D /* BaseTableViewController.swift */,
-				E07564832C3143BB0065413D /* BaseMainView.swift */,
-				E0ECED9A2C3A636F00A67525 /* BaseCollectionViewController.swift */,
-				E0ECED9F2C3A66D100A67525 /* BaseItemCollectionViewCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -254,11 +253,7 @@
 				E0B0B7472C1AFB5800A24154 /* Protocol */,
 				E075647E2C313F370065413D /* Base */,
 				E0B0B73A2C1AF0CC00A24154 /* CustomView */,
-				E0B0B7442C1AF94200A24154 /* Onboarding */,
-				E03711532C1FF10200BDBD5B /* Profile */,
-				E0B0B7492C1AFB7500A24154 /* Main */,
-				E0B0B76D2C1C320900A24154 /* Search */,
-				E0B0B7482C1AFB6900A24154 /* Setting */,
+				E0ECEDA82C3A777E00A67525 /* Pages */,
 				E0B0B6F02C1AE7D200A24154 /* AppDelegate.swift */,
 				E0B0B6F22C1AE7D200A24154 /* SceneDelegate.swift */,
 				E0B0B6F92C1AE7D300A24154 /* Assets.xcassets */,
@@ -327,10 +322,8 @@
 		E0B0B75A2C1B4BB300A24154 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E0B0B7502C1B012600A24154 /* ProfileImage.swift */,
-				E07D8F762C1C653600282A16 /* SearchResult.swift */,
-				E0ECED8B2C39252100A67525 /* UserData.swift */,
-				E0ECED922C39284F00A67525 /* Item.swift */,
+				E0ECEDA42C3A773100A67525 /* DB */,
+				E0ECEDA32C3A771800A67525 /* Network */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -394,6 +387,61 @@
 				E075645B2C2CE94D0065413D /* NetworkRequestCase.swift */,
 			);
 			path = Enum;
+			sourceTree = "<group>";
+		};
+		E0ECEDA32C3A771800A67525 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E07D8F762C1C653600282A16 /* SearchResult.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		E0ECEDA42C3A773100A67525 /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				E0ECED8B2C39252100A67525 /* UserData.swift */,
+				E0ECED922C39284F00A67525 /* Item.swift */,
+				E0B0B7502C1B012600A24154 /* ProfileImage.swift */,
+			);
+			path = DB;
+			sourceTree = "<group>";
+		};
+		E0ECEDA52C3A774500A67525 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				E0ECEDA62C3A775700A67525 /* Item */,
+				E0ECED9A2C3A636F00A67525 /* BaseCollectionViewController.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		E0ECEDA62C3A775700A67525 /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				E0ECED9F2C3A66D100A67525 /* BaseItemCollectionViewCell.swift */,
+			);
+			path = Item;
+			sourceTree = "<group>";
+		};
+		E0ECEDA72C3A776200A67525 /* MainVC */ = {
+			isa = PBXGroup;
+			children = (
+				E07564832C3143BB0065413D /* BaseMainView.swift */,
+			);
+			path = MainVC;
+			sourceTree = "<group>";
+		};
+		E0ECEDA82C3A777E00A67525 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				E0B0B7442C1AF94200A24154 /* Onboarding */,
+				E03711532C1FF10200BDBD5B /* Profile */,
+				E0B0B7492C1AFB7500A24154 /* Main */,
+				E0B0B76D2C1C320900A24154 /* Search */,
+				E0B0B7482C1AFB6900A24154 /* Setting */,
+			);
+			path = Pages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

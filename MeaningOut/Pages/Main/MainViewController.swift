@@ -44,9 +44,6 @@ class MainViewController: BaseTableViewController {
             searchKeywordsList = Array(userData.searchKeywords)
             navigationItem.title = "\(userData.userName)'s MEANING OUT"
         }
-        
-//        searchKeywordsList = ud.searchKeywords
-        
     }
 
     override func setupTableView() {
