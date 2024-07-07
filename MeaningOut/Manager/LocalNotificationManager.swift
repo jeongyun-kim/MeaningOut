@@ -7,14 +7,19 @@
 
 import UIKit
 
-class LocalNotificationManager {
+final class LocalNotificationManager {
     private init() {}
     static let noti = LocalNotificationManager()
+    private let repository = UserDataRepository()
     
     func sendNotification() {
         let content = UNMutableNotificationContent()
         content.title = "오늘은 어떤 상품을 좋아요 해볼까요?"
-        content.body = "현재 \(UserDefaultsManager.shared.likeCnt)개의 상품에 좋아요했어요"
+        if let userData = repository.readUserData() {
+            content.body = "현재 \(userData.likedItemList.count)개의 상품에 좋아요했어요"
+        } else {
+            content.body = "현재 0개의 상품에 좋아요했어요"
+        }
         content.sound = .default
         
         var dateComponent = DateComponents()
@@ -30,4 +35,5 @@ class LocalNotificationManager {
             }
         }
     }
+        
 }

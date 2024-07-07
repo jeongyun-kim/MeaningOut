@@ -59,7 +59,7 @@ class DetailViewController: UIViewController, SetupView {
     }
     
     @objc func rightBarBtnTapped(_ sender: UIButton) {
-        resultItem.addOrRemoveLikeId(selectedItem.productId)
+        resultItem.addOrRemoveLikeItem(selectedItem)
         navigationItem.rightBarButtonItem?.image = selectedItem.likeBtnImage
     }
     

@@ -11,8 +11,8 @@ import SnapKit
 class MainViewController: BaseTableViewController {
 
     private let baseView = BaseMainView()
-    private let ud = UserDefaultsManager.shared
-    private lazy var searchKeywordsList: [String] = ud.searchKeywords {
+    private let repository = UserDataRepository()
+    private lazy var searchKeywordsList: [String] = [] {
         didSet {
             if searchKeywordsList.isEmpty { // 검색어 없으면 emptyView 보여주기
                 baseView.recentSearchLabel.isHidden = true
@@ -40,8 +40,13 @@ class MainViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        searchKeywordsList = ud.searchKeywords
-        navigationItem.title = "\(ud.userName)'s MEANING OUT"
+        if let userData = repository.readUserData() {
+            searchKeywordsList = Array(userData.searchKeywords)
+            navigationItem.title = "\(userData.userName)'s MEANING OUT"
+        }
+        
+//        searchKeywordsList = ud.searchKeywords
+        
     }
 
     override func setupTableView() {
@@ -60,12 +65,18 @@ class MainViewController: BaseTableViewController {
     
     @objc func deleteBtnTapped(_ sender: UIButton) {
         searchKeywordsList.remove(at: sender.tag)
-        ud.searchKeywords = searchKeywordsList
+        updateSearchKeywordsList()
     }
     
     @objc func deleteAllBtnTapped(_ sender: UIButton) {
         searchKeywordsList.removeAll()
-        ud.searchKeywords = searchKeywordsList
+        updateSearchKeywordsList()
+    }
+    
+    private func updateSearchKeywordsList() {
+        if let userData = repository.readUserData() {
+            repository.updateUserData(value: ["id": userData.id, "searchKeywords": searchKeywordsList])
+        }
     }
 }
 
@@ -100,7 +111,7 @@ extension MainViewController: UISearchBarDelegate {
         
         if !searchKeywordsList.contains(keyword) {
             searchKeywordsList.insert(keyword, at: 0) // 가장 최근 검색어가 맨위에 와야하므로 검색어는 0번 인덱스에 넣어주기
-            ud.searchKeywords = searchKeywordsList
+            updateSearchKeywordsList()
         }
         
         searchBar.text = ""

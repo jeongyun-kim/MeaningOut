@@ -69,7 +69,5 @@ class OnboardingViewController: UIViewController, SetupView {
     
     @objc func startBtnTapped(_ sender: UIButton) {
         pushVC(vc: ProfileNicknameViewController())
-//        let vc = ProfileNicknameViewController()
-//        navigationController?.pushViewController(vc, animated: true)
     }
 }

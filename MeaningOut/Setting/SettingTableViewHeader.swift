@@ -8,9 +8,6 @@
 import UIKit
 
 class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
-    
-    private let ud = UserDefaultsManager.shared
-    
     let button = UIButton()
     private let profileLayerView = ProfileLayerView(.headerProfile)
     private let badgeImage = ProfileBadgeView(.headerProfile)

@@ -19,7 +19,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     }
     
     var nicknameViewType: ViewType = .setting
-    private let ud = UserDefaultsManager.shared
+    private let repository = UserDataRepository()
     
     private let naviBorder = CustomBorder()
     // 프로필뷰
@@ -129,7 +129,8 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         navigationItem.backButtonTitle = ""
         
         if nicknameViewType == .edit {
-            nicknameTextField.text = ud.userName
+            guard let user = repository.readUserData() else { return }
+            nicknameTextField.text = user.userName
             confirmButton.isHidden = true
             let rightBarItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveData))
             navigationItem.rightBarButtonItem = rightBarItem
@@ -165,11 +166,15 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     }
     
     @objc func saveData() {
-        ud.userName = nicknameTextField.text!
-        guard let tempSelectedProfileImage = ProfileImage.tempSelectedProfileImage else { return }
-        ud.userProfileImage = tempSelectedProfileImage.imageName
-        ud.joinDate = getJoinDate()
+        guard let name = nicknameTextField.text else { return }
+        guard let profileImage = ProfileImage.tempSelectedProfileImage else { return }
         
+        if let userData = repository.readUserData() {
+            repository.updateUserData(value: ["id": userData.id, "userName": name, "userProfileImageName": profileImage.imageName])
+        } else {
+            repository.createUserData(name: name, profileImage: profileImage.imageName, joinDate: getJoinDate())
+        }
+
         if nicknameViewType == .edit {
             navigationController?.popViewController(animated: true)
         }
@@ -181,7 +186,6 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     }
     
     @objc func confirmBtnTapped(_ sender: UIButton) {
-        ud.isUser = true
         saveData()
         getNewScene(rootVC: TabBarController())
     }

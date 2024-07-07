@@ -13,4 +13,14 @@ enum SettingCellTitle: String, CaseIterable {
     case contact = "1:1 문의"
     case notification = "알림 설정"
     case cancel = "탈퇴하기"
+    
+    var likeCnt: Int {
+        switch self {
+        case .likeList:
+            guard let userData = UserDataRepository().readUserData() else { return 0 }
+            return userData.likedItemList.count
+        default:
+            return 0
+        }
+    }
 }

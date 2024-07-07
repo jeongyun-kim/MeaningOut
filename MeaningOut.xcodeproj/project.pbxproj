@@ -62,6 +62,11 @@
 		E0B0B7742C1C3E1500A24154 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B0B7732C1C3E1500A24154 /* TagCollectionViewCell.swift */; };
 		E0BAE9AA2C247696008F795F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BAE9A92C247696008F795F /* NetworkService.swift */; };
 		E0BAE9AC2C253C4C008F795F /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BAE9AB2C253C4C008F795F /* LocalNotificationManager.swift */; };
+		E0ECED8C2C39252100A67525 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0ECED8B2C39252100A67525 /* UserData.swift */; };
+		E0ECED8F2C39255C00A67525 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E0ECED8E2C39255C00A67525 /* RealmSwift */; };
+		E0ECED912C39266C00A67525 /* UserDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0ECED902C39266C00A67525 /* UserDataRepository.swift */; };
+		E0ECED932C39284F00A67525 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0ECED922C39284F00A67525 /* Item.swift */; };
+		E0ECED972C3A5BAA00A67525 /* ItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0ECED962C3A5BAA00A67525 /* ItemRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +123,10 @@
 		E0B0B7732C1C3E1500A24154 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		E0BAE9A92C247696008F795F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		E0BAE9AB2C253C4C008F795F /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
+		E0ECED8B2C39252100A67525 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		E0ECED902C39266C00A67525 /* UserDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataRepository.swift; sourceTree = "<group>"; };
+		E0ECED922C39284F00A67525 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		E0ECED962C3A5BAA00A67525 /* ItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +137,7 @@
 				E07564792C2E831A0065413D /* Toast in Frameworks */,
 				E07D8F7C2C1C6CAD00282A16 /* Kingfisher in Frameworks */,
 				E0B0B70C2C1AE8FB00A24154 /* Alamofire in Frameworks */,
+				E0ECED8F2C39255C00A67525 /* RealmSwift in Frameworks */,
 				E0B0B73F2C1AF25A00A24154 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,6 +211,8 @@
 			children = (
 				E0B0B7312C1AECF100A24154 /* UserDefaultsManager.swift */,
 				E0BAE9AB2C253C4C008F795F /* LocalNotificationManager.swift */,
+				E0ECED902C39266C00A67525 /* UserDataRepository.swift */,
+				E0ECED962C3A5BAA00A67525 /* ItemRepository.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -307,6 +319,8 @@
 			children = (
 				E0B0B7502C1B012600A24154 /* ProfileImage.swift */,
 				E07D8F762C1C653600282A16 /* SearchResult.swift */,
+				E0ECED8B2C39252100A67525 /* UserData.swift */,
+				E0ECED922C39284F00A67525 /* Item.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -367,6 +381,7 @@
 				E0B0B73E2C1AF25A00A24154 /* SnapKit */,
 				E07D8F7B2C1C6CAD00282A16 /* Kingfisher */,
 				E07564782C2E831A0065413D /* Toast */,
+				E0ECED8E2C39255C00A67525 /* RealmSwift */,
 			);
 			productName = MeaningOut;
 			productReference = E0B0B6ED2C1AE7D200A24154 /* MeaningOut.app */;
@@ -402,6 +417,7 @@
 				E07D8F7A2C1C6CAD00282A16 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E037114E2C1FE8F100BDBD5B /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				E07564772C2E831A0065413D /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				E0ECED8D2C39255C00A67525 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = E0B0B6EE2C1AE7D200A24154 /* Products */;
 			projectDirPath = "";
@@ -449,6 +465,7 @@
 				E0B0B7342C1AED4800A24154 /* OnboardingViewController.swift in Sources */,
 				E0B0B7612C1BF7FB00A24154 /* ReusableIdentifier.swift in Sources */,
 				E0B0B7632C1C0FD600A24154 /* ProfileLayerView.swift in Sources */,
+				E0ECED932C39284F00A67525 /* Item.swift in Sources */,
 				E0B0B73C2C1AF1D700A24154 /* SettingViewController.swift in Sources */,
 				E07D8F822C1CA01000282A16 /* SettingTableViewHeader.swift in Sources */,
 				E07564822C313F690065413D /* BaseTableViewController.swift in Sources */,
@@ -460,15 +477,18 @@
 				E0B0B7362C1AEDB300A24154 /* TabBarController.swift in Sources */,
 				E0B0B7512C1B012600A24154 /* ProfileImage.swift in Sources */,
 				E07564632C2D0ADE0065413D /* NicknameCase.swift in Sources */,
+				E0ECED8C2C39252100A67525 /* UserData.swift in Sources */,
 				E07564612C2D0A6A0065413D /* ResourceCase.swift in Sources */,
 				E02921382C1D7F3E00A12B1D /* UIViewController + Extension.swift in Sources */,
 				E0BAE9AA2C247696008F795F /* NetworkService.swift in Sources */,
 				E0B0B7322C1AECF100A24154 /* UserDefaultsManager.swift in Sources */,
 				E0B0B6F32C1AE7D200A24154 /* SceneDelegate.swift in Sources */,
+				E0ECED912C39266C00A67525 /* UserDataRepository.swift in Sources */,
 				E0B0B76F2C1C321900A24154 /* SearchViewController.swift in Sources */,
 				E07564652C2D0B060065413D /* CollectionViewCase.swift in Sources */,
 				E03711202C1EBE6700BDBD5B /* ProfileBadgeView.swift in Sources */,
 				E0B0B74D2C1AFBC100A24154 /* CustomBorder.swift in Sources */,
+				E0ECED972C3A5BAA00A67525 /* ItemRepository.swift in Sources */,
 				E0B0B75F2C1BF61C00A24154 /* ProfileCollectionViewCell.swift in Sources */,
 				E0B0B76C2C1C25B200A24154 /* SearchKeywordsTableViewCell.swift in Sources */,
 				E07564672C2D0B300065413D /* TableViewCase.swift in Sources */,
@@ -744,6 +764,14 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		E0ECED8D2C39255C00A67525 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.52.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -766,6 +794,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E0B0B73D2C1AF25A00A24154 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		E0ECED8E2C39255C00A67525 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E0ECED8D2C39255C00A67525 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

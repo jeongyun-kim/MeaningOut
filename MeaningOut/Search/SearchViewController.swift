@@ -18,7 +18,6 @@ class SearchViewController: UIViewController, SetupView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let ud = UserDefaultsManager.shared
     private var itemList: [resultItem] = []
     private let display: Int = 30
     private var startPoint: Int = 1
@@ -125,11 +124,9 @@ class SearchViewController: UIViewController, SetupView {
 
     @objc func likeBtnTapped(_ sender: UIButton) {
         // 현재 좋아요 누른 아이템 아이디
-        let itemId = itemList[sender.tag].productId
-
+        let item = itemList[sender.tag]
         // 좋아요 처리 메서드 호출 
-        resultItem.addOrRemoveLikeId(itemId)
-        
+        resultItem.addOrRemoveLikeItem(item)
         // reload 애니메이션 없이 좋아요한 셀만 리로드
         UIView.performWithoutAnimation {
             itemCollectionView.reloadItems(at: [IndexPath(row: sender.tag, section: 0)])

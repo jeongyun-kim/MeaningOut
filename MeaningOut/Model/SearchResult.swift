@@ -21,7 +21,7 @@ struct resultItem: Codable {
     let price: String
     let mallName: String
     let productId: String
-    
+  
     enum CodingKeys: String, CodingKey {
         case title
         case link
@@ -34,9 +34,16 @@ struct resultItem: Codable {
 
 extension resultItem {
     // 새로이 검색했을 때 아이템을 map으로 가져오면서 isLike = false로 사용했을 때, '좋아요'한 아이템들도 false 처리해버려 좋아요한 이력은 있지만 컬렉션뷰에 제대로 출력되지 않음
-    // => 아예 UserDefault에 저장된 아이디값들이랑 비교해서 현재 아이템의 아이디가 포함되어있으면 true / 아니면 false로 처리
+    // => 아예 저장된 아이디값들이랑 비교해서 현재 아이템의 아이디가 포함되어있으면 true / 아니면 false로 처리
     var isLike: Bool {
-        return UserDefaultsManager.shared.likedItemId.contains(productId)
+        guard let userData = UserDataRepository().readUserData() else { return false }
+        // 좋아요한 아이템들의 아이디 리스트
+        let likedIdList = userData.likedItemList.projectTo.productId
+        // 현재 상품의 아이디가 좋아요한 이력이 있는 아이디라면
+        if likedIdList.contains(productId) {
+            return true
+        }
+        return false
     }
     
     var replacedTitle: String {
@@ -71,19 +78,10 @@ extension resultItem {
         return isLike ? ColorCase.white : ColorCase.black.withAlphaComponent(0.3)
     }
     
-    static func addOrRemoveLikeId(_ itemId: String) {
-        let ud = UserDefaultsManager.shared
-        var likedItemIdList = ud.likedItemId
-        
-        // 만약 이미 좋아요가 눌러져있던 아이템이라면 좋아요 리스트에서 삭제
-        if likedItemIdList.contains(itemId) {
-            guard let idx = ud.likedItemId.firstIndex(of: itemId) else { return }
-            likedItemIdList.remove(at: idx)
-        } else { // 좋아요 리스트에 없던 아이디라면 좋아요 추가
-            likedItemIdList.append(itemId)
-        }
-        
-        ud.likedItemId = likedItemIdList
-        ud.likeCnt = likedItemIdList.count
+    static func addOrRemoveLikeItem(_ data: resultItem) {
+        let repository = UserDataRepository()
+        guard let userData = repository.readUserData() else { return }
+        let item = Item(productId: data.productId, title: data.title, link: data.link, imagePath: data.imagePath, price: data.price, mallName: data.mallName)
+        repository.updateUserLikeItemList(item)
     }
 }

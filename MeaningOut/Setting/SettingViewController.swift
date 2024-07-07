@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class SettingViewController: UIViewController, SetupView {
-    private let ud = UserDefaultsManager.shared
+    private let repository = UserDataRepository()
     private let border = CustomBorder()
     private let tableView = UITableView()
     
@@ -23,12 +23,12 @@ class SettingViewController: UIViewController, SetupView {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 좋아요 등록/해제하고 왔을 때, 바뀐 데이터 반영
-        tableView.reloadData()
-        
         // 프로필 수정화면에서 설정화면으로 다시 오면 수정화면에서 선택했던 임시프로필데이터를 현재 찐프로필데이터로 덮기
         // <- 프로필 닉네임 수정화면에서 임시프로필데이터를 기준으로 이미지를 보여주고 있기 때문 
-        ProfileImage.tempSelectedProfileImage = ProfileImage(imageName: ud.userProfileImage)
+        guard let userData = repository.readUserData() else { return }
+        ProfileImage.tempSelectedProfileImage = ProfileImage(imageName: userData.userProfileImageName)
+        // 좋아요 등록/해제하고 왔을 때, 바뀐 데이터 반영
+        tableView.reloadData()
     }
     
     func setupHierarchy() {
@@ -90,14 +90,15 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingTableViewHeader.identifier) as! SettingTableViewHeader
         header.button.addTarget(self, action: #selector(headerBtnTapped), for: .touchUpInside)
-        header.configureHeaderView(profile: ud.userProfileImage, nickname: ud.userName, joinDate: ud.joinDate)
+        guard let userData = repository.readUserData() else { return header }
+        header.configureHeaderView(profile: userData.userProfileImageName, nickname: userData.userName, joinDate: userData.joinDate)
         return header
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if SettingCellTitle.allCases[indexPath.row] == SettingCellTitle.cancel {
             showAlert(alertCase: .membershipCancel) { _ in
-                self.ud.deleteAllDatas()
+                self.repository.removeAllUserData()
                 // 회원탈퇴 시 온보딩 화면으로 새로 시작
                 let rootViewController = UINavigationController(rootViewController: OnboardingViewController())
                 self.getNewScene(rootVC: rootViewController)

@@ -9,8 +9,6 @@ import UIKit
 import SnapKit
 
 class SettingTableViewCell: UITableViewCell, SetupView {
-    private let ud = UserDefaultsManager.shared
-    
     private let titleLabel = CustomLabel(title: "", fontCase: FontCase.regular14)
     private let border = CustomBorder(color: ColorCase.black)
     private let likeButton: UIButton = {
@@ -64,14 +62,14 @@ class SettingTableViewCell: UITableViewCell, SetupView {
         titleLabel.text = data.rawValue
         
         if data == .likeList {
-            likeButton.setAttributedTitle(getAttributedLikeCntTitle(), for: .normal)
+            likeButton.setAttributedTitle(getAttributedLikeCntTitle(likeCnt: data.likeCnt), for: .normal)
         } else {
             likeButton.isHidden = true
         }
     }
     
-    private func getAttributedLikeCntTitle() -> NSAttributedString {
-        let text = "\(ud.likeCnt)개" // 상품 개수
+    private func getAttributedLikeCntTitle(likeCnt: Int) -> NSAttributedString {
+        let text = "\(likeCnt)개" // 상품 개수
         let title = "\(text)의 상품" // 찐타이틀
         let attributedString = NSMutableAttributedString(string: title)
         
