@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class ProfileNicknameViewController: UIViewController, SetupView {
+    private let vm: ProfileNicknameViewModel = ProfileNicknameViewModel()
     init(nicknameViewType: ViewType = .setting) {
         super.init(nibName: nil, bundle: nil)
         self.nicknameViewType = nicknameViewType
@@ -19,7 +20,6 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     }
     
     var nicknameViewType: ViewType = .setting
-    private let repository = UserDataRepository()
     
     private let naviBorder = CustomBorder()
     // 프로필뷰
@@ -33,27 +33,13 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     private let nicknameCheckLabel = CustomLabel(color: ColorCase.primaryColor, fontCase: FontCase.regular13)
     private let confirmButton = OnboardingButton(title: "완료")
     
-    private var nicknameCheck: NicknameCheckType = .wrongNicknameCnt {
-        didSet {
-            nicknameCheckLabel.text = nicknameCheck.rawValue
-            
-            switch nicknameCheck {
-            case .confirm:
-                navigationItem.rightBarButtonItem?.isEnabled = true
-                confirmButton.isEnabled = true
-            case .empty, .wrongNicknameCnt, .containsNumber, .containsSpecialCharacter:
-                navigationItem.rightBarButtonItem?.isEnabled = false
-                confirmButton.isEnabled = false
-            }
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupHierarchy()
         setupConstraints()
         setupUI()
         addActions()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -127,13 +113,9 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         navigationController?.navigationBar.tintColor = ColorCase.black
         navigationItem.title = nicknameViewType.rawValue
         navigationItem.backButtonTitle = ""
-        
+        // 편집모드라면 ViewModel의 편집모드인지에 대해 묻는 변수(isEditMode) 값 true로
         if nicknameViewType == .edit {
-            guard let user = repository.readUserData() else { return }
-            nicknameTextField.text = user.userName
-            confirmButton.isHidden = true
-            let rightBarItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveData))
-            navigationItem.rightBarButtonItem = rightBarItem
+            vm.isEditMode.value = true
         }
     }
     
@@ -149,16 +131,6 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         }
     }
     
-    private func getJoinDate() -> String {
-        let dateFormatter = DateFormatter()
-        let localeID = Locale.preferredLanguages.first
-        let deviceLocale = Locale(identifier: localeID ?? "ko-kr").languageCode
-        dateFormatter.locale = Locale(identifier: deviceLocale ?? "ko-kr")
-        dateFormatter.timeZone = TimeZone.current
-        dateFormatter.dateFormat = "YYYY.MM.dd 가입"
-        return dateFormatter.string(from: Date())
-    }
-    
     func addActions() {
         nicknameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         confirmButton.addTarget(self, action: #selector(confirmBtnTapped), for: .touchUpInside)
@@ -168,13 +140,9 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     @objc func saveData() {
         guard let name = nicknameTextField.text else { return }
         guard let profileImage = ProfileImage.tempSelectedProfileImage else { return }
-        
-        if let userData = repository.readUserData() {
-            repository.updateUserData(value: ["id": userData.id, "userName": name, "userProfileImageName": profileImage.imageName])
-        } else {
-            repository.createUserData(name: name, profileImage: profileImage.imageName, joinDate: getJoinDate())
-        }
-
+        let nameKey = UserDataKeyCase.userName.rawValue
+        let profileKey = UserDataKeyCase.userProfileImageName.rawValue
+        vm.saveBtnTapped.value = [nameKey: name, profileKey: profileImage.imageName]
         if nicknameViewType == .edit {
             navigationController?.popViewController(animated: true)
         }
@@ -190,58 +158,35 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         getNewScene(rootVC: TabBarController())
     }
     
-    private func validateNickname(_ text: String) throws ->  Bool {
-        // 숫자가 있는 상황에서 @를 입력할 경우에 숫자가 포함되서는 안된다는 메시지만 출력됨
-        // 이를 방지하기 위해 마지막 문자까지 비교
-        guard let lastChr = text.last else {
-            throw NicknameErrorCase.empty
-        }
-        // 마지막 글자가 특수문자인지 확인
-        guard !["$", "%", "@", "#"].contains(lastChr) else {
-            throw NicknameErrorCase.containsSpecialCharacter
-        }
-        guard Int(String(describing: lastChr)) == nil else {
-            throw NicknameErrorCase.containsNumber
-        }
-        
-        // 전체 문자 확인
-        // 공백 모두 제거한 문자열의 길이
-        let removeWhiteSpaceCnt = getRemovedWhiteSpaceStringLength(text)
-        // 닉네임에 숫자가 들어있는지
-        let isContainsNumber = text.range(of: NicknameRegex.number, options: .regularExpression) != nil
-        // 닉네임에 # $ @ % 가 들어있는지
-        let isContainsSpecialChr = text.range(of: NicknameRegex.specialCharacter, options: .regularExpression) != nil
-        
-        guard removeWhiteSpaceCnt >= 2 && removeWhiteSpaceCnt <= 10 else {
-            throw NicknameErrorCase.wrongNicknameCnt
-        }
-        guard !isContainsNumber else {
-            throw NicknameErrorCase.containsNumber
-        }
-        guard !isContainsSpecialChr else {
-            throw NicknameErrorCase.containsSpecialCharacter
-        }
-        return true
-    }
-    
     @objc func textFieldDidChange(_ sender: UITextField) {
         guard let text = nicknameTextField.text else { return }
-        do {
-            let _ = try validateNickname(text)
-            nicknameCheck = .confirm
-        } catch {
-            switch error {
-            case NicknameErrorCase.empty:
-                nicknameCheck = .empty
-            case NicknameErrorCase.wrongNicknameCnt:
-                nicknameCheck = .wrongNicknameCnt
-            case NicknameErrorCase.containsNumber:
-                nicknameCheck = .containsNumber
-            case NicknameErrorCase.containsSpecialCharacter:
-                nicknameCheck = .containsSpecialCharacter
+        vm.inputNicknameForCheck.value = text
+    }
+
+    
+    private func bind() {
+        // ViewModel의 닉네임 유효성 결과에 따라 다르게 처리
+        vm.outputNicknameCheckType.bind { nicknameCheckType in
+            self.nicknameCheckLabel.text = nicknameCheckType.rawValue
+            
+            switch nicknameCheckType {
+            case .confirm:
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
+                self.confirmButton.isEnabled = true
             default:
-                break
-            }       
+                self.navigationItem.rightBarButtonItem?.isEnabled = false
+                self.confirmButton.isEnabled = false
+            }
+        }
+        
+        // ViewModel에서 받아온 userData를 이용해 편집 시 기본 설정
+        vm.outputUserData.bind { user in
+            guard let user else { return }
+            self.nicknameTextField.text = user.userName // 닉네임 텍스트필드에 현재 닉네임 넣어주기
+            self.confirmButton.isHidden = true // 저장 버튼 지우기
+            let rightBarItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(self.saveData))
+            self.navigationItem.rightBarButtonItem = rightBarItem // 네비게이션 저장 버튼 생성하기
+            self.vm.inputNicknameForCheck.value = user.userName // 닉네임 체크해주는 결과값을 위해 현재 닉네임 보내기 -> 바로 위의 vm.outputNicknameCheckType.bind로 돌아옴
         }
     }
     
