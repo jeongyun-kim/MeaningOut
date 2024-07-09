@@ -30,7 +30,7 @@ class UserDefaultsManager {
     // 유저인지 확인하기 (default = false)
     @UserDefaultsWrapper(key: "isUser", defaultValue: false) var isUser: Bool
     
-    @UserDefaultsWrapper(key: "profileImage", defaultValue: ProfileImage.randomImage.imageName) var userProfileImage: String
+    @UserDefaultsWrapper(key: "profileImage", defaultValue: ProfileImage().randomImage.imageName) var userProfileImage: String
    
     @UserDefaultsWrapper(key: "userName", defaultValue: "") var userName: String
     

@@ -125,7 +125,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
             let imageName = profile.imageName
             profileImageView.image = UIImage(named: imageName)
         } else { // 온보딩 화면에서 넘어온 상태라면
-            let imageName = ProfileImage.randomImage.imageName
+            let imageName = ProfileImage().randomImage.imageName
             profileImageView.image = UIImage(named: imageName)
             ProfileImage.tempSelectedProfileImage = ProfileImage(imageName: imageName)
         }

@@ -9,10 +9,14 @@ import Foundation
 
 struct ProfileImage {
     let imageName: String
+    
+    init(imageName: String = "") {
+        self.imageName = imageName
+    }
 }
 
 extension ProfileImage {
-    static let imageList: [ProfileImage] = [
+    var imageList: [ProfileImage] { [
         ProfileImage(imageName: "profile_0"),
         ProfileImage(imageName: "profile_1"),
         ProfileImage(imageName: "profile_2"),
@@ -25,9 +29,10 @@ extension ProfileImage {
         ProfileImage(imageName: "profile_9"),
         ProfileImage(imageName: "profile_10"),
         ProfileImage(imageName: "profile_11")
-    ]
+        ]
+    }
     
-    static var randomImage: ProfileImage {
+    var randomImage: ProfileImage {
         return imageList.randomElement()!
     }
     
