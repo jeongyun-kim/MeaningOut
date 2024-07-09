@@ -19,19 +19,10 @@ class ProfileViewController: UIViewController, SetupView {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    private let vm = ProfileViewModel()
     var profileViewType: ViewType = .setting
-    private let profileList: [ProfileImage] = ProfileImage.imageList
-    var tempProfileImage: ProfileImage = ProfileImage(imageName: "") {
-        didSet {
-            // 현재 선택한 이미지로 변경
-            profileImageView.image = UIImage(named: tempProfileImage.imageName)
-            // 현재 선택한 이미지, 아닌 이미지 셀 다시 그리기 위해
-            collectionView.reloadData()
-            // 임시 이미지 저장
-            ProfileImage.tempSelectedProfileImage = tempProfileImage
-        }
-    }
+    
+    var tempProfileImage: ProfileImage = ProfileImage()
     
     private let naviBorder = CustomBorder()
     private let profileLayerView = ProfileLayerView(.mainProfile)
@@ -41,7 +32,7 @@ class ProfileViewController: UIViewController, SetupView {
         return imageView
     }()
     private let badgeImage = ProfileBadgeView(.mainProfile)
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: .profileCollectionViewLayout())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +40,8 @@ class ProfileViewController: UIViewController, SetupView {
         setupConstraints()
         setupCollectionView()
         setupUI()
-        print(tempProfileImage)
+        vm.viewDidLoadTrigger.value = ()
+        bind()
     }
     
     func setupHierarchy() {
@@ -98,34 +90,35 @@ class ProfileViewController: UIViewController, SetupView {
         collectionView.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier: ProfileCollectionViewCell.identifier)
     }
     
-    private func collectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        let sectionInset: CGFloat = 16
-        let spacing: CGFloat = 10
-        let size = (UIScreen.main.bounds.width - spacing*3 - sectionInset*2) / 4
-        
-        layout.minimumLineSpacing = spacing
-        layout.minimumInteritemSpacing = spacing
-        layout.sectionInset = UIEdgeInsets(top: 0, left: sectionInset, bottom: 0, right: sectionInset)
-        layout.itemSize = CGSize(width: size, height: size)
-        
-        return layout
-    }
+    private func bind() {
+        // 프로필 이미지 변경했다면 결과값(Bool) 받아와 UI 업데이트
+        vm.outputChangeProfileImage.bind { boolResult, profileImage in
+            if boolResult { // 결과가 true 라면
+                // 현재 뷰의 tempProfileImage 교체
+                self.tempProfileImage = profileImage
+                // 현재 선택한 이미지 보여주기
+                self.profileImageView.image = UIImage(named: self.tempProfileImage.imageName)
+                // 컬렉션뷰 다시 그리기 
+                self.collectionView.reloadData()
+            }
+        }
+     }
 }
 
 // MARK: CollectionViewExtension
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return profileList.count
+        return vm.outputProfileList.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCollectionViewCell.identifier, for: indexPath) as! ProfileCollectionViewCell
-        cell.configureCell(profileList[indexPath.row], nowSelectedProfileImage: tempProfileImage)
+        cell.configureCell(vm.outputProfileList.value[indexPath.row], nowSelectedProfileImage: tempProfileImage)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        tempProfileImage = profileList[indexPath.row]
+        let data = vm.outputProfileList.value[indexPath.row]
+        vm.changeProfileImage.value = data
     }
 }

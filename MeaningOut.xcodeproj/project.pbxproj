@@ -74,6 +74,7 @@
 		E0F85A342C3D33A70075E7A9 /* ProfileNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F85A332C3D33A70075E7A9 /* ProfileNicknameViewModel.swift */; };
 		E0F85A362C3D33B20075E7A9 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F85A352C3D33B20075E7A9 /* Observable.swift */; };
 		E0F85A3B2C3D439E0075E7A9 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F85A3A2C3D439E0075E7A9 /* BaseView.swift */; };
+		E0F85A3F2C3D56080075E7A9 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F85A3E2C3D56080075E7A9 /* ProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -141,6 +142,7 @@
 		E0F85A332C3D33A70075E7A9 /* ProfileNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameViewModel.swift; sourceTree = "<group>"; };
 		E0F85A352C3D33B20075E7A9 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		E0F85A3A2C3D439E0075E7A9 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		E0F85A3E2C3D56080075E7A9 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -448,6 +450,7 @@
 			children = (
 				E0F85A352C3D33B20075E7A9 /* Observable.swift */,
 				E0F85A332C3D33A70075E7A9 /* ProfileNicknameViewModel.swift */,
+				E0F85A3E2C3D56080075E7A9 /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -564,6 +567,7 @@
 				E07564762C2E82D50065413D /* NetworkErrorCase.swift in Sources */,
 				E0ECEDA02C3A66D100A67525 /* BaseItemCollectionViewCell.swift in Sources */,
 				E0B0B7712C1C325C00A24154 /* APIKey.swift in Sources */,
+				E0F85A3F2C3D56080075E7A9 /* ProfileViewModel.swift in Sources */,
 				E02921322C1D615100A12B1D /* CustomImageView.swift in Sources */,
 				E0B0B7342C1AED4800A24154 /* OnboardingViewController.swift in Sources */,
 				E0B0B7612C1BF7FB00A24154 /* ReusableIdentifier.swift in Sources */,
