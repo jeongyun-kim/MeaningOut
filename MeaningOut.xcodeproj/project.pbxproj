@@ -71,6 +71,9 @@
 		E0ECED9B2C3A636F00A67525 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0ECED9A2C3A636F00A67525 /* BaseCollectionViewController.swift */; };
 		E0ECEDA02C3A66D100A67525 /* BaseItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0ECED9F2C3A66D100A67525 /* BaseItemCollectionViewCell.swift */; };
 		E0ECEDA22C3A672600A67525 /* LikedItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0ECEDA12C3A672600A67525 /* LikedItemCollectionViewCell.swift */; };
+		E0F85A342C3D33A70075E7A9 /* ProfileNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F85A332C3D33A70075E7A9 /* ProfileNicknameViewModel.swift */; };
+		E0F85A362C3D33B20075E7A9 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F85A352C3D33B20075E7A9 /* Observable.swift */; };
+		E0F85A3B2C3D439E0075E7A9 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F85A3A2C3D439E0075E7A9 /* BaseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -135,6 +138,9 @@
 		E0ECED9A2C3A636F00A67525 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
 		E0ECED9F2C3A66D100A67525 /* BaseItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		E0ECEDA12C3A672600A67525 /* LikedItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		E0F85A332C3D33A70075E7A9 /* ProfileNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameViewModel.swift; sourceTree = "<group>"; };
+		E0F85A352C3D33B20075E7A9 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		E0F85A3A2C3D439E0075E7A9 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,7 +214,7 @@
 		E075647E2C313F370065413D /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				E0ECEDA72C3A776200A67525 /* MainVC */,
+				E0F85A372C3D43750075E7A9 /* BaseView */,
 				E0ECEDA52C3A774500A67525 /* CollectionView */,
 				E07564812C313F690065413D /* BaseTableViewController.swift */,
 			);
@@ -245,6 +251,7 @@
 		E0B0B6EF2C1AE7D200A24154 /* MeaningOut */ = {
 			isa = PBXGroup;
 			children = (
+				E0F85A322C3D339C0075E7A9 /* ViewModel */,
 				E07564872C31822E0065413D /* Manager */,
 				E07564682C2D0B650065413D /* Network */,
 				E075645D2C2D08FD0065413D /* Resource */,
@@ -424,14 +431,6 @@
 			path = Item;
 			sourceTree = "<group>";
 		};
-		E0ECEDA72C3A776200A67525 /* MainVC */ = {
-			isa = PBXGroup;
-			children = (
-				E07564832C3143BB0065413D /* BaseMainView.swift */,
-			);
-			path = MainVC;
-			sourceTree = "<group>";
-		};
 		E0ECEDA82C3A777E00A67525 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,6 +441,24 @@
 				E0B0B7482C1AFB6900A24154 /* Setting */,
 			);
 			path = Pages;
+			sourceTree = "<group>";
+		};
+		E0F85A322C3D339C0075E7A9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E0F85A352C3D33B20075E7A9 /* Observable.swift */,
+				E0F85A332C3D33A70075E7A9 /* ProfileNicknameViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E0F85A372C3D43750075E7A9 /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+				E07564832C3143BB0065413D /* BaseMainView.swift */,
+				E0F85A3A2C3D439E0075E7A9 /* BaseView.swift */,
+			);
+			path = BaseView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -554,11 +571,14 @@
 				E0ECED932C39284F00A67525 /* Item.swift in Sources */,
 				E0B0B73C2C1AF1D700A24154 /* SettingViewController.swift in Sources */,
 				E07D8F822C1CA01000282A16 /* SettingTableViewHeader.swift in Sources */,
+				E0F85A362C3D33B20075E7A9 /* Observable.swift in Sources */,
 				E07564822C313F690065413D /* BaseTableViewController.swift in Sources */,
+				E0F85A3B2C3D439E0075E7A9 /* BaseView.swift in Sources */,
 				E07D8F772C1C653600282A16 /* SearchResult.swift in Sources */,
 				E07D8F752C1C522500282A16 /* PaddingLabel.swift in Sources */,
 				E02921302C1D601000A12B1D /* CustomLabel.swift in Sources */,
 				E0BAE9AC2C253C4C008F795F /* LocalNotificationManager.swift in Sources */,
+				E0F85A342C3D33A70075E7A9 /* ProfileNicknameViewModel.swift in Sources */,
 				E0B0B7412C1AF37B00A24154 /* SetupView.swift in Sources */,
 				E0B0B7362C1AEDB300A24154 /* TabBarController.swift in Sources */,
 				E0B0B7512C1B012600A24154 /* ProfileImage.swift in Sources */,
