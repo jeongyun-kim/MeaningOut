@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class BaseMainView: UIView {
+class BaseMainView: BaseView {
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = Placeholder.search.rawValue
@@ -29,12 +29,10 @@ class BaseMainView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupHierarchy()
-        setupConstraints()
         setupTableView()
     }
     
-    func setupHierarchy() {
+    override func setupHierarchy() {
         addSubview(searchBar)
         addSubview(border)
         addSubview(emptyView)
@@ -44,7 +42,7 @@ class BaseMainView: UIView {
         addSubview(tableView)
     }
     
-    func setupConstraints() {
+    override func setupConstraints() {
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(16)
@@ -77,7 +75,7 @@ class BaseMainView: UIView {
         }
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         tableView.register(SearchKeywordsTableViewCell.self, forCellReuseIdentifier: SearchKeywordsTableViewCell.identifier)
         
         tableView.estimatedRowHeight = UITableView.automaticDimension
