@@ -44,4 +44,19 @@ extension UICollectionViewLayout {
         
         return layout
     }
+    
+    // 프로필이미지 컬렉션뷰 레이아웃 
+    static func profileCollectionViewLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        let sectionInset: CGFloat = 16
+        let spacing: CGFloat = 10
+        let size = (UIScreen.main.bounds.width - spacing*3 - sectionInset*2) / 4
+        
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing
+        layout.sectionInset = UIEdgeInsets(top: 0, left: sectionInset, bottom: 0, right: sectionInset)
+        layout.itemSize = CGSize(width: size, height: size)
+        
+        return layout
+    }
 }
