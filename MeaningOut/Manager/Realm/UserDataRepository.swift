@@ -74,4 +74,10 @@ class UserDataRepository {
             print("deleteError")
         }
     }
+    
+    func convertDataToItem(_ data: ResultItem) {
+        // 좋아요 처리 
+        let item = Item(productId: data.productId, title: data.replacedTitle, link: data.link, imagePath: data.imagePath, price: data.priceString ?? "", mallName: data.mallName)
+        self.updateUserLikeItemList(item)
+    }
 }

@@ -86,10 +86,7 @@ final class SearchViewModel {
             guard let self else { return }
             // 현재 좋아요 누른 아이템 아이디
             let data = self.itemList.value[idx]
-            // 좋아요 처리 메서드 호출
-           //guard self.repository.readUserData() != nil else { return }
-            let item = Item(productId: data.productId, title: data.replacedTitle, link: data.link, imagePath: data.imagePath, price: data.priceString ?? "", mallName: data.mallName)
-            self.repository.updateUserLikeItemList(item)
+            self.repository.convertDataToItem(data)
             self.reloadCell.value = idx
         }
     }
