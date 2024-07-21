@@ -180,14 +180,14 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         }
         
         // ViewModel에서 받아온 userData를 이용해 편집 시 기본 설정
-        vm.outputUserData.bind { user in
+        vm.outputUserData.bind(handler: { user in
             guard let user else { return }
             self.nicknameTextField.text = user.userName // 닉네임 텍스트필드에 현재 닉네임 넣어주기
             self.confirmButton.isHidden = true // 저장 버튼 지우기
             let rightBarItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(self.saveData))
             self.navigationItem.rightBarButtonItem = rightBarItem // 네비게이션 저장 버튼 생성하기
             self.vm.inputNicknameForCheck.value = user.userName // 닉네임 체크해주는 결과값을 위해 현재 닉네임 보내기 -> 바로 위의 vm.outputNicknameCheckType.bind로 돌아옴
-        }
+        }, initRun: true)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
