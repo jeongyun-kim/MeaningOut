@@ -9,12 +9,16 @@ import UIKit
 import SnapKit
 
 class OnboardingViewController: UIViewController, SetupView {
-    
-    private let onboardingLabel = CustomLabel(title: "MeaningOut", color: ColorCase.primaryColor, fontCase: FontCase.bold48)
+    private let logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        guard let image = ImageCase.logo else { return imageView }
+        imageView.image = image
+        return imageView
+    }()
     private let onboardingImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = ImageCase.launch
+        imageView.image = ImageCase.onboarding
         return imageView
     }()
     private let startButton = OnboardingButton(title: "시작하기")
@@ -34,22 +38,27 @@ class OnboardingViewController: UIViewController, SetupView {
     }
     
     func setupHierarchy() {
-        view.addSubview(onboardingLabel)
+        //view.addSubview(onboardingLabel)
+        view.addSubview(logoImageView)
         view.addSubview(onboardingImageView)
         view.addSubview(startButton)
     }
     
     func setupConstraints() {
+        logoImageView.snp.makeConstraints { make in
+            make.bottom.equalTo(onboardingImageView.snp.top)
+            make.width.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.8)
+            make.height.equalTo(100)
+            make.centerX.equalTo(view.snp.centerX)
+        }
+        
         onboardingImageView.snp.makeConstraints { make in
             make.width.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.8)
             make.height.equalTo(onboardingImageView.snp.width)
             make.center.equalTo(view)
         }
         
-        onboardingLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(onboardingImageView.snp.top).offset(-50)
-            make.centerX.equalTo(view.snp.centerX)
-        }
+        
         
         startButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
