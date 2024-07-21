@@ -10,17 +10,17 @@ import SnapKit
 import WebKit
 
 class DetailViewController: UIViewController, SetupView {
+    private let vm = DetailViewModel()
+    
     init(selectedItem: ResultItem) {
         super.init(nibName: nil, bundle: nil)
-        self.selectedItem = selectedItem
+        self.vm.selectedItem = selectedItem
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var selectedItem: ResultItem = ResultItem(title: "", link: "", imagePath: "", price: "", mallName: "", productId: "")
-   
     private let border = CustomBorder()
     private let webView = WKWebView()
     
@@ -29,7 +29,8 @@ class DetailViewController: UIViewController, SetupView {
         setupHierarchy()
         setupConstraints()
         setupUI()
-        loadWebView()
+        vm.loadWebViewTrigger.value = ()
+        bind()
     }
 
     func setupHierarchy() {
@@ -51,24 +52,34 @@ class DetailViewController: UIViewController, SetupView {
     
     func setupUI() {
         view.backgroundColor = .systemBackground
-        navigationItem.title = selectedItem.replacedTitle
+        navigationItem.title = vm.selectedItem.replacedTitle
         
-        let rightItemImage = selectedItem.likeBtnImage
+        let rightItemImage = vm.selectedItem.likeBtnImage
         let rightItem = UIBarButtonItem(image: rightItemImage, style: .plain, target: self, action: #selector(rightBarBtnTapped))
         navigationItem.rightBarButtonItem = rightItem
     }
     
     @objc func rightBarBtnTapped(_ sender: UIButton) {
-        ResultItem.addOrRemoveLikeItem(selectedItem)
-        navigationItem.rightBarButtonItem?.image = selectedItem.likeBtnImage
+        vm.likeBtnTapped.value = ()
     }
-    
-    private func loadWebView() {
-        // url로 전환 -> request 생성 -> request로 load
-        // http 링크위해 ATS = YES
-        guard let url = URL(string: selectedItem.link) else { return showAlert(alertCase: .detailURLError) { _ in self.navigationController?.popViewController(animated: true) } }
-        let request = URLRequest(url: url)
-        webView.load(request)
+
+    private func bind() {
+        vm.outputLikeResult.bind(handler: { [weak self] _ in
+            guard let self else { return }
+            self.navigationItem.rightBarButtonItem?.image = self.vm.selectedItem.likeBtnImage
+        }, initRun: true)
+        
+        vm.outputLoadResult.bind(handler: { [weak self] (alert, request) in
+            guard let self else { return }
+            if let alert {
+                self.showAlert(alertCase: alert) { _ in
+                    self.navigationController?.popViewController(animated: true)
+                }
+            } else {
+                guard let request else { return }
+                self.webView.load(request)
+            }
+        }, initRun: true)
     }
     
 }
