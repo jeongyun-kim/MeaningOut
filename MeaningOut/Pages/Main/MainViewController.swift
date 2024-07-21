@@ -9,26 +9,8 @@ import UIKit
 import SnapKit
 
 class MainViewController: BaseTableViewController {
-
+    private let vm = MainViewModel()
     private let baseView = BaseMainView()
-    private let repository = UserDataRepository()
-    private lazy var searchKeywordsList: [String] = [] {
-        didSet {
-            if searchKeywordsList.isEmpty { // 검색어 없으면 emptyView 보여주기
-                baseView.recentSearchLabel.isHidden = true
-                baseView.deleteAllButton.isHidden = true
-                baseView.tableView.isHidden = true
-                baseView.emptyView.isHidden = false
-            } else { // 검색어가 있다면 emptyView 숨기고 tableView 보여주기
-                baseView.recentSearchLabel.isHidden = false
-                baseView.deleteAllButton.isHidden = false
-                baseView.tableView.isHidden = false
-                baseView.emptyView.isHidden = true
-                
-                baseView.tableView.reloadData()
-            }
-        }
-    }
     
     override func loadView() {
         self.view = baseView
@@ -36,14 +18,12 @@ class MainViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let userData = repository.readUserData() {
-            searchKeywordsList = Array(userData.searchKeywords)
-            navigationItem.title = "\(userData.userName)'s MEANING OUT"
-        }
+        vm.viewWillAppearTrigger.value = ()
     }
 
     override func setupTableView() {
@@ -61,18 +41,46 @@ class MainViewController: BaseTableViewController {
     }
     
     @objc func deleteBtnTapped(_ sender: UIButton) {
-        searchKeywordsList.remove(at: sender.tag)
-        updateSearchKeywordsList()
+        vm.deleteTrigger.value = sender.tag
     }
     
     @objc func deleteAllBtnTapped(_ sender: UIButton) {
-        searchKeywordsList.removeAll()
-        updateSearchKeywordsList()
+        vm.deleteAllTrigger.value = ()
     }
     
-    private func updateSearchKeywordsList() {
-        if let userData = repository.readUserData() {
-            repository.updateUserData(value: ["id": userData.id, "searchKeywords": searchKeywordsList])
+    private func bind() {
+        vm.title.bind { [weak self] title in
+            guard let self else { return }
+            self.navigationItem.title = title
+        }
+        
+        vm.searchKeywordsList.bind { [weak self] keywords in
+            guard let self else { return }
+            if keywords.isEmpty { // 검색어 없으면 emptyView 보여주기
+                self.baseView.recentSearchLabel.isHidden = true
+                self.baseView.deleteAllButton.isHidden = true
+                self.baseView.tableView.isHidden = true
+                self.baseView.emptyView.isHidden = false
+            } else { // 검색어가 있다면 emptyView 숨기고 tableView 보여주기
+                self.baseView.recentSearchLabel.isHidden = false
+                self.baseView.deleteAllButton.isHidden = false
+                self.baseView.tableView.isHidden = false
+                self.baseView.emptyView.isHidden = true
+                
+                self.baseView.tableView.reloadData()
+            }
+        }
+        
+        vm.outputSearchResult.bind { [weak self] result in
+            guard let self else { return }
+            self.view.endEditing(true)
+            if result {
+                self.baseView.searchBar.text = ""
+                let keyword = self.vm.inputSearchKeyword.value
+                self.pushVC(vc: SearchViewController(keyword: keyword))
+            } else {
+                self.showToast(ToastMessageCase.emptyKeyword.rawValue)
+            }
         }
     }
 }
@@ -80,19 +88,20 @@ class MainViewController: BaseTableViewController {
 // MARK: TableViewExtension
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchKeywordsList.count
+        return vm.searchKeywordsList.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchKeywordsTableViewCell.identifier, for: indexPath) as? SearchKeywordsTableViewCell else { return UITableViewCell() }
-        cell.configureCell(searchKeywordsList[indexPath.row])
+        let data = vm.searchKeywordsList.value[indexPath.row]
+        cell.configureCell(data)
         cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action: #selector(deleteBtnTapped), for: .touchUpInside)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let keyword = searchKeywordsList[indexPath.row]
+        let keyword = vm.searchKeywordsList.value[indexPath.row]
         pushVC(vc: SearchViewController(keyword: keyword))
     }
 }
@@ -101,18 +110,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let keyword = searchBar.text else { return }
-        
-        guard getRemovedWhiteSpaceStringLength(keyword) != 0 else {
-            return showToast(ToastMessageCase.emptyKeyword.rawValue)
-        }
-        
-        if !searchKeywordsList.contains(keyword) {
-            searchKeywordsList.insert(keyword, at: 0) // 가장 최근 검색어가 맨위에 와야하므로 검색어는 0번 인덱스에 넣어주기
-            updateSearchKeywordsList()
-        }
-        
-        searchBar.text = ""
-        view.endEditing(true)
-        pushVC(vc: SearchViewController(keyword: keyword))
+        vm.inputSearchKeyword.value = keyword
     }
 }

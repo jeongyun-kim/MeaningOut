@@ -24,9 +24,11 @@ final class Observable<T> {
         self.value = value
     }
     
-    func bind(handler: @escaping (T) -> Void) {
-        // init 시에도 실행되게
-        handler(value)
+    func bind(handler: @escaping (T) -> Void, initRun: Bool = false) {
+        if initRun {
+            // init 시에도 실행되게
+            handler(value)
+        }
         // 다음 번부터는 자동으로 해당 클로저 실행되게 클로저 변수에 대입
         self.closure = handler
     }
