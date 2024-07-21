@@ -64,19 +64,18 @@ extension ResultItem {
     
     // 좋아요 버튼 이미지
     var likeBtnImage: UIImage? {
-        //let isLikeImage = isLike ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-        guard let isLikeImage = isLike ? ImageCase.like_selected : ImageCase.like_unselected else { return nil }
+        guard let isLikeImage = isLike ? Resource.ImageCase.like_selected : Resource.ImageCase.like_unselected else { return nil }
         return isLikeImage
     }
     
     // 좋아요 버튼 틴트컬러
     var likeBtnTintColor: UIColor {
-        return isLike ? ColorCase.primaryColor : ColorCase.white
+        return isLike ? Resource.ColorCase.primaryColor : Resource.ColorCase.white
     }
     
     // 좋아요 버튼 백그라운드
     var likeBtnBackgroundColor: UIColor {
-        return isLike ? ColorCase.white : ColorCase.black.withAlphaComponent(0.3)
+        return isLike ? Resource.ColorCase.white : Resource.ColorCase.black.withAlphaComponent(0.3)
     }
     
     static func addOrRemoveLikeItem(_ data: ResultItem) {

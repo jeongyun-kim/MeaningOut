@@ -11,14 +11,14 @@ import SnapKit
 class OnboardingViewController: UIViewController, SetupView {
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
-        guard let image = ImageCase.logo else { return imageView }
+        guard let image = Resource.ImageCase.logo else { return imageView }
         imageView.image = image
         return imageView
     }()
     private let onboardingImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = ImageCase.onboarding
+        imageView.image = Resource.ImageCase.onboarding
         return imageView
     }()
     private let startButton = OnboardingButton(title: "시작하기")
@@ -69,7 +69,7 @@ class OnboardingViewController: UIViewController, SetupView {
     func setupUI() {
         view.backgroundColor = .systemBackground
         navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.tintColor = ColorCase.black
+        navigationController?.navigationBar.tintColor = Resource.ColorCase.black
     }
     
     func addActions() {

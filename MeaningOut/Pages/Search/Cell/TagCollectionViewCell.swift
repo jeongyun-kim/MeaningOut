@@ -11,10 +11,10 @@ import SnapKit
 class TagCollectionViewCell: UICollectionViewCell, SetupView {
     private let tagLabel: UILabel = {
         let label = PaddingLabel(frame: .zero)
-        label.layer.cornerRadius = CGFloat(CornerRadiusCase.label.rawValue)
+        label.layer.cornerRadius = CGFloat(Resource.CornerRadiusCase.label.rawValue)
         label.clipsToBounds = true
         label.layer.borderWidth = 1
-        label.layer.borderColor = ColorCase.gray3.cgColor
+        label.layer.borderColor = Resource.ColorCase.gray3.cgColor
         return label
     }()
     
@@ -35,18 +35,18 @@ class TagCollectionViewCell: UICollectionViewCell, SetupView {
     }
     
     func configureCell(_ title: String) {
-        let attributedTitle = NSAttributedString(string: title, attributes: [NSAttributedString.Key.font: FontCase.regular13, NSAttributedString.Key.foregroundColor: ColorCase.black])
+        let attributedTitle = NSAttributedString(string: title, attributes: [NSAttributedString.Key.font: Resource.FontCase.regular13, NSAttributedString.Key.foregroundColor: Resource.ColorCase.black])
         tagLabel.attributedText = attributedTitle
     }
     
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                tagLabel.backgroundColor = ColorCase.gray1
-                tagLabel.textColor = ColorCase.white
+                tagLabel.backgroundColor = Resource.ColorCase.gray1
+                tagLabel.textColor = Resource.ColorCase.white
             } else {
-                tagLabel.backgroundColor = ColorCase.white
-                tagLabel.textColor = ColorCase.black
+                tagLabel.backgroundColor = Resource.ColorCase.white
+                tagLabel.textColor = Resource.ColorCase.black
             }
         }
     }

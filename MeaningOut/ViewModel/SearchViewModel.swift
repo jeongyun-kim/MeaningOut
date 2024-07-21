@@ -10,7 +10,7 @@ import Foundation
 final class SearchViewModel {
     private let repository = UserDataRepository()
     
-    let tagNames = TagName.allCases
+    let tagNames = Resource.TagName.allCases
     let display: Int = 30
     var startPoint: Int = 1
     var maxStartPoint: Int = 0

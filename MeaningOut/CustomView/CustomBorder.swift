@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class CustomBorder: UIView {
-    init(color: UIColor = ColorCase.borderColor){
+    init(color: UIColor = Resource.ColorCase.borderColor){
         super.init(frame: .zero)
         configureBorder(color)
     }

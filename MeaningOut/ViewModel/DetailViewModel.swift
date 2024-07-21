@@ -22,7 +22,7 @@ final class DetailViewModel {
     // 좋아요에 따른 이미지 변경하기 위한 신호보내기
     var outputLikeResult: Observable<Void?> = Observable(nil)
     // 웹뷰 띄울 때, 에러메시지 또는 request 반환
-    var outputLoadResult: Observable<(Alert?, URLRequest?)> = Observable((nil, nil))
+    var outputLoadResult: Observable<(Resource.Alert?, URLRequest?)> = Observable((nil, nil))
     init() {
         likeBtnTapped.bind { [weak self] _ in
             guard let self else { return }
@@ -35,7 +35,7 @@ final class DetailViewModel {
             // url로 전환 -> request 생성 -> request로 load
             // http 링크위해 ATS = YES
             guard let url = URL(string: self.selectedItem.link) else { return
-                outputLoadResult.value = (Alert.detailURLError, nil)
+                outputLoadResult.value = (Resource.Alert.detailURLError, nil)
             }
             let request = URLRequest(url: url)
             outputLoadResult.value = (nil, request)

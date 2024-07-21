@@ -11,12 +11,12 @@ import SnapKit
 class ProfileBadgeView: UIView {
     
     private let badgeImageView: UIImageView = {
-        let imageView = CustomImageView(img: ImageCase.profileCamera!, bgColor: ColorCase.highlightColor, content: .scaleAspectFit)
-        imageView.tintColor = ColorCase.white
+        let imageView = CustomImageView(img: Resource.ImageCase.profileCamera!, bgColor: Resource.ColorCase.highlightColor, content: .scaleAspectFit)
+        imageView.tintColor = Resource.ColorCase.white
         return imageView
     }()
 
-    init(_ profileLayerSize: ProfileLayerSizeCase) {
+    init(_ profileLayerSize: Resource.ProfileLayerSizeCase) {
         super.init(frame: .zero)
         setupHierarchy()
         configureLayout(profileLayerSize)
@@ -26,7 +26,7 @@ class ProfileBadgeView: UIView {
         addSubview(badgeImageView)
     }
     
-    private func configureLayout(_ profileLayerSize: ProfileLayerSizeCase) {
+    private func configureLayout(_ profileLayerSize: Resource.ProfileLayerSizeCase) {
         let size = profileLayerSize.rawValue / 4
     
         snp.makeConstraints { make in
@@ -39,7 +39,7 @@ class ProfileBadgeView: UIView {
             make.height.equalToSuperview().multipliedBy(0.6)
         }
         
-        backgroundColor = ColorCase.highlightColor
+        backgroundColor = Resource.ColorCase.highlightColor
         layer.cornerRadius = CGFloat(size / 2)
     }
     

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class ProfileViewController: UIViewController, SetupView {
-    init(tempProfileImage: ProfileImage, profileViewType: ViewType = .setting) {
+    init(tempProfileImage: ProfileImage, profileViewType: Resource.ViewType = .setting) {
         super.init(nibName: nil, bundle: nil)
         self.tempProfileImage = tempProfileImage
         self.profileViewType = profileViewType
@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController, SetupView {
     }
     
     private let vm = ProfileViewModel()
-    var profileViewType: ViewType = .setting
+    var profileViewType: Resource.ViewType = .setting
     var tempProfileImage: ProfileImage = ProfileImage()
     
     private let naviBorder = CustomBorder()
@@ -63,7 +63,7 @@ class ProfileViewController: UIViewController, SetupView {
         }
         
         badgeImage.snp.makeConstraints { make in
-            make.trailing.bottom.equalTo(profileLayerView).inset(ProfileLayerSizeCase.mainProfile.inset)
+            make.trailing.bottom.equalTo(profileLayerView).inset(Resource.ProfileLayerSizeCase.mainProfile.inset)
         }
         
         profileImageView.snp.makeConstraints { make in

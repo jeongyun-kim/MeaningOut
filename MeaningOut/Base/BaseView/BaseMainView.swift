@@ -11,17 +11,17 @@ import SnapKit
 class BaseMainView: BaseView {
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.placeholder = Placeholder.search.rawValue
+        searchBar.placeholder = Resource.Placeholder.search.rawValue
         searchBar.searchBarStyle = .minimal
         return searchBar
     }()
     let border = CustomBorder()
-    let recentSearchLabel = CustomLabel(title: "최근 검색", fontCase: FontCase.bold16)
+    let recentSearchLabel = CustomLabel(title: "최근 검색", fontCase: Resource.FontCase.bold16)
     let deleteAllButton: UIButton = {
          let button = UIButton()
          button.setTitle("전체 삭제", for: .normal)
-         button.setTitleColor(ColorCase.primaryColor, for: .normal)
-         button.titleLabel?.font = FontCase.regular14
+        button.setTitleColor(Resource.ColorCase.primaryColor, for: .normal)
+        button.titleLabel?.font = Resource.FontCase.regular14
          return button
      }()
     let emptyView = EmptyView(frame: .zero)

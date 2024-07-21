@@ -10,7 +10,7 @@ import SnapKit
 
 class ProfileNicknameViewController: UIViewController, SetupView {
     private let vm: ProfileNicknameViewModel = ProfileNicknameViewModel()
-    init(nicknameViewType: ViewType = .setting) {
+    init(nicknameViewType: Resource.ViewType = .setting) {
         super.init(nibName: nil, bundle: nil)
         self.nicknameViewType = nicknameViewType
     }
@@ -19,7 +19,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var nicknameViewType: ViewType = .setting
+    var nicknameViewType: Resource.ViewType = .setting
     
     private let naviBorder = CustomBorder()
     // 프로필뷰
@@ -30,7 +30,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     private let nicknameTextField = NicknameTextField(placeholderType: .nickname)
     private let textFieldBorder = CustomBorder()
-    private let nicknameCheckLabel = CustomLabel(color: ColorCase.highlightColor, fontCase: FontCase.regular13)
+    private let nicknameCheckLabel = CustomLabel(color: Resource.ColorCase.highlightColor, fontCase: Resource.FontCase.regular13)
     private let confirmButton = OnboardingButton(title: "완료")
     
     override func viewDidLoad() {
@@ -70,7 +70,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         }
         
         badgeView.snp.makeConstraints { make in
-            make.trailing.bottom.equalTo(profileLayerView).inset(ProfileLayerSizeCase.mainProfile.inset)
+            make.trailing.bottom.equalTo(profileLayerView).inset(Resource.ProfileLayerSizeCase.mainProfile.inset)
         }
         
         profileImageView.snp.makeConstraints { make in
@@ -110,7 +110,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
         view.backgroundColor = .systemBackground
         confirmButton.isEnabled = false
         
-        navigationController?.navigationBar.tintColor = ColorCase.black
+        navigationController?.navigationBar.tintColor = Resource.ColorCase.black
         navigationItem.title = nicknameViewType.rawValue
         navigationItem.backButtonTitle = ""
         // 편집모드라면 ViewModel의 편집모드인지에 대해 묻는 변수(isEditMode) 값 true로
@@ -140,8 +140,8 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     @objc func saveData() {
         guard let name = nicknameTextField.text else { return }
         guard let profileImage = ProfileImage.tempSelectedProfileImage else { return }
-        let nameKey = UserDataKeyCase.userName.rawValue
-        let profileKey = UserDataKeyCase.userProfileImageName.rawValue
+        let nameKey = Resource.UserDataKeyCase.userName.rawValue
+        let profileKey = Resource.UserDataKeyCase.userProfileImageName.rawValue
         vm.saveBtnTapped.value = [nameKey: name, profileKey: profileImage.imageName]
         if nicknameViewType == .edit {
             navigationController?.popViewController(animated: true)

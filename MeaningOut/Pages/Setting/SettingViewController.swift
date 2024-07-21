@@ -64,7 +64,7 @@ class SettingViewController: UIViewController, SetupView {
     
     func setupUI() {
         view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.tintColor = ColorCase.black
+        navigationController?.navigationBar.tintColor = Resource.ColorCase.black
         navigationItem.backButtonTitle = ""
         navigationItem.title = "SETTING"
     }
@@ -78,12 +78,12 @@ class SettingViewController: UIViewController, SetupView {
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return SettingCellTitle.allCases.count
+        return Resource.SettingCellTitle.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.identifier, for: indexPath) as! SettingTableViewCell
-        cell.configureCell(SettingCellTitle.allCases[indexPath.row])
+        cell.configureCell(Resource.SettingCellTitle.allCases[indexPath.row])
         return cell
     }
     
@@ -96,7 +96,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch SettingCellTitle.allCases[indexPath.row] {
+        switch Resource.SettingCellTitle.allCases[indexPath.row] {
         case .cancel:
             showAlert(alertCase: .membershipCancel) { _ in
                 self.repository.removeAllUserData()

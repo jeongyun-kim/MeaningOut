@@ -9,12 +9,12 @@ import UIKit
 import SnapKit
 
 class SettingTableViewCell: UITableViewCell, SetupView {
-    private let titleLabel = CustomLabel(title: "", fontCase: FontCase.regular14)
-    private let border = CustomBorder(color: ColorCase.black)
+    private let titleLabel = CustomLabel(title: "", fontCase: Resource.FontCase.regular14)
+    private let border = CustomBorder(color: Resource.ColorCase.black)
     private let likeButton: UIButton = {
         let button = UIButton(configuration: .plain())
-        button.setImage(ImageCase.like_selected, for: .normal)
-        button.tintColor = ColorCase.black
+        button.setImage(Resource.ImageCase.like_selected, for: .normal)
+        button.tintColor = Resource.ColorCase.black
         return button
     }()
     
@@ -58,7 +58,7 @@ class SettingTableViewCell: UITableViewCell, SetupView {
         selectionStyle = .none
     }
 
-    func configureCell(_ data: SettingCellTitle) {
+    func configureCell(_ data: Resource.SettingCellTitle) {
         titleLabel.text = data.rawValue
         
         if data == .likeList {
@@ -76,7 +76,7 @@ class SettingTableViewCell: UITableViewCell, SetupView {
         // 상품 개수에만 14 bold 적용
         attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 14), range: (title as NSString).range(of: text))
         // 그 외에는 크기 14만 적용
-        attributedString.addAttribute(.font, value: FontCase.regular14, range: (title as NSString).range(of: "의 상품"))
+        attributedString.addAttribute(.font, value: Resource.FontCase.regular14, range: (title as NSString).range(of: "의 상품"))
 
         // 설정먹인 문자열 반환
         return attributedString

@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.stackedLayoutAppearance.selected.iconColor = ColorCase.highlightColor
-        tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: ColorCase.highlightColor]
+        tabBarAppearance.stackedLayoutAppearance.selected.iconColor = Resource.ColorCase.highlightColor
+        tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: Resource.ColorCase.highlightColor]
         UITabBar.appearance().standardAppearance = tabBarAppearance
         
         return true

@@ -13,14 +13,14 @@ class EmptyView: UIView, SetupView {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = ImageCase.empty
+        imageView.image = Resource.ImageCase.empty
         return imageView
     }()
     
     private let resultLabel: UILabel = {
         let label = UILabel()
         label.text = "최근 검색어가 없어요."
-        label.font = FontCase.bold16
+        label.font = Resource.FontCase.bold16
         label.textAlignment = .center
         return label
     }()

@@ -55,12 +55,12 @@ class ProfileCollectionViewCell: UICollectionViewCell, SetupView {
     private func setSelected(_ selected: Bool) {
         if selected {
             profileLayerView.alpha = 1
-            profileLayerView.layer.borderColor = ColorCase.highlightColor.cgColor
-            profileLayerView.layer.borderWidth = BorderCase.selected
+            profileLayerView.layer.borderColor = Resource.ColorCase.highlightColor.cgColor
+            profileLayerView.layer.borderWidth = Resource.BorderCase.selected
         } else {
             profileLayerView.alpha = 0.5
-            profileLayerView.layer.borderColor = ColorCase.gray2.cgColor
-            profileLayerView.layer.borderWidth = BorderCase.deselected
+            profileLayerView.layer.borderColor = Resource.ColorCase.gray2.cgColor
+            profileLayerView.layer.borderWidth = Resource.BorderCase.deselected
         }
     }
 

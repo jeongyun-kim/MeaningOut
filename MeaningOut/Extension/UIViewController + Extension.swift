@@ -20,13 +20,13 @@ extension UIViewController {
         sceneDelegate?.window?.makeKeyAndVisible()
     }
     
-    func showAlert(alertCase: Alert, completionHandler: @escaping (UIAlertAction) -> Void) {
+    func showAlert(alertCase: Resource.Alert, completionHandler: @escaping (UIAlertAction) -> Void) {
         let alert = UIAlertController(title: alertCase.title, message: alertCase.message, preferredStyle: .alert)
-        let confirm = UIAlertAction(title: Alert.confirmActionTitle, style: .default, handler: completionHandler)
+        let confirm = UIAlertAction(title: Resource.Alert.confirmActionTitle, style: .default, handler: completionHandler)
         alert.addAction(confirm)
         
         if alertCase == .membershipCancel {
-            let cancel = UIAlertAction(title: Alert.cancelActionTitle, style: .cancel)
+            let cancel = UIAlertAction(title: Resource.Alert.cancelActionTitle, style: .cancel)
             alert.addAction(cancel)
         }
         present(alert, animated: true)

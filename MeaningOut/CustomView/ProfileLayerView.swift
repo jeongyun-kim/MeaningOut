@@ -10,14 +10,14 @@ import SnapKit
 
 class ProfileLayerView: UIView{
 
-    init(_ profileLayerSize: ProfileLayerSizeCase) {
+    init(_ profileLayerSize: Resource.ProfileLayerSizeCase) {
         super.init(frame: .zero)
         configureLayout(profileLayerSize)
     }
    
-    private func configureLayout(_ profileLayerSize: ProfileLayerSizeCase) {
-        layer.borderWidth = BorderCase.profile
-        layer.borderColor = ColorCase.highlightColor.cgColor
+    private func configureLayout(_ profileLayerSize: Resource.ProfileLayerSizeCase) {
+        layer.borderWidth = Resource.BorderCase.profile
+        layer.borderColor = Resource.ColorCase.highlightColor.cgColor
         layer.masksToBounds = true
         
         let size = profileLayerSize.rawValue

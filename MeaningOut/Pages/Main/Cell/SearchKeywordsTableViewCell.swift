@@ -12,15 +12,15 @@ class SearchKeywordsTableViewCell: UITableViewCell, SetupView {
 
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = ImageCase.clock
-        imageView.tintColor = ColorCase.black
+        imageView.image = Resource.ImageCase.clock
+        imageView.tintColor = Resource.ColorCase.black
         return imageView
     }()
-    private let keywordLabel = CustomLabel(fontCase: FontCase.regular14)
+    private let keywordLabel = CustomLabel(fontCase: Resource.FontCase.regular14)
     let deleteButton: UIButton = {
         let button = UIButton()
-        button.setImage(ImageCase.delete, for: .normal)
-        button.imageView?.tintColor = ColorCase.black
+        button.setImage(Resource.ImageCase.delete, for: .normal)
+        button.imageView?.tintColor = Resource.ColorCase.black
         return button
     }()
     

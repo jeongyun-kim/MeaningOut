@@ -11,7 +11,7 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
     let button = UIButton()
     private let profileLayerView = ProfileLayerView(.headerProfile)
     private let badgeImage = ProfileBadgeView(.headerProfile)
-    private let profileImageView = CustomImageView(bgColor: ColorCase.white)
+    private let profileImageView = CustomImageView(bgColor: Resource.ColorCase.white)
     private let userInfoLabelStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -19,16 +19,16 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
         stackView.distribution = .fillEqually
         return stackView
     }()
-    private let nicknameLabel = CustomLabel(fontCase: FontCase.bold20)
-    private let dateLabel = CustomLabel(color: ColorCase.gray2, fontCase: FontCase.regular14)
+    private let nicknameLabel = CustomLabel(fontCase: Resource.FontCase.bold20)
+    private let dateLabel = CustomLabel(color: Resource.ColorCase.gray2, fontCase: Resource.FontCase.regular14)
     private let goEditImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = ImageCase.next
-        imageView.tintColor = ColorCase.gray2
+        imageView.image = Resource.ImageCase.next
+        imageView.tintColor = Resource.ColorCase.gray2
         return imageView
     }()
-    private let border = CustomBorder(color: ColorCase.black)
+    private let border = CustomBorder(color: Resource.ColorCase.black)
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -62,7 +62,7 @@ class SettingTableViewHeader: UITableViewHeaderFooterView, SetupView {
         }
         
         badgeImage.snp.makeConstraints { make in
-            make.trailing.bottom.equalTo(profileLayerView).inset(ProfileLayerSizeCase.headerProfile.inset)
+            make.trailing.bottom.equalTo(profileLayerView).inset(Resource.ProfileLayerSizeCase.headerProfile.inset)
         }
         
         profileImageView.snp.makeConstraints { make in

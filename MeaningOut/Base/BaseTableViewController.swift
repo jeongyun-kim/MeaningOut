@@ -17,7 +17,7 @@ class BaseTableViewController: UIViewController {
     }
     
     func setupUI() {
-        navigationController?.navigationBar.tintColor = ColorCase.black
+        navigationController?.navigationBar.tintColor = Resource.ColorCase.black
         view.backgroundColor = .systemBackground
         navigationItem.backButtonDisplayMode = .minimal
     }

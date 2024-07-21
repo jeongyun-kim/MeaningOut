@@ -8,7 +8,7 @@
 import UIKit
 
 class NicknameTextField: UITextField {
-    init(placeholderType: Placeholder) {
+    init(placeholderType: Resource.Placeholder) {
         super.init(frame: .zero)
         placeholder = placeholderType.rawValue
         leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))

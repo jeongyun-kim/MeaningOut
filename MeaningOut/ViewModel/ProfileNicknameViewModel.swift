@@ -20,7 +20,7 @@ class ProfileNicknameViewModel {
     
     // Output
     // 닉네임 텍스트 필드가 변경될 때마다 에러 처리를 통해 들어온 닉네임 유효성 확인 타입 반환
-    var outputNicknameCheckType: Observable<NicknameCheckType> = Observable(.empty)
+    var outputNicknameCheckType: Observable<Resource.NicknameCheckType> = Observable(.empty)
     // 편집모드로 들어올 때마다 보내줄 현재 저장되어있는 사용자 정보
     var outputUserData: Observable<UserData?> = Observable(nil)
     
@@ -34,13 +34,13 @@ class ProfileNicknameViewModel {
             } catch {
                 // 각 에러 케이스에 따라 닉네임 유효성에 대해 필터링해주는 Case 변경
                 switch error {
-                case NicknameErrorCase.empty:
+                case Resource.NicknameErrorCase.empty:
                     self.outputNicknameCheckType.value = .empty
-                case NicknameErrorCase.wrongNicknameCnt:
+                case Resource.NicknameErrorCase.wrongNicknameCnt:
                     self.outputNicknameCheckType.value = .wrongNicknameCnt
-                case NicknameErrorCase.containsNumber:
+                case Resource.NicknameErrorCase.containsNumber:
                     self.outputNicknameCheckType.value = .containsNumber
-                case NicknameErrorCase.containsSpecialCharacter:
+                case Resource.NicknameErrorCase.containsSpecialCharacter:
                     self.outputNicknameCheckType.value = .containsSpecialCharacter
                 default:
                     break
@@ -65,32 +65,32 @@ class ProfileNicknameViewModel {
         // 숫자가 있는 상황에서 @를 입력할 경우에 숫자가 포함되서는 안된다는 메시지만 출력됨
         // 이를 방지하기 위해 마지막 문자까지 비교
         guard let lastChr = text.last else {
-            throw NicknameErrorCase.empty
+            throw Resource.NicknameErrorCase.empty
         }
         // 마지막 글자가 특수문자인지 확인
         guard !["$", "%", "@", "#"].contains(lastChr) else {
-            throw NicknameErrorCase.containsSpecialCharacter
+            throw Resource.NicknameErrorCase.containsSpecialCharacter
         }
         guard Int(String(describing: lastChr)) == nil else {
-            throw NicknameErrorCase.containsNumber
+            throw Resource.NicknameErrorCase.containsNumber
         }
         
         // 전체 문자 확인
         // 공백 모두 제거한 문자열의 길이
         let removeWhiteSpaceCnt = text.trimmingCharacters(in: .whitespacesAndNewlines).count
         // 닉네임에 숫자가 들어있는지
-        let isContainsNumber = text.range(of: NicknameRegex.number, options: .regularExpression) != nil
+        let isContainsNumber = text.range(of: Resource.NicknameRegex.number, options: .regularExpression) != nil
         // 닉네임에 # $ @ % 가 들어있는지
-        let isContainsSpecialChr = text.range(of: NicknameRegex.specialCharacter, options: .regularExpression) != nil
+        let isContainsSpecialChr = text.range(of: Resource.NicknameRegex.specialCharacter, options: .regularExpression) != nil
         
         guard removeWhiteSpaceCnt >= 2 && removeWhiteSpaceCnt <= 10 else {
-            throw NicknameErrorCase.wrongNicknameCnt
+            throw Resource.NicknameErrorCase.wrongNicknameCnt
         }
         guard !isContainsNumber else {
-            throw NicknameErrorCase.containsNumber
+            throw Resource.NicknameErrorCase.containsNumber
         }
         guard !isContainsSpecialChr else {
-            throw NicknameErrorCase.containsSpecialCharacter
+            throw Resource.NicknameErrorCase.containsSpecialCharacter
         }
         return true
     }
@@ -98,8 +98,8 @@ class ProfileNicknameViewModel {
     // MARK: 유저 데이터 저장 / 업데이트
     private func saveUserData() {
         guard let value = saveBtnTapped.value else { return }
-        guard let name = value[UserDataKeyCase.userName.rawValue] else { return }
-        guard let profileImage = value[UserDataKeyCase.userProfileImageName.rawValue] else { return }
+        guard let name = value[Resource.UserDataKeyCase.userName.rawValue] else { return }
+        guard let profileImage = value[Resource.UserDataKeyCase.userProfileImageName.rawValue] else { return }
         
         if let userData = repository.readUserData() {
             let value: [String: Any] = ["id": userData.id, "userName": name, "userProfileImageName": profileImage]

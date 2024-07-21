@@ -24,7 +24,7 @@ extension UICollectionViewLayout {
     }
     
     // 검색결과 컬렉션뷰 레이아웃
-    static func itemCollectionViewLayout(_ type: CollectionViewType = .search) -> UICollectionViewLayout {
+    static func itemCollectionViewLayout(_ type: Resource.CollectionViewType = .search) -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         let sectionInsetAndSpacing: CGFloat = 16
         var size: CGFloat

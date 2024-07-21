@@ -20,7 +20,7 @@ class SearchViewController: UIViewController, SetupView {
     
     private let vm = SearchViewModel()
     private let border = CustomBorder()
-    private let productCntLabel = CustomLabel(color: ColorCase.primaryColor, fontCase: FontCase.bold16)
+    private let productCntLabel = CustomLabel(color: Resource.ColorCase.primaryColor, fontCase: Resource.FontCase.bold16)
     private lazy var tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .searchTagCollectionViewLayout())
     private lazy var itemCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .itemCollectionViewLayout())
     

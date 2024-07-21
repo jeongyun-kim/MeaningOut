@@ -79,7 +79,7 @@ class MainViewController: BaseTableViewController {
                 let keyword = self.vm.inputSearchKeyword.value
                 self.pushVC(vc: SearchViewController(keyword: keyword))
             } else {
-                self.showToast(ToastMessageCase.emptyKeyword.rawValue)
+                self.showToast(Resource.ToastMessageCase.emptyKeyword.rawValue)
             }
         }
     }

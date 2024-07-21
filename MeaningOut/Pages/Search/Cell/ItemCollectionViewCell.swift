@@ -29,7 +29,7 @@ class ItemCollectionViewCell: BaseItemCollectionViewCell {
     private func configureTitleLabel(_ text: String, keyword: String) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: text)
         // 검색 키워드, 제목 모두 소문자로 바꿔서 비교 -> 대소문자 모두 대응가능
-        attributedString.addAttribute(.backgroundColor, value: ColorCase.highlightColor, range: (text.lowercased() as NSString).range(of: keyword.lowercased()))
+        attributedString.addAttribute(.backgroundColor, value: Resource.ColorCase.highlightColor, range: (text.lowercased() as NSString).range(of: keyword.lowercased()))
         
         return attributedString
     }

@@ -11,16 +11,16 @@ import SnapKit
 class BaseItemCollectionViewCell: UICollectionViewCell {
     
     let thumbnailImageView = CustomImageView(radius: .buttonOrImage, content: .scaleAspectFill)
-    let mallNameLabel = CustomLabel(color: ColorCase.gray2, fontCase: FontCase.regular13)
+    let mallNameLabel = CustomLabel(color: Resource.ColorCase.gray2, fontCase: Resource.FontCase.regular13)
     let titleLabel: UILabel = {
-        let label = CustomLabel(fontCase: FontCase.regular14)
+        let label = CustomLabel(fontCase: Resource.FontCase.regular14)
         label.numberOfLines = 2
         return label
     }()
-    let priceLabel = CustomLabel(fontCase: FontCase.bold16)
+    let priceLabel = CustomLabel(fontCase: Resource.FontCase.bold16)
     let likeButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = CGFloat(CornerRadiusCase.buttonOrImage.rawValue)
+        button.layer.cornerRadius = CGFloat(Resource.CornerRadiusCase.buttonOrImage.rawValue)
         return button
     }()
     
