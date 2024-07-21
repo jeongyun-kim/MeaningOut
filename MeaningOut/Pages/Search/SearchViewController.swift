@@ -11,20 +11,14 @@ import SnapKit
 class SearchViewController: UIViewController, SetupView {
     init(keyword: String) {
         super.init(nibName: nil, bundle: nil)
-        self.keyword = keyword
+        self.vm.keyword = keyword
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var itemList: [resultItem] = []
-    private let display: Int = 30
-    private var startPoint: Int = 1
-    private var maxStartPoint: Int = 0
-    private let tagNames = TagName.allCases
-    var keyword: String? = ""
-    
+    private let vm = SearchViewModel()
     private let border = CustomBorder()
     private let productCntLabel = CustomLabel(color: ColorCase.primaryColor, fontCase: FontCase.bold16)
     private lazy var tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .searchTagCollectionViewLayout())
@@ -36,7 +30,8 @@ class SearchViewController: UIViewController, SetupView {
         setupConstraints()
         setupUI()
         setupCollectionView()
-        fetchSearchResults(.sim)
+        vm.inputSearchTrigger.value = .sim
+        bind()
     }
     
     // 상세보기에서 좋아요를 등록하거나 해제할 수 있기때문에 뷰 불러올때마다 변경된 상태 반영
@@ -77,7 +72,7 @@ class SearchViewController: UIViewController, SetupView {
     
     func setupUI() {
         view.backgroundColor = .systemBackground
-        navigationItem.title = keyword
+        navigationItem.title = vm.keyword
         navigationItem.backButtonTitle = ""
     }
     
@@ -93,44 +88,34 @@ class SearchViewController: UIViewController, SetupView {
         itemCollectionView.dataSource = self
         itemCollectionView.register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: ItemCollectionViewCell.identifier)
     }
-
-    private func fetchSearchResults(_ sortType: SortRule) {
-        guard let keyword = keyword else { return }
-        NetworkService.shared.requestURLSessionCall(model: SearchResult.self, networkCase: .search(sortType: sortType, keyword: keyword, startPoint: startPoint, display: display)) { result, error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    self.showToast(error.rawValue)
-                } else {
-                    guard let result = result else { return }
-                    let items = result.items
-                    // 결과 가져오는 시작점이 1이라면
-                    if self.startPoint == 1 {
-                        self.maxStartPoint = result.total
-                        self.itemList = items // 아이템 리스트에 아이템 넣기
-                        self.productCntLabel.text = "\(result.total.formatted())개의 검색 결과"
-                    } else { // 결과 가져오는 시작점이 1이 아니라면 원래 있던 리스트 뒤에 아이템 붙여주기
-                        self.itemList.append(contentsOf: items)
-                    }
-                    
-                    self.itemCollectionView.reloadData()
-                    
-                    if self.startPoint == 1 && self.itemList.count > 0 { // 시작점이 1이라면 스크롤 맨위로
-                        self.itemCollectionView.scrollToTheTop()
-                    }
-                }
+    
+    private func bind() {
+        vm.errorMessage.bind { [weak self] errorMessage in
+            guard let self else { return }
+            guard let errorMessage else { return }
+            self.showToast(errorMessage)
+        }
+        
+        vm.endedRequestTrigger.bind { [weak self] _ in
+            guard let self else { return }
+            self.itemCollectionView.reloadData()
+            self.productCntLabel.text = self.vm.itemCount.value
+            // 시작점이 1이라면 스크롤 맨위로
+            if self.vm.startPoint == 1 && self.vm.itemList.value.count > 0 {
+                self.itemCollectionView.scrollToTheTop()
+            }
+        }
+    
+        vm.reloadCell.bind { [weak self] idx in
+            guard let self else { return }
+            UIView.performWithoutAnimation {
+                self.itemCollectionView.reloadItems(at: [IndexPath(row: idx, section: 0)])
             }
         }
     }
 
     @objc func likeBtnTapped(_ sender: UIButton) {
-        // 현재 좋아요 누른 아이템 아이디
-        let item = itemList[sender.tag]
-        // 좋아요 처리 메서드 호출 
-        resultItem.addOrRemoveLikeItem(item)
-        // reload 애니메이션 없이 좋아요한 셀만 리로드
-        UIView.performWithoutAnimation {
-            itemCollectionView.reloadItems(at: [IndexPath(row: sender.tag, section: 0)])
-        }
+        vm.likeBtnTapped.value = sender.tag
     }
 }
 
@@ -139,11 +124,10 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         for idx in indexPaths {
             // 현재 보고있는 아이템이 27번째고 현재시작지점이 최대시작지점보다 작을 때
-            if idx.row == itemList.count - 3 && startPoint < maxStartPoint {
-                // 페이지를 넘기는게 아니라 검색 위치를 조정하는 것이기 때문에 매번 검색 위치는 보여주는 아이템 개수만큼 더하기
-                startPoint += display
+            if idx.row == vm.itemList.value.count - 3 && vm.startPoint < vm.maxStartPoint {
                 guard let idx = tagCollectionView.indexPathsForSelectedItems?.first else { return }
-                fetchSearchResults(SortRule.allCases[idx.row])
+                let sort = SortRule.allCases[idx.row]
+                vm.prefetchingTrigger.value = sort
             }
         }
     }
@@ -152,17 +136,17 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
 // MARK: CollectionViewExtension
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionView == tagCollectionView ? tagNames.count : itemList.count
+        return collectionView == tagCollectionView ? vm.tagNames.count : vm.itemList.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == tagCollectionView {
             let cell = tagCollectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath) as! TagCollectionViewCell
-            cell.configureCell(tagNames[indexPath.row].rawValue)
+            cell.configureCell(vm.tagNames[indexPath.row].rawValue)
             return cell
         } else {
             let cell = itemCollectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as! ItemCollectionViewCell
-            cell.configureCell(itemList[indexPath.row], keyword: keyword!)
+            cell.configureCell(vm.itemList.value[indexPath.row], keyword: vm.keyword)
             cell.likeButton.tag = indexPath.row
             cell.likeButton.addTarget(self, action: #selector(likeBtnTapped), for: .touchUpInside)
             return cell
@@ -171,7 +155,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == itemCollectionView {
-            let selectedItem = itemList[indexPath.row]
+            let selectedItem = vm.itemList.value[indexPath.row]
             pushVC(vc: DetailViewController(selectedItem: selectedItem))
         }
     }
@@ -191,8 +175,8 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
             let afterIdx = indexPath.row
             
             if beforeIdx != afterIdx {
-                startPoint = 1
-                fetchSearchResults(SortRule.allCases[indexPath.row])
+                let sort = SortRule.allCases[indexPath.row]
+                vm.reloadItemList.value = sort
             } else {
                 itemCollectionView.scrollToTheTop()
             }
