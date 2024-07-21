@@ -11,7 +11,7 @@ import SnapKit
 class ProfileBadgeView: UIView {
     
     private let badgeImageView: UIImageView = {
-        let imageView = CustomImageView(img: ImageCase.profileCamera!, bgColor: ColorCase.primaryColor, content: .scaleAspectFit)
+        let imageView = CustomImageView(img: ImageCase.profileCamera!, bgColor: ColorCase.highlightColor, content: .scaleAspectFit)
         imageView.tintColor = ColorCase.white
         return imageView
     }()
@@ -39,7 +39,7 @@ class ProfileBadgeView: UIView {
             make.height.equalToSuperview().multipliedBy(0.6)
         }
         
-        backgroundColor = ColorCase.primaryColor
+        backgroundColor = ColorCase.highlightColor
         layer.cornerRadius = CGFloat(size / 2)
     }
     

@@ -21,7 +21,6 @@ class ProfileViewController: UIViewController, SetupView {
     
     private let vm = ProfileViewModel()
     var profileViewType: ViewType = .setting
-    
     var tempProfileImage: ProfileImage = ProfileImage()
     
     private let naviBorder = CustomBorder()

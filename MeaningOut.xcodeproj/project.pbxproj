@@ -12,6 +12,7 @@
 		E02921322C1D615100A12B1D /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02921312C1D615100A12B1D /* CustomImageView.swift */; };
 		E02921382C1D7F3E00A12B1D /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02921372C1D7F3E00A12B1D /* UIViewController + Extension.swift */; };
 		E03711202C1EBE6700BDBD5B /* ProfileBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E037111F2C1EBE6700BDBD5B /* ProfileBadgeView.swift */; };
+		E0609A4E2C4BB3C00008E50A /* onboarding.png in Resources */ = {isa = PBXBuildFile; fileRef = E0609A4D2C4BB3C00008E50A /* onboarding.png */; };
 		E075645C2C2CE94D0065413D /* NetworkRequestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E075645B2C2CE94D0065413D /* NetworkRequestCase.swift */; };
 		E075645F2C2D09070065413D /* AlertCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E075645E2C2D09070065413D /* AlertCase.swift */; };
 		E07564612C2D0A6A0065413D /* ResourceCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07564602C2D0A6A0065413D /* ResourceCase.swift */; };
@@ -75,7 +76,22 @@
 		E0F85A362C3D33B20075E7A9 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F85A352C3D33B20075E7A9 /* Observable.swift */; };
 		E0F85A3B2C3D439E0075E7A9 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F85A3A2C3D439E0075E7A9 /* BaseView.swift */; };
 		E0F85A3F2C3D56080075E7A9 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F85A3E2C3D56080075E7A9 /* ProfileViewModel.swift */; };
+		E0F85A5E2C3E2BCD0075E7A9 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = E0ECED8E2C39255C00A67525 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E0F85A5F2C3E2BCD0075E7A9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E0F85A5E2C3E2BCD0075E7A9 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		E029212B2C1D58E800A12B1D /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
@@ -83,6 +99,7 @@
 		E02921312C1D615100A12B1D /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		E02921372C1D7F3E00A12B1D /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
 		E037111F2C1EBE6700BDBD5B /* ProfileBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBadgeView.swift; sourceTree = "<group>"; };
+		E0609A4D2C4BB3C00008E50A /* onboarding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = onboarding.png; sourceTree = "<group>"; };
 		E075645B2C2CE94D0065413D /* NetworkRequestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestCase.swift; sourceTree = "<group>"; };
 		E075645E2C2D09070065413D /* AlertCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCase.swift; sourceTree = "<group>"; };
 		E07564602C2D0A6A0065413D /* ResourceCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCase.swift; sourceTree = "<group>"; };
@@ -293,6 +310,7 @@
 		E0B0B7442C1AF94200A24154 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				E0609A4D2C4BB3C00008E50A /* onboarding.png */,
 				E0B0B7332C1AED4800A24154 /* OnboardingViewController.swift */,
 			);
 			path = Onboarding;
@@ -474,6 +492,7 @@
 				E0B0B6E92C1AE7D200A24154 /* Sources */,
 				E0B0B6EA2C1AE7D200A24154 /* Frameworks */,
 				E0B0B6EB2C1AE7D200A24154 /* Resources */,
+				E0F85A5F2C3E2BCD0075E7A9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -537,6 +556,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0609A4E2C4BB3C00008E50A /* onboarding.png in Resources */,
 				E0B0B7072C1AE80000A24154 /* .gitignore in Resources */,
 				E0B0B6FA2C1AE7D300A24154 /* Assets.xcassets in Resources */,
 				E0B0B6FD2C1AE7D300A24154 /* Base in Resources */,

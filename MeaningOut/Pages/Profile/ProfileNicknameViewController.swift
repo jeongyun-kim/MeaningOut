@@ -30,7 +30,7 @@ class ProfileNicknameViewController: UIViewController, SetupView {
     
     private let nicknameTextField = NicknameTextField(placeholderType: .nickname)
     private let textFieldBorder = CustomBorder()
-    private let nicknameCheckLabel = CustomLabel(color: ColorCase.primaryColor, fontCase: FontCase.regular13)
+    private let nicknameCheckLabel = CustomLabel(color: ColorCase.highlightColor, fontCase: FontCase.regular13)
     private let confirmButton = OnboardingButton(title: "완료")
     
     override func viewDidLoad() {

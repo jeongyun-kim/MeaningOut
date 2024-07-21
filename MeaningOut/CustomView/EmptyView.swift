@@ -19,7 +19,7 @@ class EmptyView: UIView, SetupView {
     
     private let resultLabel: UILabel = {
         let label = UILabel()
-        label.text = "최근 검색어가 없어요"
+        label.text = "최근 검색어가 없어요."
         label.font = FontCase.bold16
         label.textAlignment = .center
         return label
@@ -40,7 +40,7 @@ class EmptyView: UIView, SetupView {
         imageView.snp.makeConstraints { make in
             make.centerX.equalTo(self.snp.centerX)
             make.centerY.equalTo(self.snp.centerY).offset(-70)
-            make.size.equalTo(250)
+            make.size.equalTo(300)
         }
         
         resultLabel.snp.makeConstraints { make in

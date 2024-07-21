@@ -17,7 +17,7 @@ class ProfileLayerView: UIView{
    
     private func configureLayout(_ profileLayerSize: ProfileLayerSizeCase) {
         layer.borderWidth = BorderCase.profile
-        layer.borderColor = ColorCase.primaryColor.cgColor
+        layer.borderColor = ColorCase.highlightColor.cgColor
         layer.masksToBounds = true
         
         let size = profileLayerSize.rawValue

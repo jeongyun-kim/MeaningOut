@@ -8,7 +8,7 @@
 import UIKit
 
 enum ColorCase {
-    static let primaryColor = UIColor(hue: 0.0639, saturation: 0.7, brightness: 0.93, alpha: 1.0)
+    static let primaryColor = UIColor(red: 0.45, green: 0.87, blue: 0.98, alpha: 1.00) // #74ddfb
     static let black = UIColor.black
     // 회색은 진한순
     static let gray1 = UIColor(hue: 0, saturation: 0, brightness: 0.29, alpha: 1.0)
@@ -16,12 +16,14 @@ enum ColorCase {
     static let gray3 = UIColor(hue: 0, saturation: 0, brightness: 0.8, alpha: 1.0)
     static let borderColor = UIColor.systemGray5
     static let white = UIColor.white
-    static let highlightColor = UIColor.systemYellow
+    static let highlightColor = UIColor(red: 1.00, green: 0.80, blue: 0.30, alpha: 1.00) // #ffcb4d
 }
 
 enum ImageCase {
     static let launch = UIImage(named: "launch")
-    static let empty = UIImage(named: "empty")
+    static let logo = UIImage(named: "lauch_logo")
+    static let onboarding = UIImage(named: "onboarding")
+    static let empty = UIImage(named: "emptyImage")
     static let search = UIImage(systemName: "magnifyingglass")
     static let setting = UIImage(systemName: "person")
     static let next = UIImage(systemName: "chevron.right")
