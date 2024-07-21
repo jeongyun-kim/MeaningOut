@@ -11,10 +11,10 @@ struct SearchResult: Codable {
     let lastBuildDate: String
     let total: Int
     let start: Int
-    let items: [resultItem]
+    let items: [ResultItem]
 }
 
-struct resultItem: Codable {
+struct ResultItem: Codable {
     let title: String
     let link: String
     let imagePath: String
@@ -32,7 +32,7 @@ struct resultItem: Codable {
     }
 }
 
-extension resultItem {
+extension ResultItem {
     // 새로이 검색했을 때 아이템을 map으로 가져오면서 isLike = false로 사용했을 때, '좋아요'한 아이템들도 false 처리해버려 좋아요한 이력은 있지만 컬렉션뷰에 제대로 출력되지 않음
     // => 아예 저장된 아이디값들이랑 비교해서 현재 아이템의 아이디가 포함되어있으면 true / 아니면 false로 처리
     var isLike: Bool {
@@ -64,13 +64,14 @@ extension resultItem {
     
     // 좋아요 버튼 이미지
     var likeBtnImage: UIImage? {
+        //let isLikeImage = isLike ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
         guard let isLikeImage = isLike ? ImageCase.like_selected : ImageCase.like_unselected else { return nil }
         return isLikeImage
     }
     
     // 좋아요 버튼 틴트컬러
     var likeBtnTintColor: UIColor {
-        return isLike ? ColorCase.black : ColorCase.white
+        return isLike ? ColorCase.primaryColor : ColorCase.white
     }
     
     // 좋아요 버튼 백그라운드
@@ -78,7 +79,7 @@ extension resultItem {
         return isLike ? ColorCase.white : ColorCase.black.withAlphaComponent(0.3)
     }
     
-    static func addOrRemoveLikeItem(_ data: resultItem) {
+    static func addOrRemoveLikeItem(_ data: ResultItem) {
         let repository = UserDataRepository()
         guard let userData = repository.readUserData() else { return }
         let item = Item(productId: data.productId, title: data.replacedTitle, link: data.link, imagePath: data.imagePath, price: data.priceString ?? "", mallName: data.mallName)

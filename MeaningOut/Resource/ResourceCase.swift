@@ -30,8 +30,8 @@ enum ImageCase {
     static let clock = UIImage(systemName: "clock")
     static let delete = UIImage(systemName: "xmark")
     static let profileCamera = UIImage(systemName: "camera.fill")
-    static let like_unselected = UIImage(named: "like_unselected")
-    static let like_selected = UIImage(named: "like_selected")
+    static let like_unselected = UIImage(systemName: "heart")
+    static let like_selected = UIImage(systemName: "heart.fill")
 }
 
 enum BorderCase {

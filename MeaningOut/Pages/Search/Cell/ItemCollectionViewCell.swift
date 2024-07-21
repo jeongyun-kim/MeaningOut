@@ -15,7 +15,7 @@ class ItemCollectionViewCell: BaseItemCollectionViewCell {
         super.init(frame: frame)
     }
     
-    func configureCell(_ item: resultItem, keyword: String) {
+    func configureCell(_ item: ResultItem, keyword: String) {
         thumbnailImageView.kf.setImage(with: item.url)
         mallNameLabel.text = item.mallName
         titleLabel.attributedText = configureTitleLabel(item.replacedTitle, keyword: keyword)

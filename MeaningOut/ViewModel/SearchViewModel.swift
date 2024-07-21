@@ -30,7 +30,7 @@ final class SearchViewModel {
     // 네트워크 통신 에러
     private (set) var errorMessage: Observable<String?> = Observable(nil)
     // 통신 결과로 받아온 아이템 리스트
-    var itemList: Observable<[resultItem]> = Observable([])
+    var itemList: Observable<[ResultItem]> = Observable([])
     // 통신 결과로 받아온 아이템의 총개수
     var itemCount = Observable("")
     // 통신 결과가 끝났음을 알리는 신호

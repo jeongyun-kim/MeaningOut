@@ -10,7 +10,7 @@ import SnapKit
 import WebKit
 
 class DetailViewController: UIViewController, SetupView {
-    init(selectedItem: resultItem) {
+    init(selectedItem: ResultItem) {
         super.init(nibName: nil, bundle: nil)
         self.selectedItem = selectedItem
     }
@@ -19,7 +19,7 @@ class DetailViewController: UIViewController, SetupView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var selectedItem: resultItem = resultItem(title: "", link: "", imagePath: "", price: "", mallName: "", productId: "")
+    var selectedItem: ResultItem = ResultItem(title: "", link: "", imagePath: "", price: "", mallName: "", productId: "")
    
     private let border = CustomBorder()
     private let webView = WKWebView()
@@ -59,7 +59,7 @@ class DetailViewController: UIViewController, SetupView {
     }
     
     @objc func rightBarBtnTapped(_ sender: UIButton) {
-        resultItem.addOrRemoveLikeItem(selectedItem)
+        ResultItem.addOrRemoveLikeItem(selectedItem)
         navigationItem.rightBarButtonItem?.image = selectedItem.likeBtnImage
     }
     

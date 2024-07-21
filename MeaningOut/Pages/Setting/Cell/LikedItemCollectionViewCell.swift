@@ -22,6 +22,7 @@ final class LikedItemCollectionViewCell: BaseItemCollectionViewCell {
     
     private func configureLayout() {
         likeButton.setImage(ImageCase.like_selected, for: .normal)
+        likeButton.tintColor = ColorCase.primaryColor
         likeButton.backgroundColor = ColorCase.white
     }
     
