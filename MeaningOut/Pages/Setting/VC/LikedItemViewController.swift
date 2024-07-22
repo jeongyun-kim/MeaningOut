@@ -10,22 +10,18 @@ import SnapKit
 
 // 한 줄에 3개 들어가는 컬렉션뷰 만들기!
 final class LikedItemViewController: BaseCollectionViewController {
-    private let repository = ItemRepository()
-    private var list: [Item] = [] {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+    private let vm = LikeViewModel()
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .itemCollectionViewLayout(.like))
     private let border = CustomBorder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        list = Array(repository.readAllItems())
+        vm.reloadLikeItemsTrigger.value = ()
     }
     
     override func setupHierarchy() {
@@ -57,19 +53,26 @@ final class LikedItemViewController: BaseCollectionViewController {
     }
     
     @objc func likeBtnTapped(_ sender: UIButton) {
-        repository.removeItem(list[sender.tag].productId)
-        list = Array(repository.readAllItems())
+        vm.likeBtnTapped.value = sender.tag
+    }
+    
+    private func bind() {
+        vm.likedItemList.bind { [weak self] _ in
+            guard let self else { return }
+            self.collectionView.reloadData()
+        }
     }
 }
 
 extension LikedItemViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list.count
+        return vm.likedItemList.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LikedItemCollectionViewCell.identifier, for: indexPath) as! LikedItemCollectionViewCell
-        cell.configureCell(list[indexPath.row])
+        let item = vm.likedItemList.value[indexPath.row]
+        cell.configureCell(item)
         cell.likeButton.tag = indexPath.row
         cell.likeButton.addTarget(self, action: #selector(likeBtnTapped), for: .touchUpInside)
         return cell
